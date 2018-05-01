@@ -49,4 +49,19 @@ namespace TheBookCave
         db.SaveChanges();
         }
     }*/
+
+    /*public static void SeedData()
+    {
+        var db = new DataContext();
+        
+        var initialBooks = new List<Book>()
+        {
+            new Book { Title = "The Cuckoo's Nest", AuthorId = 1 },
+            new Book { Title = "The Alchemist", AuthorId = 2 },
+            new Book { Title = "Harry Potter", AuthorId = 3 }
+        };
+
+        db.AddRange(initialBooks);
+        db.SaveChanges();
+    }*/
 }
