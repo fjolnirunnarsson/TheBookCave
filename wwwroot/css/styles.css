@@ -189,9 +189,11 @@ body {
     width:100%;
     background:lightblue;
     margin:0;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }
 
-
-
+#LockIcon {
+    float: right;
+    padding-right: 10px;
+}
 

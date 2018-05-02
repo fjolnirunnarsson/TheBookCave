@@ -1,0 +1,15 @@
+<h2>Employee site</h2>
+
+<div>
+    <form asp-controller="EmployeeSite" asp-action="EmployeeHome">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Insert username">
+        </br>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Insert password">
+        </br>
+        <button type="submit" >Log in</button>
+    </form>
+</div>
+</br>
+<a asp-controller="Home" asp-action="Index"><button>Go Home</button></a>
