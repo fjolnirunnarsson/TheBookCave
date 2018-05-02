@@ -52,13 +52,24 @@
         <li><a href="#">Learning</a></li>
     </ul>
 </div>
-    <div class="container body-content">
+
+<div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - TheBookCave</p>
-        </footer>
+    <div id="footer">
+        <hr>
+        <ul class="ListSocial">
+            <li class="ItemSocial"><a asp-action="AboutUS" asp-controller="Footers">About Us</a></li>
+            <li class="ItemSocial"><a asp-action="Help" asp-controller="Footers">Help</a></li>
+            <li class="ItemSocial"><a asp-action="TermsAndConditions" asp-controller="Footers">Terms&Conditions</a></li>
+        </ul>
+        <div>
+            <img src="~/Images/Facebook.png" alt="No Images" class="Social" >
+            <img src="~/Images/Twitter.png" alt="No Images" class="Social">
+            <img src="~/Images/Instagram.png" alt="No Images" class="Social">
+        </div>
     </div>
+</div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
