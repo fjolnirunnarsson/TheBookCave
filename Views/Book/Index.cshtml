@@ -1,9 +1,9 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
 
-<div class="default-book">
+<div>
     @foreach(var book in @Model)
     {
-        <div>
+        <div class="default-book">
             <p><img src="@book.Image" alt="No Images"></p>
             <p>@book.Title</p>
             <p>@book.Author</p>
@@ -12,8 +12,3 @@
         </div>
     }
 </div>
-
-@section Styles {
-    <link rel="Stylesheet" href="@Href("~/css/site.css")" />
-}
-

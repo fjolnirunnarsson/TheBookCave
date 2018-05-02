@@ -4,5 +4,17 @@
 
 #search-bar {
     display: inline;
-    
+}
+
+.default-book {
+
+    margin-top: 100px;
+    border-style: solid;
+    border-color: black;
+    width: 150px;
+    overflow: hidden;
+}
+
+img {
+    width: 150px;
 }
