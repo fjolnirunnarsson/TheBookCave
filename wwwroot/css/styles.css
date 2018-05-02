@@ -7,3 +7,10 @@
 
 }
 
+#searchbar {
+    display: inline;
+}
+
+.logo-wrap {
+    margin-right: 60px;
+}
