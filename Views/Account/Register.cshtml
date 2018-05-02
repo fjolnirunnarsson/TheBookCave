@@ -1,18 +1,18 @@
 @model TheBookCave.Models.ViewModels.RegisterViewModel
 
 <h1>Register</h1>
-<from asp-action = "Register" asp-controller = "Account" class="form-horizontal">
+<from asp-action="Register" asp-controller="Account" class="form-horizontal">
 <div class="form-group">
-    <input type="email" asp-for="Email" class="from-control" placeholder="Enter email...">
+    <input type="email" asp-for="Email" class="form-control" placeholder="Enter email...">
 </div>
 <div class="form-group">
-    <input type="text" asp-for="FirstName" class="from-control" placeholder="Enter first name...">
+    <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter first name...">
 </div>
 <div class="form-group">
-    <input type="text" asp-for="LastName" class="from-control" placeholder="Enter last name...">
+    <input type="text" asp-for="LastName" class="form-control" placeholder="Enter last name...">
 </div>
 <div class="form-group">
-    <input type="password" asp-for="Password" class="from-control" placeholder="Enter password...">
+    <input type="password" asp-for="Password" class="form-control" placeholder="Enter password...">
 </div>
 <div class="form-group">
     <button type="submit" class="btn btn-default">Register</button>
