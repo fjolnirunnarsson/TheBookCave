@@ -4,13 +4,46 @@
 
 #search-bar {
     display: inline;
-
 }
 
+#default-book {
+
+    margin: 0px 20px 0px 20px;
+    border-style: solid;
+    border-color: black;
+    width: 220px;
+    overflow: hidden;
+    float: left;
+    padding-left: 26px;
+    margin-bottom: 5%;
+}
+
+<<<<<<< HEAD
 #searchbar {
     display: inline;
 }
 
 .logo-wrap {
     margin-right: 60px;
+=======
+#front-page-books {
+    margin-top: 100px;
+    border-style: solid;
+    border-color: blue;
+    float: left;
+    width: 100%;
+    padding-left: 50px;
+}
+
+img {
+    width: 160px;
+}
+
+#book-img {
+    height: 220px;
+}
+
+#book-title {
+    height: 50px;
+>>>>>>> a107f764cf744e855d70d6b7255ac82e19a10472
 }
