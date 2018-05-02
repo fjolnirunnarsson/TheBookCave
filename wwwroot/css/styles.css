@@ -1,9 +1,27 @@
 #navbar {
-    background-color: red;
+    border: solid;
+    height: 100px;
 }
 
 #search-bar {
     display: inline;
+}
+
+#logo-wrap {
+    margin-right: 60px;
+    display: inline;
+}
+
+body {
+    padding-top: 120px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #default-book {
@@ -16,14 +34,6 @@
     float: left;
     padding-left: 26px;
     margin-bottom: 5%;
-}
-
-#searchbar {
-    display: inline;
-}
-
-.logo-wrap {
-    margin-right: 60px;
 }
 
 #front-page-books {
@@ -45,6 +55,7 @@ img {
 
 #book-title {
     height: 50px;
+<<<<<<< HEAD
 }
 
 .heart-img {
@@ -92,3 +103,6 @@ img {
 
 
 
+=======
+}
+>>>>>>> dd865c90632a973ca8dba0d6ffdbb3e3635ef0ac
