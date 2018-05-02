@@ -11,6 +11,9 @@
         <div id="item">
             <p id="number">@i</p>
             <div id="mynd" class="details">
+            <button type="button" class="btn btn-default btn-sm heart-img">
+                <span class="glyphicon glyphicon-heart heart-icon"></span>
+            </button>
             <img class="img" src="@book.Image" alt="No Images">
             <button id="btn" class="btn btn-default btn-primary">Add to cart</button>
             </div>
@@ -22,5 +25,9 @@
             <p>@book.Description</p>
             </div>
         </div>
+
+        if(i == 10){
+            break;
+        }
     }
 </div>
