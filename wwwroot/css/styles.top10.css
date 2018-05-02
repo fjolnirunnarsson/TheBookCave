@@ -69,3 +69,21 @@
     box-shadow: none;
     border-style: outset;
 }
+
+ul{
+    list-style: none;
+}
+.ListSocial{
+    width: 100%;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ItemSocial{
+    float: left;
+    width: 33%;
+}
+.Social{
+    width: 30px;
+    height: 30px;
+}
