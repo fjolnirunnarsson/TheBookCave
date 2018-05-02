@@ -69,3 +69,39 @@
     box-shadow: none;
     border-style: outset;
 }
+
+ul{
+    list-style: none;
+}
+
+.ListSocial{
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.ItemSocial{
+    float: left;
+    width: 33%;
+    display: flex; 
+    justify-content: center;
+}
+
+.Social{
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+footer div {
+    display: flex; 
+    justify-content: center;
+}
+
+footer {
+    background-color: lightblue;
+}
+
