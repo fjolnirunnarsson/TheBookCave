@@ -4,21 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TheBookCave</title>
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/site.min.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/styles.css" />
 </head>
 <body>
 <nav class="navbar navbar-fixed-top" id="navbar">
-    <div class="container">
+    <div class="nav-container">
         <span id="logo-wrap">
             <a asp-controller="Home" asp-action="Index">
-                <img src="~/images/logo.png" alt="" width="5%" height="5%">
+                <img src="~/images/logo.png" alt="">
             </a>
         </span>
-            <form action="#" method="get" id="search-bar">
-                    <input id="searchBox" />
+            <form action="#" method="get" class="search-bar">
+                    <input id="search-box" />
                     <input value="Search" type="submit" />
             </form>
         <span>
@@ -30,6 +28,28 @@
         </span>
     </div>
 </nav>
+
+<div id="sidebar-wrap">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand"><a href="#">SALE</a></li>
+    </ul>
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">Top 10 books</li>
+        <li><a href="#">Rating</a></li>
+        <li><a href="#">Author</a></li>
+    </ul>
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">Genres</li>
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Adventure</a></li>
+        <li><a href="#">Comedy</a></li>
+        <li><a href="#">Crime</a></li>
+        <li><a href="#">Fantasy</a></li>
+        <li><a href="#">Historical</a></li>
+        <li><a href="#">Horror</a></li>
+        <li><a href="#">Learning</a></li>
+    </ul>
+</div>
     <div class="container body-content">
         @RenderBody()
         <hr />
