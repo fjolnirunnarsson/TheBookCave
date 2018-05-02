@@ -1,0 +1,71 @@
+#item{
+    overflow: hidden;
+    border: solid;
+    margin-top: 30px;
+    width: 90%;
+    height: 340px;
+}
+.details{
+    float: left;
+}
+#about{
+    width: 75%;
+    height: 100%;
+}
+.img{
+    width: 60%;
+    height: 70%;
+    margin-left: 45px;
+}
+#mynd{
+    width: 25%;
+    height: 100%;
+}
+#btn{
+    margin-left: 55px;
+    margin-right: auto;
+    margin-top: 5px;
+    width: 50%;
+}
+#number{
+    margin-left: 10px;
+    font-weight: 500;
+    font-size: 20px;
+}
+.heart-img {
+    position: fixed;
+    margin-left: 140px;
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 25px;    
+    position: absolute;
+}
+
+.heart-img:hover {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.heart-icon {
+    color: white;
+}
+
+.heart-icon:hover {
+    color: red;
+}
+
+.heart-icon-active {
+    color: red;
+    background-color: transparent;
+}
+
+.btn.focus,
+.btn:focus,
+.btn:active,
+.btn.active.focus {
+    background-color: transparent;
+    border-color: transparent;
+    outline: none;
+    box-shadow: none;
+    border-style: outset;
+}

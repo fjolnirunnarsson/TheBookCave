@@ -1,0 +1,33 @@
+@model List<TheBookCave.Models.ViewModels.BookListViewModel>
+<link rel="stylesheet" href="~/css/styles.top10.css" />
+
+<div id="">
+    @{
+        int i = 0;
+    }
+    @foreach(var book in @Model)
+    {
+        i++;
+        <div id="item">
+            <p id="number">@i</p>
+            <div id="mynd" class="details">
+            <button type="button" class="btn btn-default btn-sm heart-img">
+                <span class="glyphicon glyphicon-heart heart-icon"></span>
+            </button>
+            <img class="img" src="@book.Image" alt="No Images">
+            <button id="btn" class="btn btn-default btn-primary">Add to cart</button>
+            </div>
+            <div id="about" class="details">
+            <h2>@book.Title</h2>
+            <h3>@book.Author</h3>
+            <h4>Rating: @book.Rating</h4>
+            <h4>$ @book.Price</h4>
+            <p>@book.Description</p>
+            </div>
+        </div>
+
+        if(i == 10){
+            break;
+        }
+    }
+</div>

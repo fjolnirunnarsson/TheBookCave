@@ -19,6 +19,14 @@ namespace TheBookCave.Controllers
 
             return View(books);
         }
+
+        public IActionResult Top10()
+        {
+            var books = _bookService.GetAllBooks();
+
+            return View(books);
+        }
+
         public BookController()
         {
             _bookService = new BookService();
