@@ -6,15 +6,35 @@
     display: inline;
 }
 
-.default-book {
+#default-book {
 
-    margin-top: 100px;
+    margin: 0px 20px 0px 20px;
     border-style: solid;
     border-color: black;
-    width: 150px;
+    width: 220px;
     overflow: hidden;
+    float: left;
+    padding-left: 26px;
+    margin-bottom: 5%;
+}
+
+#front-page-books {
+    margin-top: 100px;
+    border-style: solid;
+    border-color: blue;
+    float: left;
+    width: 100%;
+    padding-left: 50px;
 }
 
 img {
-    width: 150px;
+    width: 160px;
+}
+
+#book-img {
+    height: 220px;
+}
+
+#book-title {
+    height: 50px;
 }

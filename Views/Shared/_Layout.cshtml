@@ -5,29 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TheBookCave</title>
 
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/styles.css" />
 
 </head>
 <body>
-
-    <nav id="navbar" class="navbar navbar-fixed-top" style="border: 1px solid black">
-            <span><a asp-controller="Home" asp-action="Index">
+<nav class="navbar navbar-fixed-top" id="navbar">
+    <div class="container">
+        <div class="header">
+            <a asp-controller="Home" asp-action="Index">
                 <img id="logo" src="~/images/logo.png" alt="" width="5%" height="5%">
-                </a>
-            </span>
-            <span>
-                <form action="#" id="search-bar">
-                    <input type="text" name="search" placeholder="Search for books by title/author ..."/>
-                    <button type="submit">Search</button>
-                </form>
-            </span>
-        <div style="display: inline;" class="pull-right">
-            <button>WishList</button>
-            <button>Cart</button>
-            <button>Account</button>
+            </a>
         </div>
-    </nav>
+        <div>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <button>WishList</button>
+                </li>
+                <li>
+                    <button>Cart</button>
+                </li>
+                <li>
+                    <button>Account</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
