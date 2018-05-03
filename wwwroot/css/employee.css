@@ -1,3 +1,7 @@
+body{
+margin: 20px 100px;
+}
+
 .loginform{
     width: 80%;
     margin-left: auto;
@@ -13,4 +17,22 @@ a button{
     margin-left: 35%;
     margin-right: 35%;
     width: 30%;
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: lightblue;
 }
