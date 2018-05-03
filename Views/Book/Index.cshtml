@@ -4,9 +4,9 @@
     @foreach(var book in @Model)
     {
         <div id="default-book">
-            <button type="button" class="btn btn-default btn-sm heart-img">
+            <div class="heart-img">
                 <span class="glyphicon glyphicon-heart heart-icon"></span>
-            </button>
+            </div>
             <p><img id="book-img" src="@book.Image" alt="No Images"></p>
             <h2 id="book-title">@book.Title</h2>
             <h3>@book.Author</h3>
