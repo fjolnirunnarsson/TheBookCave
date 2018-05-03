@@ -1,15 +1,25 @@
-<h2>Employee site</h2>
+@{
+    Layout=null;
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/employee.css"/>
+
+<h2 id="top">Employee site</h2>
 
 <div>
-    <form asp-controller="EmployeeSite" asp-action="EmployeeHome">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" placeholder="Insert username">
-        </br>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Insert password">
-        </br>
-        <button type="submit" >Log in</button>
+    <form asp-controller="EmployeeSite" asp-action="EmployeeHome" class="form-horizontal loginform">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Insert username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Insert password" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-default">Log in</button>
     </form>
+
+    <a asp-controller="Home" asp-action="Index"><button>Go Home</button></a>
 </div>
-</br>
-<a asp-controller="Home" asp-action="Index"><button>Go Home</button></a>
+

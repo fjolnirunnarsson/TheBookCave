@@ -73,4 +73,6 @@
 ul{
     list-style: none;
 }
-
+.marginclass{
+    margin-left: 15px;
+}
