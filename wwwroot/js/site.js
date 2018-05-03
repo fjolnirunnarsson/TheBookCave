@@ -4,3 +4,10 @@ $(document).ready(function() {
         $(this).toggleClass('heart-icon-active');
     });
 });
+
+$(document).ready(function() {
+    $('.heart-icon-active').on('click', function() {
+        $(this).toggleClass('heart-icon-active');
+    });
+});
+
