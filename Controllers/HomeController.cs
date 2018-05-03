@@ -5,25 +5,42 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TheBookCave.Data.EntityModels;
 using TheBookCave.Models;
+using TheBookCave.Models.InputModels;
+using TheBookCave.Repositories;
 using TheBookCave.Services;
 
 namespace TheBookCave.Controllers
 {
     public class HomeController : Controller
     {
-        private AuthorService _authorService;
+  private BookService _bookService;
         
-        public HomeController()
-        {
-            _authorService = new AuthorService();
-        }
-
         public IActionResult Index()
         {
-            var authors = _authorService.GetAllAuthors();
+            var books = _bookService.GetAllBooks();
+
+            return View(books);
+        }
+
+        public IActionResult Top10()
+        {
+            var books = _bookService.GetAllBooks();
+
+            return View(books);
+        }
+
+        public IActionResult Details(){
+
+            var books = _bookService.GetAllBooks();
             
-            return View(authors);
+            return View(books);
+        }
+
+        public HomeController()
+        {
+            _bookService = new BookService();
         }
     }
 }
