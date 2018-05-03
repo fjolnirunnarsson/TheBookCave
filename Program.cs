@@ -45,7 +45,6 @@ namespace TheBookCave
                         Description = "Proin sagittis commodo molestie. Sed ac tempus nibh, et fermentum arcu. Duis ut congue turpis. Sed vitae mi molestie, posuere massa ut, elementum mauris. Etiam blandit, velit eget lacinia feugiat, mauris mauris lacinia magna, non dignissim diam ligula in est."}
                 };
             
-
                 db.AddRange(initialBooks);
                 db.SaveChanges();
             }
