@@ -36,11 +36,15 @@ namespace TheBookCave.Controllers
             return View(top10);
         }
 
-        public IActionResult Details(){
+        public IActionResult Details(string title){
 
-            var books = _bookService.GetAllBooks();
-            
-            return View(books);
+                var books = _bookService.GetAllBooks();
+
+                var onebook = (from newbook in books
+                            where (newbook.Title == title)
+                            select newbook).ToList();
+
+                return View(onebook);
         }
 
         public BookController()
