@@ -1,4 +1,4 @@
-/*using System.Security.Claims;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +38,7 @@ namespace TheBookCave.Controllers
             {
                 // The User is successfully registered
                 // Add the concatenated first and last name as fullname in claims
-                await _userManager.AddClaimAsync(user, new Claim("Name", $"{model.FirstName} {model.LastName}"));
+                await _userManager.AddClaimAsync(user, new Claim("Name", $"{model.FirstName}"));
                 await _signInManager.SignInAsync(user, false);
 
                 return RedirectToAction("Index", "Home");
@@ -81,4 +81,4 @@ namespace TheBookCave.Controllers
             return View();
         }
     }
-}*/
+}
