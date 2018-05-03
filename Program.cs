@@ -19,7 +19,7 @@ namespace TheBookCave
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-            //SeedData();     // Þessi gæjir hleður gagnagrunninn.
+            SeedData();     // Þessi gæjir hleður gagnagrunninn.
             host.Run(); 
         }
 
@@ -37,8 +37,8 @@ namespace TheBookCave
             
                 var initialBooks = new List<Book>()
                 {
-
-                 };
+                    
+                };
             
                 db.AddRange(initialBooks);
                 db.SaveChanges();

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Models;
 using TheBookCave.Services;
+using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
 {
@@ -18,7 +19,6 @@ namespace TheBookCave.Controllers
         {
             _authorService = new AuthorService();
         }
-
         public IActionResult Index()
         {
             var authors = _authorService.GetAllAuthors();
