@@ -11,15 +11,10 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
 @{
     if (SignInManager.IsSignedIn(User))
     {
+
         <form asp-action = "LogOut" asp-controller="Account" method="POST">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <button class= "btn btn-link navbar-btn navbar-link">@claim</button>
-                </li>
-                <li>
-                    <button type="submit" class= "btn btn-link navbar-btn navbar-link">Log Out</button>
-                </li>
-            </ul>
+            <p>@claim<p>
+            <button type="submit" class= "btn btn-link navbar-btn navbar-link">Log Out</button>
         </form>
     }
     else

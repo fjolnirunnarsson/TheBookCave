@@ -25,10 +25,10 @@ namespace TheBookCave
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddDbContext<AuthenticationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection")));
+            services.AddDbContext<AuthenticationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuthenticationConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<AuthenticationDbContext>()
-            .AddDefaultTokenProviders();*/
+            .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(config => {
                 config.User.RequireUniqueEmail = true;

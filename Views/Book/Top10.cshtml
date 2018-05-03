@@ -1,11 +1,11 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
 <link rel="stylesheet" href="~/css/styles.top10.css" />
 
-<div id="">
+<div>
     @{
         int i = 0;
     }
-    @foreach(var book in @Model)
+    @foreach(var book in Model)
     {
         i++;
         <div id="item">
