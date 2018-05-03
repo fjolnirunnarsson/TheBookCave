@@ -5,7 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TheBookCave.Data.EntityModels;
 using TheBookCave.Models;
+using TheBookCave.Models.InputModels;
+using TheBookCave.Repositories;
 using TheBookCave.Services;
 
 namespace TheBookCave.Controllers
@@ -27,6 +30,11 @@ namespace TheBookCave.Controllers
             return View(books);
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
         public BookController()
         {
             _bookService = new BookService();

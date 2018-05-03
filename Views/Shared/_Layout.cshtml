@@ -10,12 +10,8 @@
 </head>
 <body>
 <nav class="navbar navbar-fixed-top" id="navbar">
-    <div class="nav-container">
-        <span id="logo-wrap">
-            <a asp-controller="Home" asp-action="Index">
-                <img src="~/images/logo.png" alt="">
-            </a>
-        </span>
+    <div>
+        <a asp-controller="Home" asp-action="Index"><img id="logo" src="~/images/logo.png" alt=""></a>
         <form action="#" method="get" class="search-bar">
             <input id="search-box" placeholder="Search for books by title / author ..." />
             <button type="submit">
@@ -30,6 +26,7 @@
                     <div class="login">
                         @await Html.PartialAsync("_LoginPartial")
                     </div>
+                    <div class="dropdown-divider"></div>
                     <div class="dropdown-list">
                         <a href="#">My Account</a>
                         <a href="#">My Orders</a>
@@ -71,17 +68,17 @@
 </div>
 <div id="footer">
     <hr>
-    <ul class="ListSocial">
-        <li class="ItemSocial"><a asp-action="AboutUS" asp-controller="Footers">About Us</a></li>
-        <li class="ItemSocial"><a asp-action="Help" asp-controller="Footers">Help</a></li>
-        <li class="ItemSocial"><a asp-action="TermsAndConditions" asp-controller="Footers">Terms&Conditions</a></li>
+    <ul class="list-social">
+        <li class="item-social"><a asp-action="AboutUS" asp-controller="Footers">About Us</a></li>
+        <li class="item-social"><a asp-action="Help" asp-controller="Footers">Help</a></li>
+        <li class="item-social"><a asp-action="TermsAndConditions" asp-controller="Footers">Terms&Conditions</a></li>
     </ul>
     <div>
-        <img src="~/Images/Facebook.png" alt="No Images" class="Social" >
-        <img src="~/Images/Twitter.png" alt="No Images" class="Social">
-        <img src="~/Images/Instagram.png" alt="No Images" class="Social">
+        <img src="~/Images/Facebook.png" alt="No Images" class="social" >
+        <img src="~/Images/Twitter.png" alt="No Images" class="social">
+        <img src="~/Images/Instagram.png" alt="No Images" class="social">
     </div>
-    <a id="LockIcon" asp-action="Login" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
+    <a id="lock-icon" asp-action="Login" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
 </div>
 
     <environment include="Development">
