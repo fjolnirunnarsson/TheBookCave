@@ -52,11 +52,17 @@ namespace TheBookCave.Controllers
 
             var books = _bookService.GetAllBooks();
 
+            if(genre.Count() == 0){
+                return View(books);
+            }
+            else{
+
             var genrelist = (from item in books
                             where ((item.Genre).ToLower() == genre.ToLower())
                             select item).ToList();
 
             return View(genrelist);
+            }
         }
 
         public BookController()
