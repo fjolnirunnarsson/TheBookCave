@@ -1,6 +1,6 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
 
-<div id="front-page-books">
+    <div id="front-page-books">
     @foreach(var book in @Model)
     {
         <div id="default-book">
@@ -14,5 +14,4 @@
             <h4>$ @book.Price</h4>
         </div>
     }
-</div>
-
+    </div>
