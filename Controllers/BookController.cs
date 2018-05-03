@@ -31,11 +31,6 @@ namespace TheBookCave.Controllers
             return View(books);
         }*/
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
         public BookController()
         {
             _bookService = new BookService();
