@@ -40,7 +40,6 @@ namespace TheBookCave
 
                  };
             
-
                 db.AddRange(initialBooks);
                 db.SaveChanges();
             
