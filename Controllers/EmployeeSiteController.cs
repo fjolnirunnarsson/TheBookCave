@@ -13,6 +13,8 @@ namespace TheBookCave.Controllers
         {
             return View();
         }
+        
+        [HttpGet]
         public IActionResult EmployeeHome()
         {
             var books = _bookService.GetAllBooks();
