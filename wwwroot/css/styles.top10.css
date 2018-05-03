@@ -59,18 +59,9 @@
     background-color: transparent;
 }
 
-.btn.focus,
-.btn:focus,
-.btn:active,
-.btn.active.focus {
-    background-color: transparent;
-    border-color: transparent;
-    outline: none;
-    box-shadow: none;
-    border-style: outset;
-}
-
 ul{
     list-style: none;
 }
-
+.marginclass{
+    margin-left: 15px;
+}
