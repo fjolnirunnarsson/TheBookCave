@@ -8,7 +8,8 @@ namespace TheBookCave.Data.EntityModels
         public string Author { get; set; }
         public double Rating { get; set; }
         public double Price { get; set; }
-        public string Category { get; set; }
+        public string Genre { get; set; }
         public string Description { get; set; }
+        public int AuthorId { get; set; }
     }
 }

@@ -24,7 +24,7 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
     }
     else
     {
-        <a asp-area="action" asp-controller="Account" asp-action="Register">Register</a>
         <a asp-area="action" asp-controller="Account" asp-action="Login">Log in</a>
+        <a asp-area="action" asp-controller="Account" asp-action="Register">Register</a>
     }
 }

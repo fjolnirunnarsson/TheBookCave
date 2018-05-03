@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+/*using System.ComponentModel.DataAnnotations;
 
 namespace TheBookCave.Models.ViewModels
 {
@@ -14,4 +14,5 @@ namespace TheBookCave.Models.ViewModels
         [Required]
         public string Password { get; set; }
     }
-}
+
+}*/
