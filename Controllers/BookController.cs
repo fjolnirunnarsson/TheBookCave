@@ -21,7 +21,11 @@ namespace TheBookCave.Controllers
         {
             var books = _bookService.GetAllBooks();
 
-            return View(books);
+            var top10 = (from book in books
+                        orderby book.Rating descending
+                        select book).ToList();
+
+            return View(top10);
         }
 
         public IActionResult Top10()
