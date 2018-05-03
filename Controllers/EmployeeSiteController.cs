@@ -2,18 +2,31 @@ using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
+using TheBookCave.Services;
+using System.Linq;
 
 namespace TheBookCave.Controllers
 {
     public class EmployeeSiteController : Controller
     {
+         private BookService _bookService;
+
+
         public IActionResult Login()
         {
             return View();
         }
+        
+        [HttpGet]
         public IActionResult EmployeeHome()
         {
-            return View();
+            var books = _bookService.GetAllBooks();
+
+            var top10 = (from book in books
+                        orderby book.Rating descending
+                        select book).ToList();
+
+            return View(top10);
         }
 
         [HttpGet]
@@ -50,6 +63,11 @@ namespace TheBookCave.Controllers
 
             return View();
         }
+        public EmployeeSiteController()
+        {
+            _bookService = new BookService();
+        }
+
     }
 
 }

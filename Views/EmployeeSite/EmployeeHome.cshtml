@@ -2,3 +2,49 @@
     Layout=null;
 }
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/employee.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h2>Welcome to Emplyee sites!</h2>
+    </div>
+    <div>
+        <a asp-action="Index" asp-controller="Home"> <button>Log out</button> </a>
+        <a asp-action="Create" asp-controller="EmployeeSite"><button>Create book</button></a>
+        <a href="#"><button>Discount codes</button></a>
+
+
+    </div>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Quantity</th>
+    </tr>
+    </br>
+    @foreach(var book in @Model)
+    {
+        <tr>
+        <td>@book.Title</td>
+        <td>42</td>
+        <td><a href="#"><span class="glyphicon glyphicon-wrench"></span></a></td>
+        <td><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
+        </tr>
+    }
+    
+</table>
+
+<a href="#"><button>Create new employee</button></a>
+
+</body>
+</html>
+
