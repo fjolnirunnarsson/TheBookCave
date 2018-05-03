@@ -24,12 +24,19 @@ namespace TheBookCave.Controllers
             return View(books);
         }
 
-        /*public IActionResult Top10()
+        public IActionResult Top10()
         {
             var books = _bookService.GetAllBooks();
 
             return View(books);
-        }*/
+        }
+
+        public IActionResult Details(){
+
+            var books = _bookService.GetAllBooks();
+            
+            return View(books);
+        }
 
         [HttpGet]
         public IActionResult Create()
@@ -40,5 +47,6 @@ namespace TheBookCave.Controllers
         {
             _bookService = new BookService();
         }
+
     }
 }
