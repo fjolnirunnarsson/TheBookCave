@@ -4,39 +4,73 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TheBookCave</title>
-        <link rel="stylesheet" href="~/css/site.css" />
-        <link rel="stylesheet" href="~/css/site.min.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/styles.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <nav class="navbar navbar-fixed-top" id="navbar">
-    <div class="container">
+    <div class="nav-container">
         <span id="logo-wrap">
             <a asp-controller="Home" asp-action="Index">
-                <img src="~/images/logo.png" alt="" width="5%" height="5%">
+                <img src="~/images/logo.png" alt="">
             </a>
         </span>
-            <form action="#" method="get" id="search-bar">
-                    <input id="searchBox" />
-                    <input value="Search" type="submit" />
-            </form>
-        <span>
-            <ul class="nav navbar-nav navbar-right">
-                <li><button>WishList</button></li>
-                <li><button>Cart</button></li>
-                <li><button>Account</button></li>
-            </ul>
-        </span>
+        <form action="#" method="get" class="search-bar">
+            <input id="search-box" placeholder="Search for books by title / author ..." />
+            <button type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </form>
+        <div class="icons">
+
+            <a href="#"> <span class="glyphicon glyphicon-heart"></span> </a>
+            <a href="#"> <span class="glyphicon glyphicon-shopping-cart"></span> </a>
+            <a href="#"> <span class="glyphicon glyphicon-user"></span> </a>
+        </div>
     </div>
 </nav>
-    <div class="container body-content">
+
+<div id="sidebar-wrap">
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand"><a href="#">SALE</a></li>
+    </ul>
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">Top 10 books</li>
+        <li><a asp-controller="Book" asp-action="Top10">Rating</a></li>
+        <li><a href="#">Author</a></li>
+    </ul>
+    <ul class="sidebar-nav">
+        <li class="sidebar-brand">Genres</li>
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Adventure</a></li>
+        <li><a href="#">Comedy</a></li>
+        <li><a href="#">Crime</a></li>
+        <li><a href="#">Fantasy</a></li>
+        <li><a href="#">Historical</a></li>
+        <li><a href="#">Horror</a></li>
+        <li><a href="#">Learning</a></li>
+    </ul>
+</div>
+
+<div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - TheBookCave</p>
-        </footer>
+    <div id="footer">
+        <hr>
+        <ul class="ListSocial">
+            <li class="ItemSocial"><a asp-action="AboutUS" asp-controller="Footers">About Us</a></li>
+            <li class="ItemSocial"><a asp-action="Help" asp-controller="Footers">Help</a></li>
+            <li class="ItemSocial"><a asp-action="TermsAndConditions" asp-controller="Footers">Terms&Conditions</a></li>
+        </ul>
+        <div>
+            <img src="~/Images/Facebook.png" alt="No Images" class="Social" >
+            <img src="~/Images/Twitter.png" alt="No Images" class="Social">
+            <img src="~/Images/Instagram.png" alt="No Images" class="Social">
+        </div>
+        <a id="LockIcon" asp-action="Login" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
     </div>
+</div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
