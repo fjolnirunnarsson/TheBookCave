@@ -27,9 +27,17 @@ namespace TheBookCave.Controllers
             return View(books);
         }
 
+        public IActionResult Details(){
+
+            var books = _bookService.GetAllBooks();
+            
+            return View(books);
+        }
+
         public BookController()
         {
             _bookService = new BookService();
         }
+
     }
 }
