@@ -10,13 +10,32 @@
         </div>
         <div id="detailsDescription">
             <h2>@book.Title</h2>
-            <h3>@book.Author</h3>
+            <h4>@book.Author</h4>
             <h4>@book.Genre</h4>
-            <h4>Rating: @book.Rating</h4>
-            <h4>$ @book.Price</h4>
-            <p>@book.Description</p>
+            
+            <span class="glyphicon glyphicon-star stjornur"></span>
+            <span class="glyphicon glyphicon-star stjornur"></span>
+            <span class="glyphicon glyphicon-star stjornur"></span>
+            <span class="glyphicon glyphicon-star stjornur"></span>
+            <span class="glyphicon glyphicon-star stjornur"></span>
+            <br>
+            
+            <h4 id="price">$ @book.Price</h4>
+            <button class="btn btn-default btn-primary">Add to cart</button>
+            <p id="description">@book.Description</p>
+            <form>
+            <h5 id="yourrating">Your Rating:</h5>
+            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+            <h5>Your Review:</h5>
+            <textarea id="yourreview"></textarea>
+            <input type="submit" value="Submit" class="btn btn-default btn-primary"/>
+            </form>
         </div>
-        
+
         break;
     }
 }

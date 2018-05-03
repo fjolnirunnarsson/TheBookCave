@@ -1,23 +1,52 @@
 #detailsContainer{
 height: 400px;
 width: 90%;
-border: solid;
 margin-left: 30px;
 }
 #detailsImage{
 height: 100%;
 width: 30%;
 float: left;
-border: solid;
 }
 #detailsDescription{
 width: 70%;
 float: left;
-border: solid;
 }
 #cover{
     width: 70%;
     height: 80%;
     margin-left: 45px;
     margin-top: 20px;
+}
+.stjornur{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #dbc924;
+    size: 15px;
+}
+.stjornur-tomar{
+    color: #dbc924;
+    size: 15px;
+}
+#price{
+    display: inline;
+}
+.btn{
+    margin-left: 10px;
+    display: inline;
+}
+#description{
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+#yourrating{
+    display: inline;
+    margin-right: 5px;
+}
+#yourreview{
+    display: block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+    height: 100px;
 }
