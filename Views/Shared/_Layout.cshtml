@@ -23,20 +23,17 @@
             </button>
         </form>
 
-           <div class="dropdown">
-                <a href="#"> <span class="glyphicon glyphicon-user dropbtn"></span> </a>
-                <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                </div>
-            </div>
-
         <div class="icons">
             <div class="dropdown">
                 <a href="#"> <span class="glyphicon glyphicon-user dropbtn"></span> </a>
                 <div class="dropdown-content">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
+                    <div class="login">
+                        @await Html.PartialAsync("_LoginPartial")
+                    </div>
+                    <div class="dropdown-list">
+                        <a href="#">My Account</a>
+                        <a href="#">My Orders</a>
+                    </div>
                 </div>
             </div>
             <a href="#"> <span class="glyphicon glyphicon-heart"></span> </a>
@@ -67,23 +64,24 @@
     </ul>
 </div>
 
+
 <div class="container body-content">
         @RenderBody()
         <hr />
-    <div id="footer">
-        <hr>
-        <ul class="ListSocial">
-            <li class="ItemSocial"><a asp-action="AboutUS" asp-controller="Footers">About Us</a></li>
-            <li class="ItemSocial"><a asp-action="Help" asp-controller="Footers">Help</a></li>
-            <li class="ItemSocial"><a asp-action="TermsAndConditions" asp-controller="Footers">Terms&Conditions</a></li>
-        </ul>
-        <div>
-            <img src="~/Images/Facebook.png" alt="No Images" class="Social" >
-            <img src="~/Images/Twitter.png" alt="No Images" class="Social">
-            <img src="~/Images/Instagram.png" alt="No Images" class="Social">
-        </div>
-        <a id="LockIcon" asp-action="Login" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
+</div>
+<div id="footer">
+    <hr>
+    <ul class="ListSocial">
+        <li class="ItemSocial"><a asp-action="AboutUS" asp-controller="Footers">About Us</a></li>
+        <li class="ItemSocial"><a asp-action="Help" asp-controller="Footers">Help</a></li>
+        <li class="ItemSocial"><a asp-action="TermsAndConditions" asp-controller="Footers">Terms&Conditions</a></li>
+    </ul>
+    <div>
+        <img src="~/Images/Facebook.png" alt="No Images" class="Social" >
+        <img src="~/Images/Twitter.png" alt="No Images" class="Social">
+        <img src="~/Images/Instagram.png" alt="No Images" class="Social">
     </div>
+    <a id="LockIcon" asp-action="Login" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
 </div>
 
     <environment include="Development">
