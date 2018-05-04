@@ -1,9 +1,10 @@
-#item{
+.item{
     overflow: hidden;
     border: solid;
     margin-top: 30px;
     width: 90%;
     height: 340px;
+    border-style: solid;
 }
 .details{
     float: left;
