@@ -85,6 +85,38 @@ namespace TheBookCave.Controllers
             }
         }
 
+        public IActionResult OrderAlphabetical()
+        {
+            var books = _bookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            orderby b.Title ascending
+                            select b).ToList();
+
+            return View(booklist);
+        }
+
+        public IActionResult PriceLowToHigh()
+        {
+            var books = _bookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            orderby b.Price ascending
+                            select b).ToList();
+
+            return View(booklist);
+        }
+
+        public IActionResult PriceHighToLow()
+        {
+            var books = _bookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            orderby b.Price descending
+                            select b).ToList();
+
+            return View(booklist);
+        }
 
     }
 }

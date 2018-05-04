@@ -46,9 +46,9 @@
     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort
         <span class="caret"></span></button>
     <ul class="dropdown-menu">
-        <li><a asp-action="OrderAlphabetical">A-Z</a></li>
-        <li><a href="#">Price: low to high</a></li>
-        <li><a href="#">Price: high to low</a></li>
+        <li><a asp-controller="Book" asp-action="OrderAlphabetical">A-Z</a></li>
+        <li><a asp-controller="Book" asp-action="PriceLowToHigh">Price: low to high</a></li>
+        <li><a asp-controller="Book" asp-action="PriceHighToLow">Price: high to low</a></li>
     </ul>
 </div>
 

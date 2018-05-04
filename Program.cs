@@ -31,13 +31,8 @@ namespace TheBookCave
         /*public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
         {
             var db = new DataContext();
-<<<<<<< HEAD
             
             /*if (!db.Addresses.Any())
-=======
-             
-            if (!db.Addresses.Any())
->>>>>>> a4c1861792b9d864936232d420e92d84fd70a4de
             {
             
                 var initialaddresses = new List<Address>()
@@ -53,14 +48,7 @@ namespace TheBookCave
             
                 db.AddRange(initialaddresses);
                 db.SaveChanges();
-<<<<<<< HEAD
-            }*/
-        }
-=======
             }
-            
-            
         }*/
->>>>>>> a4c1861792b9d864936232d420e92d84fd70a4de
     }
 }

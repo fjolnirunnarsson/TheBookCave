@@ -57,16 +57,5 @@ namespace TheBookCave.Controllers
             
             return View(books);
         }
-
-        public IActionResult OrderAlphabetical()
-        {
-            var books = _bookService.GetAllBooks();
-
-            var booklist = (from b in books
-                            orderby b ascending
-                            select b).ToList();
-
-            return View(booklist);
-        }
     }
 }
