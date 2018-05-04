@@ -28,7 +28,12 @@ namespace TheBookCave.Controllers
 
             if(String.IsNullOrEmpty(searchString))
             {
-                return View(books);
+                
+                var newestBooks = (from b in books
+                                orderby b.Id ascending
+                                select b).ToList();
+                
+                return View(newestBooks);
             }
 
             var booklist = (from b in books
