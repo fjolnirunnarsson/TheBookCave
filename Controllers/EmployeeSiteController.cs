@@ -56,18 +56,18 @@ namespace TheBookCave.Controllers
                 
                 var Books = new List<Book>
                 {
-                new Book{
-                    Title = book.Title, 
-                    Author = book.Author, 
-                    Description = book.Description,
-                    Year = book.Year, 
-                    Image = book.Image, 
-                    Genre = book.Genre,  
-                    Price = book.Price, 
-                    Discount = book.Discount, 
-                    Quantity = book.Quantity, 
-                },
-            };
+                    new Book{
+                        Title = book.Title, 
+                        Author = book.Author, 
+                        Description = book.Description,
+                        Year = book.Year, 
+                        Image = book.Image, 
+                        Genre = book.Genre,  
+                        Price = book.Price, 
+                        Discount = book.Discount, 
+                        Quantity = book.Quantity, 
+                    }
+                };
             
                 db.AddRange(Books);
                 db.SaveChanges();
@@ -102,10 +102,9 @@ namespace TheBookCave.Controllers
                 }
                 //Console.WriteLine(blog.BlogId + ": " +  blog.Url);
             }*/
-        }
+        
 
     }
-
 }
             /*#region Add
             using (var context = new BloggingContext())
