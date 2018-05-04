@@ -4,6 +4,7 @@ using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Services;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace TheBookCave.Controllers
 {
@@ -50,7 +51,36 @@ namespace TheBookCave.Controllers
 
         public static void SeedData(BookInputModel book)
         {
-                        using (var db = new DataContext())
+            
+            var db = new DataContext();
+                
+                var Books = new List<Book>
+                {
+                new Book{
+                    Title = book.Title, 
+                    Author = book.Author, 
+                    Description = book.Description,
+                    Year = book.Year, 
+                    Image = book.Image, 
+                    Genre = book.Genre,  
+                    Price = book.Price, 
+                    Discount = book.Discount, 
+                    Quantity = book.Quantity, 
+                },
+            };
+            
+                db.AddRange(Books);
+                db.SaveChanges();
+    
+        
+        }
+
+
+
+
+
+
+        /*                using (var db = new DataContext())
             {
                 var newBook = new Book { 
                 Title = book.Title,
@@ -71,7 +101,7 @@ namespace TheBookCave.Controllers
                     return RedirectToAction("EmployeeHome");
                 }
                 //Console.WriteLine(blog.BlogId + ": " +  blog.Url);
-            }
+            }*/
         }
 
     }

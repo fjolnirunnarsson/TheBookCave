@@ -7,11 +7,12 @@
             <div class="heart-img">
                 <span class="glyphicon glyphicon-heart heart-icon"></span>
             </div>
-            <p><img id="book-img" src="@book.Image" alt="No Images"></p>
-            <h2 id="book-title">@book.Title</h2>
-            <h3>@book.Author</h3>
-            <h4>Rating: @book.Rating</h4>
-            <h4>$ @book.Price</h4>
+            <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img id="book-img" src="@book.Image" alt="No Images"></a>
+            <h2 id="book-title"><a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title">@book.Title</a></h2>
+            <h3 class="book-important">@book.Author</h3>
+            <h4 class="book-important">Rating: @book.Rating</h4>
+            <h4 class="book-important">$ @book.Price</h4>
+            <button class="btn btn-primary addcart">Add to cart</button>
         </div>
     }
 </div>
