@@ -19,12 +19,15 @@ namespace TheBookCave.Repositories
             var books = (from a in _db.Books
                         select new BookListViewModel
                         {
+                            Id = a.Id,
                             Image = a.Image,
                             Title = a.Title,
                             Author = a.Author,
+                            AuthorId = a.AuthorId,
                             Rating = a.Rating,
                             Price = a.Price,
                             Genre = a.Genre,
+                            BoughtCopies = a.BoughtCopies,
                             Description = a.Description
                             
                         }).ToList();

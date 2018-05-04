@@ -56,6 +56,17 @@ namespace TheBookCave.Controllers
             return View(top10);
         }
 
+        public IActionResult BestSellers()
+        {
+            var books = _bookService.GetAllBooks();
+            
+            var bestsellers = (from book in books
+                        orderby book.BoughtCopies descending
+                        select book).ToList();
+
+            return View(bestsellers);
+        }
+
         public IActionResult Details(string title){
 
                 var books = _bookService.GetAllBooks();
