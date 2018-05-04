@@ -14,7 +14,7 @@ namespace TheBookCave.Repositories
             _db = new DataContext();
         }
 
-        public List<AddressListViewModel> GetAllAddresses()
+        /*public List<AddressListViewModel> GetAllAddresses()
         {
             var addresses = (from a in _db.Addresses              // Skipta þessari breytu inn þegar við erum komin með database link.
                             select new AddressListViewModel
@@ -27,6 +27,6 @@ namespace TheBookCave.Repositories
                                 PostalCode = a.PostalCode
                             }).ToList();
             return addresses;
-        }
+        }*/
     }
 }

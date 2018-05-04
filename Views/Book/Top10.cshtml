@@ -10,13 +10,13 @@
         i++;
         <div class="item">
             <p id="number">@i</p>
-            <div id="mynd" class="details">
-            <div class="heart-img">
-                <span class="glyphicon glyphicon-heart heart-icon"></span>
-            </div>
-            <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img class="img" src="@book.Image" alt="No Images"></a>
-            <button id="btn" class="btn btn-default btn-primary">Add to cart</button>
-            </div>
+                <div id="mynd" class="details">
+                <div class="heart-img">
+                    <span class="glyphicon glyphicon-heart heart-icon"></span>
+                </div>
+                <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img class="img" src="@book.Image" alt="No Images"></a>
+                <button id="btn" class="btn btn-default btn-primary">Add to cart</button>
+                </div>
             <div id="about" class="details">
             <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><h2>@book.Title</h2></a>
             <h3>@book.Author</h3>

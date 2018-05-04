@@ -13,6 +13,7 @@ using TheBookCave.Services;
 
 namespace TheBookCave.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : Controller
     {
         private CartService _cartService;
