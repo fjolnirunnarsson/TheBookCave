@@ -31,24 +31,26 @@ namespace TheBookCave
         public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
         {
             var db = new DataContext();
-            
+            /* 
             if (!db.Addresses.Any())
             {
             
                 var initialaddresses = new List<Address>()
                 {
-                    /*new Address {
+                    new Address {
                         Street = "melgerði",
                         HouseNumber = 9,
                         City = "Reyðarfjörður",
                         Country = "Iceland",
                         PostalCode = "730"
-                    }*/
+                    }
                 };
             
                 db.AddRange(initialaddresses);
                 db.SaveChanges();
             }
+            */
+            
         }
     }
 }
