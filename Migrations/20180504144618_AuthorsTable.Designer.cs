@@ -11,8 +11,8 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180503213224_addressesTable_Added")]
-    partial class addressesTable_Added
+    [Migration("20180504144618_AuthorsTable")]
+    partial class AuthorsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,11 +66,15 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("Discount");
+
                     b.Property<string>("Genre");
 
                     b.Property<string>("Image");
 
                     b.Property<double>("Price");
+
+                    b.Property<int>("Quantity");
 
                     b.Property<double>("Rating");
 

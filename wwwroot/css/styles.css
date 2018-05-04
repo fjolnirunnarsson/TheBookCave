@@ -130,10 +130,10 @@ body {
 }
 
 #front-page-books {
-    margin-top: 100px;
-    margin-left: 150px;
+    margin-top: 25px;
+    margin-left: 50px;
     border-style: solid;
-    border-color: blue;
+    border-color: green;
     float: left;
     width: 100%;
     padding-left: 50px;

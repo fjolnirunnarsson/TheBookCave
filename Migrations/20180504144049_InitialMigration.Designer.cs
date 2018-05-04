@@ -11,8 +11,8 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180503131657_AuthorsTable_added")]
-    partial class AuthorsTable_added
+    [Migration("20180504144049_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,38 @@ namespace TheBookCave.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("TheBookCave.Data.EntityModels.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Country");
+
+                    b.Property<int>("HouseNumber");
+
+                    b.Property<string>("PostalCode");
+
+                    b.Property<string>("Street");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("TheBookCave.Data.EntityModels.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
+                });
 
             modelBuilder.Entity("TheBookCave.Data.EntityModels.Book", b =>
                 {
@@ -30,7 +62,11 @@ namespace TheBookCave.Migrations
 
                     b.Property<int>("AuthorId");
 
+                    b.Property<int>("BoughtCopies");
+
                     b.Property<string>("Description");
+
+                    b.Property<int>("Discount");
 
                     b.Property<string>("Genre");
 
@@ -38,9 +74,13 @@ namespace TheBookCave.Migrations
 
                     b.Property<double>("Price");
 
+                    b.Property<int>("Quantity");
+
                     b.Property<double>("Rating");
 
                     b.Property<string>("Title");
+
+                    b.Property<int>("Year");
 
                     b.HasKey("Id");
 

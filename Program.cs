@@ -19,7 +19,7 @@ namespace TheBookCave
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-            SeedData();     // Þessi gæjir hleður gagnagrunninn.
+            //SeedData();     // Þessi gæjir hleður gagnagrunninn.
             host.Run(); 
         }
 
@@ -28,11 +28,16 @@ namespace TheBookCave
                 .UseStartup<Startup>()
                 .Build();
 
-        public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
+        /*public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
         {
             var db = new DataContext();
+<<<<<<< HEAD
             
             /*if (!db.Addresses.Any())
+=======
+             
+            if (!db.Addresses.Any())
+>>>>>>> a4c1861792b9d864936232d420e92d84fd70a4de
             {
             
                 var initialaddresses = new List<Address>()
@@ -48,7 +53,14 @@ namespace TheBookCave
             
                 db.AddRange(initialaddresses);
                 db.SaveChanges();
+<<<<<<< HEAD
             }*/
         }
+=======
+            }
+            
+            
+        }*/
+>>>>>>> a4c1861792b9d864936232d420e92d84fd70a4de
     }
 }
