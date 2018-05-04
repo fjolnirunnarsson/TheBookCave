@@ -42,7 +42,7 @@ namespace TheBookCave.Controllers
 
             SeedData(book);
 
-            return View();
+            return RedirectToAction("EmployeeHome");
         }
         public EmployeeSiteController()
         {

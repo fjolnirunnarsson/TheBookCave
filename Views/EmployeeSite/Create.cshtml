@@ -24,10 +24,10 @@
         <label for="Genre" class="control-label">Genre</label>
         <select name="Genre" id="genre" class="form-control">
             <option value="">Choose a genre</option>
-            <option value="10">Adventure</option>
-            <option value="10">Romance</option>
-            <option value="10">Literature</option>
-            <option value="10">Food</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Romance">Romance</option>
+            <option value="Literature">Literature</option>
+            <option value="Food">Food</option>
         </select>
         <div asp-validation-for="Discount"></div>
 
@@ -54,7 +54,7 @@
         <div asp-validation-for="Quantity"></div>
 
         <label for="Description" class="control-label">Description</label>
-        <textarea cols="100" rows="10" class="form-control" placeholder="Brief description about the book" ></textarea>
+        <textarea cols="100" rows="10" asp-for="Description" class="form-control" placeholder="Brief description about the book" ></textarea>
         <div asp-validation-for="Description"></div></br>
     </div>
     
