@@ -14,7 +14,7 @@ body {
 #navbar {
     border: solid 0.5px black;
     height: 13%;
-    background-color: lightblue;
+    
     padding-top: 0.5%;
 }
 
@@ -51,7 +51,7 @@ body {
     display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-window {
     display: none;
     position: absolute;
     z-index: 1;
@@ -60,39 +60,39 @@ body {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
 
-.dropdown-content .login a {
+.dropdown-window .login a {
     color: black;
     text-decoration: none;
     font-size: 12px;
 }
 
-.dropdown-content .dropdown-list a {
+.dropdown-window .dropdown-list a {
     color: black;
     text-decoration: none;
     display: block;
     font-size: 12px;
 }
 
-.dropdown-content a:hover {
+.dropdown-window a:hover {
     background-color: lightblue;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-window {
     display: block;
 }
+
 
 /* Side bar */
 #sidebar-wrap {
     position: fixed;
     height: 100%;
     width: 14%;
-    background-color: lightblue;
     z-index: 1;
     top: 0;
     left: 0;
     /*overflow-x: hidden;*/
     padding-top: 150px;
-    border: solid;
+    border: solid 0.5px black;
 }
 
 .sidebar-nav {

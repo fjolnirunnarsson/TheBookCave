@@ -1,7 +1,6 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
 
-
-    <div id="front-page-books">
+<div id="front-page-books">
     @foreach(var book in @Model)
     {
         <div id="default-book">
@@ -13,6 +12,7 @@
             <h3>@book.Author</h3>
             <h4>Rating: @book.Rating</h4>
             <h4>$ @book.Price</h4>
+            <button class="btn btn-primary">Add to cart</button>
         </div>
     }
-    </div>
+</div>
