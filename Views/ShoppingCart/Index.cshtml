@@ -1,36 +1,40 @@
 @model TheBookCave.Models.ViewModels.ShoppingCartViewModel
-<link rel="stylesheet" href="~/css/styles.top10.css" />
+<link rel="stylesheet" href="~/css/styles.cart.css" />
 
 @{
     if (Model.CartItems.Count > 0) 
     {
-        <h1>Your Items</h1>
-        <div class="item">
-            <div class="shopping-cart-items">
-                @foreach(var item in @Model.CartItems)
-                {
-                    <div class="book-item">
-                        <a asp-controller="Book" asp-action="Details" asp-route-title="@item.BookItem.Title"><img class="img" src="@item.BookItem.Image" alt="No Image"></a>
-                        <h2 class="item-title">@item.BookItem.Title</h2>
-                        <h3>@item.BookItem.Author</h3>
-                        <h3>@item.BookItem.Price</h3>
-                        <h4>@item.BookItem.Rating</h4>
-                    </div>
-                    <div>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
-                    </div>
-                }
+        <div class="cart">
+            <h1 id="cart-title">Your Items</h1>
+            <div class="cart-items">
+                    @foreach(var item in @Model.CartItems)
+                    {
+                        
+                        <div class="book-item">
+                            <a asp-controller="Book" asp-action="Details" asp-route-title="@item.BookItem.Title"><img class="cart-img" src="@item.BookItem.Image" alt="No Image"></a>
+                            <div class="book-info"> 
+                                <a asp-controller="Book" asp-action="Details" asp-route-title="@item.BookItem.Title">
+                                    <h2 class="item-title">@item.BookItem.Title</h2>
+                                </a>
+                                <h3>@item.BookItem.Author</h3>
+                                <h4>$ @item.BookItem.Price</h4>
+                                <h4>Rating: @item.BookItem.Rating stars</h4>
+                            </div>
+                            <div class="trash">
+                                <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                            </div>
+                        </div>
+                        
+                    }
+            </div>
+            <div class="checkout-window">
                 <div class="total-price">
-                    @Model.CartTotal
-                    <button value="Checkout"></button>
-                    <h4>We accept:</h4>
-                    <img src="#" alt="No image">
+                    <h4>Total price:</h4>
+                    <h5>US$ @Model.CartTotal</h5>    
+                    <button id="btn" class="btn btn-default btn-primary">Checkout</button>
                 </div>
             </div>
         </div>
-
     }
     else
     {
