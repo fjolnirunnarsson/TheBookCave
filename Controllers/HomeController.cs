@@ -33,9 +33,10 @@ namespace TheBookCave.Controllers
 
             var booklist = (from b in books
                         where b.Title.ToLower().Contains(searchString.ToLower())
+                        || b.Author.ToLower().Contains(searchString.ToLower())
                         select b).ToList();
 
-            if(books.Count == 0)
+            if(booklist.Count == 0)
             {
                 return View("NotFound");
             }
@@ -55,6 +56,17 @@ namespace TheBookCave.Controllers
             var books = _bookService.GetAllBooks();
             
             return View(books);
+        }
+
+        public IActionResult OrderAlphabetical()
+        {
+            var books = _bookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            orderby b ascending
+                            select b).ToList();
+
+            return View(booklist);
         }
     }
 }
