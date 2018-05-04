@@ -120,7 +120,7 @@ body {
 #default-book {
 
     margin: 0px 20px 0px 20px;
-    border-style: solid;
+    background-color: rgb(231, 222, 222);
     border-color: rgb(0, 0, 0);
     width: 220px;
     overflow: hidden;
