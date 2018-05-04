@@ -121,35 +121,54 @@ body {
 
     margin: 0px 20px 0px 20px;
     border-style: solid;
-    border-color: black;
+    border-color: rgb(0, 0, 0);
     width: 220px;
     overflow: hidden;
     float: left;
-    padding-left: 26px;
-    margin-bottom: 5%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    
 }
 
 #front-page-books {
     margin-top: 25px;
     margin-left: 50px;
-    border-style: solid;
-    border-color: green;
     float: left;
     width: 100%;
     padding-left: 50px;
 }
 
+.addcart {
+    width: 150px;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
 #book-img {
+    width: 150px;
     height: 220px;
+    margin-left: 35px;
+    margin-right: 35px;
 }
 
 #book-title {
-    height: 50px;
+    text-align: center;
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.book-important{
+    height: 20px;
+    font-size: 15px;
+    margin-left: 35px;
+    margin-right: 35px;
 }
 
 .heart-img {
     position: fixed;
-    margin-left: 110px;
+    margin-left: 140px;
     margin-top: 5px;
     background-color: transparent;
     border-color: transparent;

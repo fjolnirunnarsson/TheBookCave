@@ -30,8 +30,9 @@ namespace TheBookCave
 
         public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
         {
+            /* 
             var db = new DataContext();
-                /* 
+                
                 var Books = new List<Book>
                 {
                 new Book{
@@ -74,12 +75,56 @@ namespace TheBookCave
                     Title = "The Theory of Everything", Author = "Stephen Hawking", Description = "Stephen Hawking is widely believed to be one of the worlds greatest minds: a brilliant theoretical physicist whose work helped to reconfigure models of the universe and to redefine whats in it. Imagine sitting in a room listening to Hawking discuss these achievements and place them in historical context. It would be like hearing Christopher Columbus on the New World.Hawking presents a series of seven lec-turescovering everything from big bang to black holes to string theorythat capture not only the brilliance of Hawkings mind but his characteristic wit as well.",
                     Year = 2007, Image = "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9788/1799/9788179925911.jpg", Genre = "Nature", Rating = 4.12, Price = 14.71, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
                 }
+                new Book{
+                    Title = "Steve Jobs", Author = "Walter Isaacson", Description = "Based on more than forty interviews with Jobs conducted over two years—as well as interviews with more than a hundred family members, friends, adversaries, competitors, and colleagues—Walter Isaacson has written a riveting story of the roller-coaster life and searingly intense personality of a creative entrepreneur whose passion for perfection and ferocious drive revolutionized six industries: personal computers, animated movies, music, phones, tablet computing, and digital publishing.",
+                     Year = 2011, Image = "https://images-na.ssl-images-amazon.com/images/I/418oH6YjpFL.jpg", Genre = "Biography", Rating = 4.4, Price = 14.20, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "The Killing Forest", Author = "Sara Blaedel", Description = "Following an extended leave, Louise Rick returns to work at the Special Search Agency, an elite unit of the National Police Department. She's assigned a case involving a fifteen-year-old who vanished a week earlier. When Louise realizes that the missing teenager is the son of a butcher from Hvalsoe, she seizes the opportunity to combine the search for the teen with her personal investigation of her boyfriend's long-ago death.",
+                     Year = 2016, Image = "https://images-na.ssl-images-amazon.com/images/I/51zSh1imxIL.jpg", Genre = "Fiction", Rating = 4.4, Price = 7.0, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "Maker of Patterns", Author = "Freeman Dyson", Description = "Having penned hundreds of letters to his family over four decades, Freeman Dyson has framed them with the reflections made by a man now in his nineties. While maintaining that “the letters record the daily life of an ordinary scientist doing ordinary work,” Dyson nonetheless has worked with many of the twentieth century’s most renowned physicists, mathematicians, and intellectuals, so that Maker of Patterns presents not only his personal story but chronicles through firsthand accounts an exciting era of twentieth-century science.",
+                     Year = 2018, Image = "https://images-na.ssl-images-amazon.com/images/I/417h1kgQPuL._SX330_BO1,204,203,200_.jpg", Genre = "Biography", Rating = 5, Price = 15.72, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "The Light of the Fireflies", Author = "Paul Pen", Description = "For his whole life, the boy has lived underground, in a basement with his parents, grandmother, sister, and brother. Before he was born, his family was disfigured by a fire. His sister wears a white mask to cover her burns. He spends his hours with his cactus, reading his book on insects, or touching the one ray of sunlight that filters in through a crack in the ceiling. Ever since his sister had a baby, everyone’s been acting very strangely. The boy begins to wonder why they never say who the father is, about what happened before his own birth, about why they’re shut away.",
+                     Year = 2016, Image = "https://images-na.ssl-images-amazon.com/images/I/51ZM2Qv8x5L.jpg", Genre = "Fiction", Rating = 3.9, Price = 5.54, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "The Gray House", Author = "Mariam Petrosyan", Description = "The Gray House is an astounding tale of how what others understand as liabilities can be leveraged into strengths. Bound to wheelchairs and dependent on prosthetic limbs, the physically disabled students living in the House are overlooked by the Outsides. Not that it matters to anyone living in the House, a hulking old structure that its residents know is alive. From the corridors and crawl spaces to the classrooms and dorms, the House is full of tribes, tinctures, scared teachers, and laws—all seen and understood through a prismatic array of teenagers’ eyes.",
+                     Year = 2017, Image = "https://images-na.ssl-images-amazon.com/images/I/51er7mbWBkL.jpg", Genre = "Children", Rating = 3.9, Price = 15.95, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "The House by the River", Author = "Lena Manta", Description = "Theodora knows she can’t keep her five beautiful daughters at home forever—they’re too curious, too free spirited, too like their late father. And so, before each girl leaves the small house on the riverside at the foot of Mount Olympus, Theodora makes sure they know they are always welcome to return.",
+                     Year = 2017, Image = "https://images-na.ssl-images-amazon.com/images/I/51XhM-nToHL.jpg", Genre = "Fiction", Rating = 4.3, Price = 14.95, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "A Higher Loyalty: Truth, Lies, and Leadership", Author = "James Comey", Description = "In his book, former FBI director James Comey shares his never-before-told experiences from some of the highest-stakes situations of his career in the past two decades of American government, exploring what good, ethical leadership looks like, and how it drives sound decisions. His journey provides an unprecedented entry into the corridors of power, and a remarkable lesson in what makes an effective leader.",
+                     Year = 2018, Image = "https://images-na.ssl-images-amazon.com/images/I/415TMcCGi-L.jpg", Genre = "History", Rating = 4.8, Price = 16.64, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "Educated", Author = "Tara Westover", Description = "Tara Westover grew up preparing for the End of Days, watching for the sun to darken, for the moon to drip as if with blood. She spent her summers bottling peaches and her winters rotating emergency supplies, hoping that when the World of Men failed, her family would continue on, unaffected. She hadn’t been registered for a birth certificate. She had no school records because she’d never set foot in a classroom, and no medical records because her father didn’t believe in doctors or hospitals. According to the state and federal government, she didn’t exist.",
+                     Year = 2018, Image = "https://images-na.ssl-images-amazon.com/images/I/51kkgdDmtfL.jpg", Genre = "Education", Rating = 4.7, Price = 14.42, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "Teaching to Transgress", Author = "Bell Hooks", Description = "In Teaching to Transgress,bell hooks--writer, teacher, and insurgent black intellectual--writes about a new kind of education, education as the practice of freedom.  Teaching students to 'transgress' against racial, sexual, and class boundaries in order to achieve the gift of freedom is, for hooks, the teacher's most important goal. bell hooks speaks to the heart of education today: how can we rethink teaching practices in the age of multiculturalism? What do we do about teachers who do not want to teach, and students who do not want to learn? How should we deal with racism and sexism in the classroom?",
+                     Year = 1994, Image = "https://images-na.ssl-images-amazon.com/images/I/319y3q0RCzL._SX331_BO1,204,203,200_.jpg", Genre = "Education", Rating = 4.5, Price = 28.32, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "The Wounded Murderer", Author = "Stephen Randorf", Description = "Detective Bass was too kindhearted at times. An elderly veteran had been murdered. Detective Bass had the 9mm pistol issued during the Korean War and the female suspect’s confession. The case was about to be wrapped up, and then . . . . it wasn’t enough!",
+                     Year = 2015, Image = "https://images-na.ssl-images-amazon.com/images/I/51N1nyAw9yL.jpg", Genre = "Crime", Rating = 3.2, Price = 4.30, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                },
+                new Book{
+                    Title = "Bones Don't Lie", Author = "Melinda Leigh", Description = "Private investigator Lance Kruger was just a boy when his father vanished twenty-three years ago. Since then he’s lived under the weight of that disappearance—until his father’s car is finally dredged up from the bottom of Grey Lake. It should be a time for closure, except for the skeleton found in the trunk. A missing person case gone cold has become one of murder, and Lance and attorney Morgan Dane must face the deadly past that’s risen to the surface.",
+                     Year = 2018, Image = "https://images-na.ssl-images-amazon.com/images/I/51REf2zbwHL.jpg", Genre = "Crime", Rating = 4.7, Price = 6.65, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
+                }
             };
             
                 db.AddRange(Books);
                 db.SaveChanges();
             */
-            
+        
         }
     }
 }
