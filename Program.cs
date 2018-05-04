@@ -32,17 +32,23 @@ namespace TheBookCave
         {
             var db = new DataContext();
             
-            /*if (!db.Books.Any())
-            {*/
+            if (!db.Addresses.Any())
+            {
             
-                var initialBooks = new List<Book>()
+                var initialaddresses = new List<Address>()
                 {
-                    
+                    /*new Address {
+                        Street = "melgerði",
+                        HouseNumber = 9,
+                        City = "Reyðarfjörður",
+                        Country = "Iceland",
+                        PostalCode = "730"
+                    }*/
                 };
             
-                db.AddRange(initialBooks);
+                db.AddRange(initialaddresses);
                 db.SaveChanges();
-            
+            }
         }
     }
 }

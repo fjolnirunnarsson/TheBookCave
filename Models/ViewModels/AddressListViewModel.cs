@@ -1,6 +1,6 @@
-namespace TheBookCave.Data.EntityModels
+namespace TheBookCave.Models.ViewModels
 {
-    public class Address
+    public class AddressListViewModel
     {
         public int Id { get; set; }
         public string Street { get; set; }
