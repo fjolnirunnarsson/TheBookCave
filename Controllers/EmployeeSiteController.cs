@@ -44,6 +44,13 @@ namespace TheBookCave.Controllers
 
             return RedirectToAction("EmployeeHome");
         }
+
+        [HttpGet]
+        public IActionResult Change(BookInputModel book)
+        {
+            return View();
+        }
+        
         public EmployeeSiteController()
         {
             _bookService = new BookService();
@@ -51,9 +58,7 @@ namespace TheBookCave.Controllers
 
         public static void SeedData(BookInputModel book)
         {
-            
-            var db = new DataContext();
-                
+            var db = new DataContext();   
                 var Books = new List<Book>
                 {
                     new Book{
@@ -68,51 +73,8 @@ namespace TheBookCave.Controllers
                         Quantity = book.Quantity, 
                     }
                 };
-            
                 db.AddRange(Books);
-                db.SaveChanges();
-    
-        
+                db.SaveChanges();    
         }
-
-
-
-
-
-
-        /*                using (var db = new DataContext())
-            {
-                var newBook = new Book { 
-                Title = book.Title,
-                Author = book.Author,
-                Year = book.Year,
-                Genre = book.Genre,
-                Image = book.Image,
-                Price = book.Price,
-                Discount = book.Discount,
-                Quantity = book.Quantity,
-                Description = book.Description
-                 };
-               
-                if(ModelState.IsValid)
-                {
-                    db.AddRange(newBook);
-                    db.SaveChanges();
-                    return RedirectToAction("EmployeeHome");
-                }
-                //Console.WriteLine(blog.BlogId + ": " +  blog.Url);
-            }*/
-        
-
     }
 }
-            /*#region Add
-            using (var context = new BloggingContext())
-            {
-                var blog = new Blog { Url = "http://sample.com" };
-                context.Blogs.Add(blog);
-                context.SaveChanges();
-
-                Console.WriteLine(blog.BlogId + ": " +  blog.Url);
-            }
-            #endregion*/

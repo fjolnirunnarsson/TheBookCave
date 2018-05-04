@@ -1,0 +1,63 @@
+@model TheBookCave.Models.InputModels.BookInputModel
+
+@{
+    Layout=null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/styles.css">
+
+<form method="POST">
+    <div class="form-group">
+        <label for="Title" class="control-label">Title</label>
+        <input type="text" asp-for="Title" class="form-control">
+        <div asp-validation-for="Title"></div>
+
+        <label for="Author" class="control-label">Author</label>
+        <input type="text" asp-for="Author" class="form-control">
+        <div asp-validation-for="Author"></div>
+
+        <label for="Year" class="control-label">Year</label>
+        <input type="text" asp-for="Year" class="form-control">
+        <div asp-validation-for="Year"></div>
+
+        <label for="Genre" class="control-label">Genre</label>
+        <select name="Genre" id="genre" class="form-control">
+            <option value="">Choose a genre</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Romance">Romance</option>
+            <option value="Literature">Literature</option>
+            <option value="Food">Food</option>
+        </select>
+        <div asp-validation-for="Discount"></div>
+
+        <label for="Image" class="control-label">Image</label>
+        <input type="text" asp-for="Image" class="form-control">
+        <div asp-validation-for="Image"></div>
+
+        <label for="Price" class="control-label">Price</label>
+        <input type="text" asp-for="Price" class="form-control">
+        <div asp-validation-for="Price"></div>
+
+        <label for="Discount" class="control-label">Discount</label>
+        <select name="Discount" id="discount" class="form-control">
+            <option value="">N/A</option>
+            <option value="10">10%</option>
+            <option value="10">15%</option>
+            <option value="10">20%</option>
+            <option value="10">25%</option>
+        </select>
+        <div asp-validation-for="Discount"></div>
+
+        <label for="Quantity" class="control-label">Quantity</label>
+        <input type="text" asp-for="Quantity" class="form-control">
+        <div asp-validation-for="Quantity"></div>
+
+        <label for="Description" class="control-label">Description</label>
+        <textarea cols="100" rows="10" asp-for="Description" class="form-control" placeholder="Brief description about the book" ></textarea>
+        <div asp-validation-for="Description"></div></br>
+    </div>
+    
+    <input type="submit" value="Add book!" class="btn btn-success">
+    <input type="button" value="Cancel" class="btn btn-danger">
+</form>
