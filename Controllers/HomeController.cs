@@ -10,6 +10,7 @@ using TheBookCave.Models;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Repositories;
 using TheBookCave.Services;
+using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
 {
@@ -17,11 +18,29 @@ namespace TheBookCave.Controllers
     {
   private BookService _bookService;
         
-        public IActionResult Index()
+        public HomeController()
+        {
+            _bookService = new BookService();
+        }
+        public IActionResult Index(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            return View(books);
+            if(String.IsNullOrEmpty(searchString))
+            {
+                return View(books);
+            }
+
+            var booklist = (from b in books
+                        where b.Title.ToLower().Contains(searchString.ToLower())
+                        select b).ToList();
+
+            if(books.Count == 0)
+            {
+                return View("NotFound");
+            }
+
+            return View(booklist);
         }
 
         public IActionResult Top10()
@@ -36,11 +55,6 @@ namespace TheBookCave.Controllers
             var books = _bookService.GetAllBooks();
             
             return View(books);
-        }
-
-        public HomeController()
-        {
-            _bookService = new BookService();
         }
     }
 }

@@ -37,13 +37,13 @@ namespace TheBookCave
             
                 var initialaddresses = new List<Address>()
                 {
-                    new Address {
+                    /*new Address {
                         Street = "melgerði",
                         HouseNumber = 9,
                         City = "Reyðarfjörður",
                         Country = "Iceland",
                         PostalCode = "730"
-                    }
+                    }*/
                 };
             
                 db.AddRange(initialaddresses);

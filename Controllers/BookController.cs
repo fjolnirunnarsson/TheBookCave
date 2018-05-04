@@ -17,12 +17,30 @@ namespace TheBookCave.Controllers
     {
         private BookService _bookService;
         
-        public IActionResult Index(string genre)
+        public BookController()
+        {
+            _bookService = new BookService();
+        }
+        public IActionResult Index(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            return View(books);
+            if(String.IsNullOrEmpty(searchString))
+            {
+                return View(books);
+            }
 
+            var booklist = (from b in books
+                        where b.Title.ToLower().Contains(searchString.ToLower())
+                        select b).ToList();
+
+
+            if(books.Count == 0)
+            {
+                return View("NotFound");
+            }
+
+            return View(booklist);
         }
 
         public IActionResult Top10()
@@ -47,7 +65,6 @@ namespace TheBookCave.Controllers
 
                 return View(onebook);
         }
-
         public IActionResult Genre(string genre){
 
             var books = _bookService.GetAllBooks();
@@ -65,10 +82,6 @@ namespace TheBookCave.Controllers
             }
         }
 
-        public BookController()
-        {
-            _bookService = new BookService();
-        }
 
     }
 }

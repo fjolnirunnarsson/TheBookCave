@@ -29,7 +29,5 @@ namespace TheBookCave.Models.InputModels
 
         [Required(ErrorMessage="Field required")]
         public string Description { get; set; }
-
-
     }
 }

@@ -12,12 +12,17 @@
 <nav class="navbar navbar-fixed-top" id="navbar">
     <div>
         <a asp-controller="Home" asp-action="Index"><img id="logo" src="~/images/logo.png" alt=""></a>
-        <form action="#" method="get" class="search-bar">
-            <input id="search-box" placeholder="Search for books by title / author ..." />
-            <button type="submit">
-                <span class="glyphicon glyphicon-search"></span>
-            </button>
+
+
+        <form method="GET" class="search-bar">
+            <input type="search" id="search-box" name="searchString" placeholder="Search for books by title / author ..." />
+
+            <a asp-action="Index">
+                <input type="submit" value="Search">
+            </a>
         </form>
+
+
 
         <div class="icons">
             <div class="dropdown">
@@ -46,7 +51,7 @@
     <ul class="sidebar-nav">
         <li class="sidebar-brand">Top 10 books</li>
         <li><a asp-controller="Book" asp-action="Top10">Rating</a></li>
-        <li><a href="#">Author</a></li>
+        <li><a href="#">Bestsellers</a></li>
     </ul>
     <ul class="sidebar-nav">
         <li class="sidebar-brand">Genres</li>
