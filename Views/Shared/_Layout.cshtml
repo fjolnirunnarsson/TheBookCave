@@ -47,23 +47,21 @@
         <span class="caret"></span></button>
     <ul class="dropdown-menu">
         <li><a asp-controller="Book" asp-action="OrderAlphabetical">A-Z</a></li>
+        <li><a asp-controller="Book" asp-action="Newest">What's new</a></li>
         <li><a asp-controller="Book" asp-action="PriceLowToHigh">Price: low to high</a></li>
         <li><a asp-controller="Book" asp-action="PriceHighToLow">Price: high to low</a></li>
     </ul>
 </div>
 
-
 <div id="sidebar-wrap">
     <ul class="sidebar-nav">
-        <li class="sidebar-brand"><a href="#">SALE</a></li>
+        <li class="sidebar-brand"><a href="#">ON SALE</a></li>
     </ul>
     <ul class="sidebar-nav">
-        <li class="sidebar-brand">Top 10 books</li>
-        <li><a asp-controller="Book" asp-action="Top10">Rating</a></li>
-        <li><a asp-controller="Book" asp-action="BestSellers">Bestsellers</a></li>
+        <li class="sidebar-brand"><a asp-controller="Book" asp-action="Top10">Top Rated</a></li>
     </ul>
     <ul class="sidebar-nav">
-        <li class="sidebar-brand">Genres</li>
+        <li class="sidebar-brand"><a asp-controller="Book" asp-action="Index">Genres</li></a>
         <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Biography">Biography</a></li>
         <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Fiction">Fiction</a></li>
         <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Romance">Romance</a></li>

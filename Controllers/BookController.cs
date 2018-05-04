@@ -56,17 +56,6 @@ namespace TheBookCave.Controllers
             return View(top10);
         }
 
-        public IActionResult BestSellers()
-        {
-            var books = _bookService.GetAllBooks();
-            
-            var bestsellers = (from book in books
-                        orderby book.BoughtCopies descending
-                        select book).ToList();
-
-            return View(bestsellers);
-        }
-
         public IActionResult Details(string title){
 
                 var books = _bookService.GetAllBooks();
@@ -124,6 +113,17 @@ namespace TheBookCave.Controllers
 
             var booklist = (from b in books
                             orderby b.Price descending
+                            select b).ToList();
+
+            return View(booklist);
+        }
+
+        public IActionResult Newest()
+        {
+            var books = _bookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            orderby b.Id descending
                             select b).ToList();
 
             return View(booklist);

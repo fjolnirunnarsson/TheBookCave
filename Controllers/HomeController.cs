@@ -30,8 +30,8 @@ namespace TheBookCave.Controllers
             {
                 
                 var newestBooks = (from b in books
-                                orderby b.Id ascending
-                                select b).ToList();
+                                orderby b.BoughtCopies descending
+                                select b).Take(8).ToList();
                 
                 return View(newestBooks);
             }
@@ -47,20 +47,6 @@ namespace TheBookCave.Controllers
             }
 
             return View(booklist);
-        }
-
-        public IActionResult Top10()
-        {
-            var books = _bookService.GetAllBooks();
-
-            return View(books);
-        }
-
-        public IActionResult Details(){
-
-            var books = _bookService.GetAllBooks();
-            
-            return View(books);
         }
     }
 }
