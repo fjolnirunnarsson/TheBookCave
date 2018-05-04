@@ -19,7 +19,7 @@ namespace TheBookCave
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-            //SeedData();     // Þessi gæjir hleður gagnagrunninn.
+            SeedData();     // Þessi gæjir hleður gagnagrunninn.
             host.Run(); 
         }
 
@@ -32,17 +32,23 @@ namespace TheBookCave
         {
             var db = new DataContext();
             
-            /*if (!db.Books.Any())
-            {*/
+            if (!db.Addresses.Any())
+            {
             
-                var initialBooks = new List<Book>()
+                var initialaddresses = new List<Address>()
                 {
-
-                 };
+                    new Address {
+                        Street = "melgerði",
+                        HouseNumber = 9,
+                        City = "Reyðarfjörður",
+                        Country = "Iceland",
+                        PostalCode = "730"
+                    }
+                };
             
-                db.AddRange(initialBooks);
+                db.AddRange(initialaddresses);
                 db.SaveChanges();
-            
+            }
         }
     }
 }
