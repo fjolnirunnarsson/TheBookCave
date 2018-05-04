@@ -39,10 +39,20 @@ namespace TheBookCave.Controllers
         public IActionResult Create(BookInputModel book)
         {
 
-            var db = new DataContext();
+            SeedData(book);
 
-            var newBook = new Book()
+            return View();
+        }
+        public EmployeeSiteController()
+        {
+            _bookService = new BookService();
+        }
+
+        public static void SeedData(BookInputModel book)
+        {
+                        using (var db = new DataContext())
             {
+                var newBook = new Book { 
                 Title = book.Title,
                 Author = book.Author,
                 Year = book.Year,
@@ -52,22 +62,28 @@ namespace TheBookCave.Controllers
                 Discount = book.Discount,
                 Quantity = book.Quantity,
                 Description = book.Description
-            };
-
-            /*if(ModelState.IsValid)
-            {
-                db.AddRange(newBook);
-                db.SaveChanges();
-                return RedirectToAction("EmployeeHome");
-            }*/
-
-            return View();
-        }
-        public EmployeeSiteController()
-        {
-            _bookService = new BookService();
+                 };
+               
+                if(ModelState.IsValid)
+                {
+                    db.AddRange(newBook);
+                    db.SaveChanges();
+                    return RedirectToAction("EmployeeHome");
+                }
+                //Console.WriteLine(blog.BlogId + ": " +  blog.Url);
+            }
         }
 
     }
 
 }
+            /*#region Add
+            using (var context = new BloggingContext())
+            {
+                var blog = new Blog { Url = "http://sample.com" };
+                context.Blogs.Add(blog);
+                context.SaveChanges();
+
+                Console.WriteLine(blog.BlogId + ": " +  blog.Url);
+            }
+            #endregion*/
