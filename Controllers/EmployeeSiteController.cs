@@ -4,6 +4,7 @@ using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Services;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace TheBookCave.Controllers
 {
@@ -39,35 +40,41 @@ namespace TheBookCave.Controllers
         public IActionResult Create(BookInputModel book)
         {
 
-            var db = new DataContext();
+            SeedData(book);
 
-            var newBook = new Book()
-            {
-                Title = book.Title,
-                Author = book.Author,
-                Year = book.Year,
-                Genre = book.Genre,
-                Image = book.Image,
-                Price = book.Price,
-                Discount = book.Discount,
-                Quantity = book.Quantity,
-                Description = book.Description
-            };
+            return RedirectToAction("EmployeeHome");
+        }
 
-            /*if(ModelState.IsValid)
-            {
-                db.AddRange(newBook);
-                db.SaveChanges();
-                return RedirectToAction("EmployeeHome");
-            }*/
-
+        [HttpGet]
+        public IActionResult Change(BookInputModel book)
+        {
             return View();
         }
+        
         public EmployeeSiteController()
         {
             _bookService = new BookService();
         }
 
+        public static void SeedData(BookInputModel book)
+        {
+            var db = new DataContext();   
+                var Books = new List<Book>
+                {
+                    new Book{
+                        Title = book.Title, 
+                        Author = book.Author, 
+                        Description = book.Description,
+                        Year = book.Year, 
+                        Image = book.Image, 
+                        Genre = book.Genre,  
+                        Price = book.Price, 
+                        Discount = book.Discount, 
+                        Quantity = book.Quantity, 
+                    }
+                };
+                db.AddRange(Books);
+                db.SaveChanges();    
+        }
     }
-
 }

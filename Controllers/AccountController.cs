@@ -80,5 +80,9 @@ namespace TheBookCave.Controllers
         public IActionResult AccessDenied(){
             return View();
         }
+
+        public IActionResult AccountHome(){
+            return View();
+        }
     }
 }
