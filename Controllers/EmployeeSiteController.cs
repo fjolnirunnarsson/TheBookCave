@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
+using TheBookCave.Models.ViewModels;
 using TheBookCave.Services;
 using System.Linq;
 using System.Collections.Generic;
@@ -12,6 +13,10 @@ namespace TheBookCave.Controllers
     {
          private BookService _bookService;
 
+        public EmployeeSiteController()
+        {
+            _bookService = new BookService();
+        }
         public IActionResult Login()
         {
             return View();
@@ -38,38 +43,69 @@ namespace TheBookCave.Controllers
         [HttpPost]
         public IActionResult Create(BookInputModel book)
         {
-
             SeedDataCreate(book);
 
-            
             return RedirectToAction("EmployeeHome");
-            
         }
 
         [HttpGet]
-        public IActionResult Change()
+        public IActionResult Change(int id)
         {
 
-            return View();
+            var books = _bookService.GetAllBooks();
+
+            var onebook = (from b in books
+                         where b.Id == id
+                         select b).SingleOrDefault();
+
+            return View(onebook);
         }
 
         [HttpPost]
-        public IActionResult Change(BookInputModel book)
+        public IActionResult Change(BookListViewModel updatedBook)
         {
-            SeedDataChange(book);
+            using (var db = new DataContext())
+            {
+                var onebook = (from b in db.Books
+                            where b.Id == updatedBook.Id
+                            select b).FirstOrDefault();
+
+                onebook.Title = updatedBook.Title;
+                onebook.Image = updatedBook.Image;
+                onebook.Author = updatedBook.Author;
+                onebook.Quantity = updatedBook.Quantity;
+                onebook.Rating = updatedBook.Rating;
+                onebook.Price = updatedBook.Price;
+                onebook.Genre = updatedBook.Genre;
+                onebook.BoughtCopies = updatedBook.BoughtCopies;
+                onebook.Year = updatedBook.Year;
+                onebook.Description = updatedBook.Description;
+                db.SaveChanges();
+            }
 
             return RedirectToAction("EmployeeHome");
         }
 
-        
-        public EmployeeSiteController()
+        [HttpGet]
+        public IActionResult Delete(int? id)
         {
-            _bookService = new BookService();
+
+            // if(id == null) { return View("NotFound") }
+
+            var books = _bookService.GetAllBooks();
+
+            var book = (from b in books
+                        where b.Id == id
+                        select b).SingleOrDefault();
+
+            // if(student == null) { return View("NotFound"); }
+
+            return View(book);
         }
 
         public static void SeedDataCreate(BookInputModel book)
         {
-            var db = new DataContext();   
+            var db = new DataContext();
                 var Books = new List<Book>
                 {
                     new Book{
@@ -88,18 +124,5 @@ namespace TheBookCave.Controllers
                 db.SaveChanges();    
         }
 
-        public static void SeedDataChange(BookInputModel book)
-        {
-
-
-            using (var db = new DataContext())
-            {
-                Book Changebook = (from a in db.Books
-                                    where a.Id == book.Id
-                                    select a).Single();
-                Changebook.Title = book.Title; 
-                db.SaveChanges();
-            }
-        }
     }
 }

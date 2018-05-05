@@ -15,7 +15,7 @@ body {
     border-bottom: solid 0.1px #ddd;
     height: 13%;
     padding-top: 0.5%;
-    background-color: #ccc;
+    background-color: #934c37
 }
 
 #logo {
@@ -115,7 +115,7 @@ a .search {
     /*overflow-x: hidden;*/
     padding-top: 150px;
     /*border: solid 0.5px black;*/
-    background-color: #ccc;
+    background-color: #934c37;
 }
 
 .sidebar-nav {
