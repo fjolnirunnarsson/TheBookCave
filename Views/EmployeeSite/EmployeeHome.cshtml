@@ -36,7 +36,7 @@
         <tr>
         <td>@book.Title</td>
         <td>@book.Quantity</td>
-        <td><a asp-action="Change" asp-controller="EmployeeSite" asp-route-title="@book.Title"><span class="glyphicon glyphicon-wrench"></span></a></td>
+        <td><a asp-action="Change" asp-controller="EmployeeSite" asp-route-Id="@book.Id"><span id="delete-button" class="glyphicon glyphicon-wrench"></span></a></td>
         <td><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
         </tr>
     }
