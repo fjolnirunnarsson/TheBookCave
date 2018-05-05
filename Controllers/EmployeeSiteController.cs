@@ -12,7 +12,6 @@ namespace TheBookCave.Controllers
     {
          private BookService _bookService;
 
-
         public IActionResult Login()
         {
             return View();
@@ -40,23 +39,35 @@ namespace TheBookCave.Controllers
         public IActionResult Create(BookInputModel book)
         {
 
-            SeedData(book);
+            SeedDataCreate(book);
+
+            
+            return RedirectToAction("EmployeeHome");
+            
+        }
+
+        [HttpGet]
+        public IActionResult Change()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Change(BookInputModel book)
+        {
+            SeedDataChange(book);
 
             return RedirectToAction("EmployeeHome");
         }
 
-        [HttpGet]
-        public IActionResult Change(BookInputModel book)
-        {
-            return View();
-        }
         
         public EmployeeSiteController()
         {
             _bookService = new BookService();
         }
 
-        public static void SeedData(BookInputModel book)
+        public static void SeedDataCreate(BookInputModel book)
         {
             var db = new DataContext();   
                 var Books = new List<Book>
@@ -75,6 +86,20 @@ namespace TheBookCave.Controllers
                 };
                 db.AddRange(Books);
                 db.SaveChanges();    
+        }
+
+        public static void SeedDataChange(BookInputModel book)
+        {
+
+
+            using (var db = new DataContext())
+            {
+                Book Changebook = (from a in db.Books
+                                    where a.Id == book.Id
+                                    select a).Single();
+                Changebook.Title = book.Title; 
+                db.SaveChanges();
+            }
         }
     }
 }
