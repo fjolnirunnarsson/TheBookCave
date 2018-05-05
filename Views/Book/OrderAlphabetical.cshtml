@@ -1,6 +1,18 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
 
 <div id="front-page-books">
+
+<div class="dropdown pull-right" id="dropdown-sort">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort
+        <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        <li><a asp-controller="Book" asp-action="OrderAlphabetical">A-Z</a></li>
+        <li><a asp-controller="Book" asp-action="Newest">What's new</a></li>
+        <li><a asp-controller="Book" asp-action="PriceLowToHigh">Price: low to high</a></li>
+        <li><a asp-controller="Book" asp-action="PriceHighToLow">Price: high to low</a></li>
+    </ul>
+</div>
+
     @foreach(var book in @Model)
     {
         <div id="default-book">

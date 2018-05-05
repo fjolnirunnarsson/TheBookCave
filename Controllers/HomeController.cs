@@ -30,8 +30,8 @@ namespace TheBookCave.Controllers
             {
                 
                 var newestBooks = (from b in books
-                                orderby b.Id ascending
-                                select b).ToList();
+                                orderby b.BoughtCopies descending
+                                select b).Take(8).ToList();
                 
                 return View(newestBooks);
             }

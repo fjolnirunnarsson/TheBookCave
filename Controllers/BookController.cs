@@ -51,7 +51,7 @@ namespace TheBookCave.Controllers
 
             var top10 = (from book in books
                         orderby book.Rating descending
-                        select book).ToList();
+                        select book).Take(10).ToList();
 
             return View(top10);
         }
@@ -124,6 +124,17 @@ namespace TheBookCave.Controllers
 
             var booklist = (from b in books
                             orderby b.Price descending
+                            select b).ToList();
+
+            return View(booklist);
+        }
+
+        public IActionResult Newest()
+        {
+            var books = _BookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            orderby b.Id descending
                             select b).ToList();
 
             return View(booklist);
