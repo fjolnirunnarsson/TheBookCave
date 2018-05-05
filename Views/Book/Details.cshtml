@@ -1,5 +1,6 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
-<link rel="stylesheet" href="~/css/details.css" />
+<link rel="stylesheet" href="~/css/detail.css" />
+
 
 <div id="detailsContainer">
 @{
@@ -12,14 +13,7 @@
             <h2>@book.Title</h2>
             <h4>@book.Author</h4>
             <h4>@book.Genre</h4>
-            
-            <span class="glyphicon glyphicon-star stjornur"></span>
-            <span class="glyphicon glyphicon-star stjornur"></span>
-            <span class="glyphicon glyphicon-star stjornur"></span>
-            <span class="glyphicon glyphicon-star stjornur"></span>
-            <span class="glyphicon glyphicon-star stjornur"></span>
-            <br>
-            
+            @await Html.PartialAsync("_StarsPartial", @book.Rating)
             <h4 id="price">$ @book.Price</h4>
             <button class="btn btn-default btn-primary">Add to cart</button>
             <p id="description">@book.Description</p>
