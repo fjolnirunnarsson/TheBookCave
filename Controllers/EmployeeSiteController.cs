@@ -10,7 +10,7 @@ namespace TheBookCave.Controllers
 {
     public class EmployeeSiteController : Controller
     {
-         private BookService _bookService;
+         private BookService _BookService;
 
 
         public IActionResult Login()
@@ -21,7 +21,7 @@ namespace TheBookCave.Controllers
         [HttpGet]
         public IActionResult EmployeeHome()
         {
-            var books = _bookService.GetAllBooks();
+            var books = _BookService.GetAllBooks();
 
             var top10 = (from book in books
                         orderby book.Rating descending
@@ -53,7 +53,7 @@ namespace TheBookCave.Controllers
         
         public EmployeeSiteController()
         {
-            _bookService = new BookService();
+            _BookService = new BookService();
         }
 
         public static void SeedData(BookInputModel book)

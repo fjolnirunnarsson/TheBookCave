@@ -5,6 +5,13 @@ namespace TheBookCave.Data
 {
     public class DataContext : DbContext
     {
+        public DataContext()
+        {
+        }
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+        }
         public DbSet<Book> Books { get; set; }
 
         // Skipanir til að keyra eftir að við fáum DataBase link:
@@ -19,6 +26,9 @@ namespace TheBookCave.Data
         // Með þessu erum við að segja: Ég vil að gagnagrunnurinn uppfærist í samræmi við þetta migration. Nú ættu að vera komnar tvær töflur í gagnagrunninn.
 
         public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<CartItem> CartItems { get; set; }
+        //public DbSet<Order> Orders { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
