@@ -51,7 +51,7 @@ namespace TheBookCave.Controllers
 
             var top10 = (from book in books
                         orderby book.Rating descending
-                        select book).ToList();
+                        select book).Take(10).ToList();
 
             return View(top10);
         }

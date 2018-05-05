@@ -1,5 +1,5 @@
 body {
-    padding-top: 120px;
+    padding-top: 150px;
     padding-bottom: 20px;
     padding-left: 120px;
 }
@@ -12,10 +12,10 @@ body {
 }
 /* Navigation bar*/
 #navbar {
-    border: solid 0.5px black;
+    border-bottom: solid 0.1px #ddd;
     height: 13%;
-    
     padding-top: 0.5%;
+    background-color: #ccc;
 }
 
 #logo {
@@ -30,8 +30,30 @@ body {
     padding-left: 70px;
 }
 
-#search-box {
-    width: 600px;
+.search {
+    width: 40%;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: none;
+}
+
+a .search {
+    width: 8%;
+    padding-left: 20px;
+    color: black;
+    background-color: #f99d31;
+
+}
+
+.inner-addon {
+    position: relative;
+}
+
+.inner-addon .glyphicon {
+    position: absolute;
+    padding-left: 15px;
+    
 }
 
 .icons {
@@ -44,7 +66,7 @@ body {
 
 .icons a {
     margin: 20px;
-    color:#f99d31;
+    color:#2d2d2d;
 }
 
 .dropdown {
@@ -87,12 +109,13 @@ body {
     position: fixed;
     height: 100%;
     width: 14%;
-    z-index: 1;
+    /*z-index: 1;*/
     top: 0;
     left: 0;
     /*overflow-x: hidden;*/
     padding-top: 150px;
-    border: solid 0.5px black;
+    /*border: solid 0.5px black;*/
+    background-color: #ccc;
 }
 
 .sidebar-nav {
@@ -118,7 +141,6 @@ body {
 /* Books */
 
 #default-book {
-
     margin: 0px 20px 0px 20px;
     background-color: rgb(231, 222, 222);
     border-color: rgb(0, 0, 0);
@@ -129,7 +151,6 @@ body {
     padding-top: 5px;
     margin-bottom: 30px;
     border-radius: 5px;
-    
 }
 
 #front-page-books {
@@ -137,7 +158,7 @@ body {
     margin-left: 50px;
     float: left;
     width: 100%;
-    padding-left: 50px;
+    display: inline;
 }
 
 .addcart {
@@ -241,4 +262,8 @@ body {
 
 textarea {
     vertical-align: top;
+}
+
+#dropdown-sort {
+    display: inline;
 }
