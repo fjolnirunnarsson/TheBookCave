@@ -1,33 +1,42 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
-<link rel="stylesheet" href="~/css/styles.top10.css" />
+<link rel="stylesheet" href="~/css/styles-details.css" />
 
-<div>
-    @{
-        int i = 0;
-    }
-    @foreach(var book in Model)
+@{
+    int i = 0;
+}
+@{
+    foreach(var book in Model)
     {
         i++;
-        <div class="item">
-            <p id="number">@i</p>
-                <div id="mynd" class="details">
-                <div class="heart-img">
-                    <span class="glyphicon glyphicon-heart heart-icon"></span>
+        <div class="detailsContainer">
+            <div class="heart-img">
+                <span class="glyphicon glyphicon-heart heart-icon"></span>
+            </div>
+            <div class="detailsImage">
+                <div id="badge">
+                    <img src="~/images/badge.png" alt="No image">
+                    <p>@i</p>
                 </div>
-                <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img class="img" src="@book.Image" alt="No Images"></a>
-                <button id="btn" class="btn btn-default btn-primary">Add to cart</button>
-                </div>
-            <div id="about" class="details">
-            <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><h2>@book.Title</h2></a>
-            <h3>@book.Author</h3>
-            <h4>Rating: @book.Rating</h4>
-            <h4>$ @book.Price</h4>
-            <p>@book.Description</p>
+                <img src="@book.Image" alt="No Images" class="cover">
+            </div>
+            <div class="detailsDescription">
+                <h2>@book.Title</h2>
+                <hr>
+                <h4>@book.Author</h4>
+                <a asp-controller="Book" asp-action="Genre" asp-route-genre="@book.Genre"><h4>@book.Genre</h4></a>
+                
+                <span class="glyphicon glyphicon-star stjornur"></span>
+                <span class="glyphicon glyphicon-star stjornur"></span>
+                <span class="glyphicon glyphicon-star stjornur"></span>
+                <span class="glyphicon glyphicon-star stjornur"></span>
+                <span class="glyphicon glyphicon-star stjornur"></span>
+                <br>
+                
+                <h4 class="price">$ @book.Price</h4>
+                <button class="btn btn-default btn-primary">Add to cart</button>
+                <p class="description">@book.Description</p>
+                <hr>
             </div>
         </div>
-
-        if(i == 10){
-            break;
-        }
     }
-</div>
+}

@@ -2,36 +2,38 @@
 <link rel="stylesheet" href="~/css/detail.css" />
 
 
-<div id="detailsContainer">
+<div class="detailsContainer">
 @{
     foreach(var book in Model)
     {
-        <div id="detailsImage">
-            <img src="@book.Image" alt="No Images" id="cover">
+        <div class="heart-img">
+            <span class="glyphicon glyphicon-heart heart-icon"></span>
         </div>
-        <div id="detailsDescription">
+        <div class="detailsImage">
+            <img src="@book.Image" alt="No Images" class="cover">
+        </div>
+        <div class="detailsDescription">
             <h2>@book.Title</h2>
+            <hr>
             <h4>@book.Author</h4>
             <h4>@book.Genre</h4>
             @await Html.PartialAsync("_StarsPartial", @book.Rating)
             <h4 id="price">$ @book.Price</h4>
             <button class="btn btn-default btn-primary">Add to cart</button>
-            <p id="description">@book.Description</p>
+            <p class="description">@book.Description</p>
             <hr>
             <form>
-            <h5 id="yourrating">Your Rating:</h5>
-            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-            <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-            <h5>Your Review:</h5>
-            <textarea id="yourreview"></textarea>
-            <input type="submit" value="Submit" class="btn btn-default btn-primary"/>
+                <h5 id="yourrating">Your Rating:</h5>
+                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <h5>Your Review:</h5>
+                <textarea id="yourreview"></textarea>
+                <input type="submit" value="Submit" class="btn btn-default btn-primary"/>
             </form>
         </div>
-
-        break;
     }
 }
 </div>
