@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using TheBookCave.Data;
+using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Repositories
 {
     public class BookRepo
     {
-        private DataContext _db;
+        private readonly DataContext _db;
 
         public BookRepo()
         {

@@ -1,74 +1,117 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
+using TheBookCave.Models;
+using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
+using TheBookCave.Repositories;
+using TheBookCave.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
-namespace TheBookCave.Repositories
+/*namespace TheBookCave.Repositories
 {
     public class CartRepo
     {
-        private DataContext _db;
+        /*private readonly DataContext _db;
 
         public CartRepo()
         {
-            _db = new DataContext();
+
+        }
+        public string ShoppingCartId { get; set; }
+        public List<CartItem> CartItems { get; set; }
+
+        public static ShoppingCart GetCart(IServiceProvider services)
+        {
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?
+                .HttpContext.Session;
+            
+            var context = services.GetService<DataContext>();
+            string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
+
+            session.SetString("CartId", cartId);
+            
+            return new ShoppingCart(context) { ShoppingCartId = cartId };
         }
 
-        public List<CartItem> CreateFakeItem()
+        public void AddToCart(BookListViewModel book, int amount)
         {
-            var fakeItem = new CartItem
+
+            var cartItem = _db.CartItems.SingleOrDefault(
+                c => c.CartId == ShoppingCartId
+                && c.BookItem.Id == book.Id);
+                if (cartItem == null)
+                {
+                    cartItem = new CartItem
+                    {
+                        ItemId = ShoppingCartId,
+                        CartId = ShoppingCartId,
+                        BookItem = book,
+                        Quantity = 1,
+                        DateCreated = DateTime.Now
+                    };
+
+                    _db.CartItems.Add(cartItem);
+                }
+                else 
+                {
+                    cartItem.Quantity++;
+                }
+                _db.SaveChanges();   
+        }
+
+        public int RemoveFromCart(BookListViewModel book)
+        {
+            var cartItem = _db.CartItems.SingleOrDefault(
+                c => c.CartId == ShoppingCartId 
+                && c.BookItem.Id == book.Id);
+
+            var localQuantity = 0;
+
+            if (cartItem.Quantity > 1)
             {
-                CartId = 1,
-                Count = 1,
-                BookItem = new Book { Id = 100, Title = "Stofuhiti", Author = "Bergur Ebbi", Year = 2017, 
-                Image = "https://www.forlagid.is/wp-content/uploads/2017/04/Stofuhiti_72.jpg",
-                Rating = 4.7, Price = 13.99, Genre = "Philosophy", BoughtCopies = 3, Description = "Leiðinleg", AuthorId = 24 }
-            };
-
-            var fakeItem2 = new CartItem
+                cartItem.Quantity--;
+                localQuantity = cartItem.Quantity;
+            }
+            else
             {
-                CartId = 1,
-                Count = 1,
-                BookItem = new Book { Id = 101, Title = "The Alchemist", Author = "Paul Coelho", Year = 2007, 
-                Image = "https://images-na.ssl-images-amazon.com/images/I/41MeC94AxIL._SX324_BO1,204,203,200_.jpg", Rating = 5, Price = 12.99, Genre = "Philosophy", BoughtCopies = 2, Description = "Skemmtileg", AuthorId = 23 }
-            };
-
-            var fakeItemList = new List<CartItem>();
-
-            fakeItemList.Add(fakeItem);
-            fakeItemList.Add(fakeItem2);
-
-            return fakeItemList;
+                _db.CartItems.Remove(cartItem);
+            }
+            _db.SaveChanges();
+            return localQuantity;
         }
 
-        public double CreateFakeTotalPrice()
+        public List<CartItem> GetCartItems()
         {
-            var item = CreateFakeItem();
-            var fakeTotal = item[0].BookItem.Price + item[1].BookItem.Price;
-            return fakeTotal;
+            return CartItems ?? (CartItems = _db.CartItems.Where(c => c.CartId == ShoppingCartId)
+                .Include(c => c.BookItem).ToList());
         }
 
-        public ShoppingCartViewModel CreateFakeCart()
+        public void ClearCart()
         {
-            var fakeCart = new ShoppingCartViewModel();
+            var cartItems = _db.CartItems
+                .Where(c => c.CartId == ShoppingCartId);
 
-            fakeCart.CartItems = CreateFakeItem();
-            fakeCart.CartTotal = CreateFakeTotalPrice();
-       
-            return fakeCart;
+            _db.CartItems.RemoveRange(cartItems);
+            _db.SaveChanges(); 
         }
 
-        /*public static ShoppingCart GetCart(HttpContextBase context)
+        public double GetCartTotal()
         {
-            var cart = new ShoppingCart()
-            cart.ShoppingCartId = cart.GetCartId(context);
-            return cart;
-        }
+            var total = _db.CartItems.Where(c => c.CartId == ShoppingCartId)
+                .Select(c => c.BookItem.Price * c.Quantity).Sum();
 
-        public static ShoppingCart GetCart(Controllers controller)
-        {
-            return GetCart(controller.HttpContext)
-        }*/
-    }
-}
+            return total;
+        }
+    }*/

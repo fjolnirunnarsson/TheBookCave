@@ -16,15 +16,15 @@ namespace TheBookCave.Controllers
 {
     public class HomeController : Controller
     {
-  private BookService _bookService;
+  private BookService _BookService;
         
         public HomeController()
         {
-            _bookService = new BookService();
+            _BookService = new BookService();
         }
         public IActionResult Index(string searchString)
         {
-            var books = _bookService.GetAllBooks();
+            var books = _BookService.GetAllBooks();
 
             if(String.IsNullOrEmpty(searchString))
             {
@@ -47,6 +47,20 @@ namespace TheBookCave.Controllers
             }
 
             return View(booklist);
+        }
+
+        public IActionResult Top10()
+        {
+            var books = _BookService.GetAllBooks();
+
+            return View(books);
+        }
+
+        public IActionResult Details(){
+
+            var books = _BookService.GetAllBooks();
+            
+            return View(books);
         }
     }
 }

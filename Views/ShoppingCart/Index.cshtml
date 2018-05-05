@@ -1,13 +1,15 @@
 @model TheBookCave.Models.ViewModels.ShoppingCartViewModel
 <link rel="stylesheet" href="~/css/styles.cart.css" />
 
+@Model.ShoppingCart.CartItems.Count = 0;
+
 @{
-    if (Model.CartItems.Count > 0) 
+    if (Model.ShoppingCart.CartItems.Count > 0) 
     {
         <div class="cart">
             <h1 id="cart-title">Your Items</h1>
             <div class="cart-items">
-                    @foreach(var item in @Model.CartItems)
+                    @foreach(var item in @Model.ShoppingCart.CartItems)
                     {
                         
                         <div class="book-item">

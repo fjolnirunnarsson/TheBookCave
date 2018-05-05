@@ -11,80 +11,15 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180505150547_CartItemTable")]
+    partial class CartItemTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("Country");
-
-                    b.Property<int>("HouseNumber");
-
-                    b.Property<string>("PostalCode");
-
-                    b.Property<string>("Street");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Authors");
-                });
-
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Book", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Author");
-
-                    b.Property<int>("AuthorId");
-
-                    b.Property<int>("BoughtCopies");
-
-                    b.Property<string>("Description");
-
-                    b.Property<int>("Discount");
-
-                    b.Property<string>("Genre");
-
-                    b.Property<string>("Image");
-
-                    b.Property<double>("Price");
-
-                    b.Property<int>("Quantity");
-
-                    b.Property<double>("Rating");
-
-                    b.Property<string>("Title");
-
-                    b.Property<int>("Year");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Books");
-                });
 
             modelBuilder.Entity("TheBookCave.Data.EntityModels.CartItem", b =>
                 {
