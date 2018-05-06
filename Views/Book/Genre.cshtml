@@ -1,5 +1,5 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
-
+<link rel="stylesheet" href="~/css/stars-position.css" />
 
     <div id="front-page-books">
     @foreach(var book in @Model)
@@ -12,7 +12,7 @@
             <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img id="book-img" src="@book.Image" alt="No Images"></a>
             <h2 id="book-title"><a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title">@book.Title</a></h2>
             <h3 class="book-important">@book.Author</h3>
-            <h4 class="book-important">Rating: @book.Rating</h4>
+            @await Html.PartialAsync("_StarsPartial", @book.Rating)
             <h4 class="book-important">$ @book.Price</h4>
             <button class="btn btn-primary addcart">Add to cart</button>
         </div>

@@ -21,8 +21,8 @@
             </div>
             <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img id="book-img" src="@book.Image" alt="No Images"></a>
             <h2 id="book-title"><a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title">@book.Title</a></h2>
-            @await Html.PartialAsync("_StarsPartial", @book.Rating)
             <h3 class="book-important">@book.Author</h3>
+            @await Html.PartialAsync("_StarsPartial", @book.Rating)
             <h4 class="book-important">$ @book.Price</h4>
             <button class="btn btn-primary addcart">Add to cart</button>
         </div>
