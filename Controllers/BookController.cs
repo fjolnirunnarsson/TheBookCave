@@ -86,13 +86,11 @@ namespace TheBookCave.Controllers
             }
             else{
 
-            var genrelist = (from item in books
-                            where ((item.Genre).ToLower() == genre.ToLower())
-                            select item).ToList();
+                var genrelist = (from item in books
+                                where ((item.Genre).ToLower() == genre.ToLower())
+                                select item).ToList();
 
-            
-
-            return View(genrelist);
+                return View(genrelist);
             }
         }
 
