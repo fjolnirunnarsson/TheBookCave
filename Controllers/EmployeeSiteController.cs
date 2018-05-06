@@ -103,6 +103,20 @@ namespace TheBookCave.Controllers
             return View(book);
         }
 
+        [HttpPost]
+        public IActionResult Delete(BookInputModel deleteBook)
+        {
+            using (var db = new DataContext())
+            {
+                var onebook = (from b in db.Books
+                    where b.Id == deleteBook.Id
+                    select b).FirstOrDefault();
+                db.Books.Remove(onebook);
+                db.SaveChanges();
+            }
+            return RedirectToAction("EmployeeHome");
+        }
+
         public static void SeedDataCreate(BookInputModel book)
         {
             var db = new DataContext();
