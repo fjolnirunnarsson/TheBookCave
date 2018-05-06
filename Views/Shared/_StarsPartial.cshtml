@@ -1,7 +1,6 @@
 @using TheBookCave.Models
 @using System.Collections.Generic
-
-<link rel="stylesheet" href="~/css/detail.css" />
+<link rel="stylesheet" href="~/css/for-stars-layout.css" />
 
 @model Double
 
@@ -49,81 +48,164 @@
 @{
     if(@Stars(@Model) == 5){
     <div id="Stars">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
     else if(@Stars(@Model) == 4.5){
     <div id="Stars">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Half-Star.png" alt="Star" class="star">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Half-Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
     else if(@Stars(@Model) == 4){
-    <div id="Stars">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
+        <div id="Stars">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
     else if(@Stars(@Model) == 3.5){
-    <div id="Stars">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Half-Star.png" alt="Star" class="star">
+        <div id="Stars">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Half-Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
     else if(@Stars(@Model) == 3){
-    <div id="Stars">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
+        <div id="Stars">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
     else if(@Stars(@Model) == 2.5){
         <div id="Stars">
-        <img src="~/images/Star.png" alt="Star" class="star">
-        <img src="~/images/Star.png" alt="Star" class="star">
-        <img src="~/images/Half-Star.png" alt="Star" class="star">
-        br>
-        </div>
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Half-Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
+    <br>
+    </div>
     }
     else if(@Stars(@Model) == 2){
-    <div id="Stars">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Star.png" alt="Star" class="star">
+        <div id="Stars">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
     else if(@Stars(@Model) == 1.5){
-    <div id="Stars">
-    <img src="~/images/Star.png" alt="Star" class="star">
-    <img src="~/images/Half-Star.png" alt="Star" class="star">
+        <div id="Stars">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <span class="dropbtn"> <img src="~/images/Half-Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
     else if(@Stars(@Model) == 1){
-    <div id="Stars">
-    <img src="~/images/Star.png" alt="Star" class="star">
+        <div id="Stars">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
     else if(@Stars(@Model) == 0.5){
-    <div id="Stars">
-    <img src="~/images/Half-Star.png" alt="Star" class="star">
+        <div id="Stars">
+    <div class="dropdown">
+            <span class="dropbtn"> <img src="~/images/Half-Star.png" alt="Star" class="star"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
+    <br>
+    </div>
+    }
+    else if(@Stars(@Model) == 0){
+        <div id="Stars">
+    <div class="dropdown">
+            <span class="dropbtn"></span>
+            <div class="dropdown-window">
+                <div class="dropdown-list">
+                    <span>Rating: @Model</span>
+                </div>
+            </div>
+    </div>
     <br>
     </div>
     }
