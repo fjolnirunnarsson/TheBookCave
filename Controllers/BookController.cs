@@ -90,7 +90,7 @@ namespace TheBookCave.Controllers
                             where ((item.Genre).ToLower() == genre.ToLower())
                             select item).ToList();
 
-            ViewBag.Heading = genre;
+            
 
             return View(genrelist);
             }
