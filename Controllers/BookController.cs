@@ -85,12 +85,9 @@ namespace TheBookCave.Controllers
                 return View(books);
             }
             else{
-
             var genrelist = (from item in books
                             where ((item.Genre).ToLower() == genre.ToLower())
                             select item).ToList();
-
-            ViewBag.Heading = genre;
 
             return View(genrelist);
             }

@@ -25,12 +25,7 @@
                 <h4>@book.Author</h4>
                 <a asp-controller="Book" asp-action="Genre" asp-route-genre="@book.Genre"><h4>@book.Genre</h4></a>
                 
-                <span class="glyphicon glyphicon-star stjornur"></span>
-                <span class="glyphicon glyphicon-star stjornur"></span>
-                <span class="glyphicon glyphicon-star stjornur"></span>
-                <span class="glyphicon glyphicon-star stjornur"></span>
-                <span class="glyphicon glyphicon-star stjornur"></span>
-                <br>
+                @await Html.PartialAsync("_StarsPartial", @book.Rating)
                 
                 <h4 class="price">$ @book.Price</h4>
                 <button class="btn btn-default btn-primary">Add to cart</button>
