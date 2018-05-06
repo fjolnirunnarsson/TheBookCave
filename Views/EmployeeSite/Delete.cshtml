@@ -1,0 +1,17 @@
+@model TheBookCave.Models.ViewModels.BookListViewModel
+
+@{
+    Layout=null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+<div class="row">
+    <h2>Are you sure you want to delete this student?</h2>
+    <h3>Name: @Model.Title</h3>
+
+
+    <form method="post">
+        <input type="submit" value="Delete" class="btn btn-danger">
+    </form>
+</div>

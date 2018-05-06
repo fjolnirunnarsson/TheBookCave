@@ -30,7 +30,8 @@ namespace TheBookCave.Repositories
                             Genre = a.Genre,
                             BoughtCopies = a.BoughtCopies,
                             Description = a.Description,
-                            Quantity = a.Quantity
+                            Quantity = a.Quantity,
+                            Year = a.Year
                             
                         }).ToList();
             
