@@ -152,10 +152,7 @@ a .search {
     margin-bottom: 30px;
     border-radius: 5px;
 }
-#Stars{
-    margin-left: 60px;
-    margin-right: 60px;
-}
+
 
 #front-page-books {
     margin-top: 25px;
@@ -168,7 +165,6 @@ a .search {
     width: 150px;
     margin-left: 35px;
     margin-right: 35px;
-    border: solid;
 }
 
 #book-img {
