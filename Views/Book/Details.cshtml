@@ -1,5 +1,5 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
-<link rel="stylesheet" href="~/css/styles-details.css" />
+<link rel="stylesheet" href="~/css/details.css" />
 
 
 <div class="detailsContainer">
@@ -16,9 +16,11 @@
             <h2>@book.Title</h2>
             <hr>
             <h4>@book.Author</h4>
-            <h4>@book.Genre</h4>
+            <a asp-controller="Book" asp-action="Genre" asp-route-genre="@book.Genre"><h4>@book.Genre</h4></a>
+            
             @await Html.PartialAsync("_StarsPartial", @book.Rating)
-            <h4 id="price">$ @book.Price</h4>
+            
+            <h4 class="price">$ @book.Price</h4>
             <button class="btn btn-default btn-primary">Add to cart</button>
             <p class="description">@book.Description</p>
             <hr>
