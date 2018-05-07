@@ -86,6 +86,14 @@ a .search {
     color: black;
     text-decoration: none;
     font-size: 12px;
+    display: inline;
+}
+
+#username {
+    font-size: 12px;
+    margin-left: 20px;
+    display: inline;
+    font-weight: bolder;
 }
 
 .dropdown-window .dropdown-list a {
@@ -102,10 +110,6 @@ a .search {
 
 .dropdown:hover .dropdown-window {
     display: block;
-}
-
-#username {
-    font-size: 16px;
 }
 
 /* Side bar */
