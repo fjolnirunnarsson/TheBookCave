@@ -32,7 +32,6 @@ namespace TheBookCave.Repositories
                             Description = a.Description,
                             Quantity = a.Quantity,
                             Year = a.Year
-                            
                         }).ToList();
             
             return books;

@@ -1,24 +1,33 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TheBookCave.Data;
+using TheBookCave.Data.EntityModels;
 using TheBookCave.Models;
 using TheBookCave.Models.ViewModels;
+using TheBookCave.Services;
 
 namespace TheBookCave.Controllers
 {
     public class AccountController : Controller
     {
+        private AccountService _accountService;
+
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _accountService = new AccountService();
         }
         [HttpGet]
         public IActionResult Register()
         {
+
             return View();
         }
 
@@ -36,6 +45,7 @@ namespace TheBookCave.Controllers
 
             if(result.Succeeded)
             {
+                SeedDataCreateAccount(model);
                 // The User is successfully registered
                 // Add the concatenated first and last name as fullname in claims
                 await _userManager.AddClaimAsync(user, new Claim("Name", $"{model.FirstName}"));
@@ -44,6 +54,21 @@ namespace TheBookCave.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return View();
+        }
+
+        public static void SeedDataCreateAccount(RegisterViewModel model)
+        {
+             var db = new DataContext();
+                var Accounts = new List<Account>
+                {
+                    new Account{
+                        FirstName = model.FirstName, 
+                        LastName = model.LastName,
+                        Email = model.Email
+                    }
+                };
+                db.AddRange(Accounts);
+                db.SaveChanges();    
         }
 
         public IActionResult Login()
@@ -85,8 +110,17 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult Edit() {
-            return View();
+        [HttpGet]
+        public IActionResult Edit(string firstname) {
+        
+
+            var accounts = _accountService.GetAllAccounts();
+
+            var account = (from a in accounts
+                         where a.FirstName == firstname
+                         select a).SingleOrDefault();
+
+            return View(account);
         }
     }
 }
