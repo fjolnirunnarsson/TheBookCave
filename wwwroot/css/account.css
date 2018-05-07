@@ -1,0 +1,23 @@
+table, td, th {
+    border-bottom: 1px solid black;
+}
+
+table {
+    margin: 30%;
+    width: 50%;
+    display: inline;
+}
+
+th {
+    height: 50px;
+}
+#account-picture {
+    
+    size: 20%;
+}
+
+#information-account
+{
+    display: inline;
+   
+}
