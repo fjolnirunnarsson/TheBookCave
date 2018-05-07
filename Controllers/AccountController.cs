@@ -81,7 +81,7 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult AccountHome(){
+        public IActionResult Index(){
             return View();
         }
     }
