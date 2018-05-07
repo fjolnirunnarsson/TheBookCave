@@ -84,5 +84,9 @@ namespace TheBookCave.Controllers
         public IActionResult Index(){
             return View();
         }
+
+        public IActionResult Edit() {
+            return View();
+        }
     }
 }

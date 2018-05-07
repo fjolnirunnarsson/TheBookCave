@@ -10,7 +10,7 @@
 <form method="POST">
     <div class="form-group">
         <label for="Title" class="control-label">Title</label>
-        <input type="text" asp-for="Title" class="form-control" placeholder="">
+        <input type="text" asp-for="Title" class="form-control">
         <div asp-validation-for="Title"></div>
 
         <label for="Author" class="control-label">Author</label>
@@ -43,9 +43,9 @@
         <select name="Discount" id="discount" class="form-control">
             <option value="">N/A</option>
             <option value="10">10%</option>
-            <option value="10">15%</option>
-            <option value="10">20%</option>
-            <option value="10">25%</option>
+            <option value="15">15%</option>
+            <option value="20">20%</option>
+            <option value="25">25%</option>
         </select>
         <div asp-validation-for="Discount"></div>
 

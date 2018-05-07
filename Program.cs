@@ -141,12 +141,4 @@ namespace TheBookCave
             
                 db.AddRange(Books);
                 db.SaveChanges();
-<<<<<<< HEAD
             */
-=======
-                */
-        
-        }
-    }
-}
->>>>>>> 22fa78438d8389538ac10e0a5adead2877267ce6
