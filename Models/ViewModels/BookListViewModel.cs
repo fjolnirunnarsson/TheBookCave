@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using TheBookCave.Data.EntityModels;
+
 namespace TheBookCave.Models.ViewModels
 {
     public class BookListViewModel
@@ -14,5 +17,6 @@ namespace TheBookCave.Models.ViewModels
         public int Year { get; set; }
         public string Description { get; set; }
         public int Quantity { get; set; }
+        public List<Review> Reviews  { get; set; }
     }
 }
