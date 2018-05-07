@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace TheBookCave.Data.EntityModels
 {
     public class Book
@@ -15,5 +17,6 @@ namespace TheBookCave.Data.EntityModels
         public int Quantity { get; set; }
         public string Description { get; set; }
         public int AuthorId { get; set; }
+        public List<Review> Reviews  { get; set; }
     }
 }
