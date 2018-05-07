@@ -1,13 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using TheBookCave.Models.ViewModels;
-
-namespace TheBookCave.Data.EntityModels
+namespace TheBookCave.Models.ViewModels
 {
-    public class Account
+    public class AccountListViewModel
     {
         public string FirstName { get; set; }
-        public string LastName { get; set; }
-        [Key]
+         public string LastName { get; set; }
         public string Email { get; set; }
         public string BillingAddressStreet { get; set; }
         public int BillingAddressHouseNumber { get; set; }

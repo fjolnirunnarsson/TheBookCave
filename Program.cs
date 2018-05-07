@@ -30,8 +30,25 @@ namespace TheBookCave
 
         public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
         {
+           /* var db = new DataContext();
 
-            /* 
+            var Accounts = new List<Account>
+            {
+                new Account{
+                    FirstName = "Arnbjörg", LastName = "Frímannsdóttir", Email = "abbabara@gmail.com",
+                    BillingAddressStreet = "Stekkjargrund", BillingAddressHouseNumber = 6, BillingAddressLine2= "",
+                    BillingAddressCity = "Reyðarfjörður", BillingAddressCountry = "Iceland", BillingAddressZipCode = "730",
+                    DeliveryAddressStreet = "Stekkjargrund", DeliveryAddressHouseNumber = 6, DeliveryAddressLine2= "",
+                    DeliveryAddressCity = "Reyðarfjörður", DeliveryAddressCountry = "Iceland", DeliveryAddressZipCode = "730"
+                }  
+            };
+            db.AddRange(Accounts);
+            db.SaveChanges();*/
+        }
+    }
+}
+
+           /*
             var db = new DataContext();
                 
                 var Books = new List<Book>
@@ -125,7 +142,3 @@ namespace TheBookCave
                 db.AddRange(Books);
                 db.SaveChanges();
             */
-        
-        }
-    }
-}
