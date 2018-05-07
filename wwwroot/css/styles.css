@@ -15,7 +15,7 @@ body {
     border-bottom: solid 0.1px #ddd;
     height: 13%;
     padding-top: 0.5%;
-    background-color: #934c37
+    background-color: #934c37;
 }
 
 #logo {
@@ -86,6 +86,14 @@ a .search {
     color: black;
     text-decoration: none;
     font-size: 12px;
+    display: inline;
+}
+
+#username {
+    font-size: 12px;
+    margin-left: 20px;
+    display: inline;
+    font-weight: bolder;
 }
 
 .dropdown-window .dropdown-list a {
@@ -93,6 +101,7 @@ a .search {
     text-decoration: none;
     display: block;
     font-size: 12px;
+    position: relative;
 }
 
 .dropdown-window a:hover {
@@ -102,7 +111,6 @@ a .search {
 .dropdown:hover .dropdown-window {
     display: block;
 }
-
 
 /* Side bar */
 #sidebar-wrap {

@@ -23,7 +23,7 @@ namespace TheBookCave.Controllers
         }
         
         [HttpGet]
-        public IActionResult EmployeeHome()
+        public IActionResult Index()
         {
             var books = _bookService.GetAllBooks();
 
@@ -45,7 +45,7 @@ namespace TheBookCave.Controllers
         {
             SeedDataCreate(book);
 
-            return RedirectToAction("EmployeeHome");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -83,7 +83,7 @@ namespace TheBookCave.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("EmployeeHome");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -114,7 +114,7 @@ namespace TheBookCave.Controllers
                 db.Books.Remove(onebook);
                 db.SaveChanges();
             }
-            return RedirectToAction("EmployeeHome");
+            return RedirectToAction("Index");
         }
 
         public static void SeedDataCreate(BookInputModel book)

@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using TheBookCave.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Name")?.Value;
+}
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,15 +34,23 @@
 
         <div class="icons">
             <div class="dropdown">
-                <a href="#"> <span class="glyphicon glyphicon-user dropbtn"></span> </a>
+                <a asp-controller="Account" asp-action="Index"> <span class="glyphicon glyphicon-user dropbtn"></span> </a>
                 <div class="dropdown-window">
                     <div class="login">
                         @await Html.PartialAsync("_LoginPartial")
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="dropdown-list">
-                        <a href="#">My Account</a>
-                        <a href="#">My Orders</a>
+                        @{
+                            if(SignInManager.IsSignedIn(User)) {
+                                <a asp-controller="Account" asp-action="Index">My Account</a>
+                                <a href="#">My Orders</a>
+                            }
+                            else {
+                                <a asp-area="action" asp-controller="Account" asp-action="Login">My Account</a>
+                                <a asp-area="action" asp-controller="Account" asp-action="Login">My Orders</a>
+                            }
+                        }
                     </div>
                 </div>
             </div>
