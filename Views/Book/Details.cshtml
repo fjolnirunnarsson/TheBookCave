@@ -1,5 +1,5 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
-<link rel="stylesheet" href="~/css/detail.css" />
+<link rel="stylesheet" href="~/css/details.css" />
 
 
 <div class="detailsContainer">
@@ -16,19 +16,21 @@
             <h2>@book.Title</h2>
             <hr>
             <h4>@book.Author</h4>
-            <h4>@book.Genre</h4>
+            <a asp-controller="Book" asp-action="Genre" asp-route-genre="@book.Genre"><h4>@book.Genre</h4></a>
+            
             @await Html.PartialAsync("_StarsPartial", @book.Rating)
-            <h4 id="price">$ @book.Price</h4>
+            
+            <h4 class="price">$ @book.Price</h4>
             <button class="btn btn-default btn-primary">Add to cart</button>
             <p class="description">@book.Description</p>
             <hr>
-            <form>
+            <form method="POST" id="review">
                 <h5 id="yourrating">Your Rating:</h5>
-                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <span class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span  id="stjarna1" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span id="stjarna2" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span id="stjarna3" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span id="stjarna4" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
+                <span id="stjarna5" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
                 <h5>Your Review:</h5>
                 <textarea id="yourreview"></textarea>
                 <input type="submit" value="Submit" class="btn btn-default btn-primary"/>

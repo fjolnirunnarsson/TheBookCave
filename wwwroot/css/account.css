@@ -1,23 +1,25 @@
-table, td, th {
-    border-bottom: 1px solid black;
+
+.account-info {
+    height: 600px;
+    width: 90%;
 }
 
-table {
-    margin: 30%;
+.account-table {
+    margin-left: 10%;
     width: 50%;
-    display: inline;
+    float: left;
 }
 
-th {
-    height: 50px;
-}
-#account-picture {
-    
-    size: 20%;
+.account-photo {
+    margin-left: 70%;
+    height: 100%;
 }
 
-#information-account
-{
-    display: inline;
-   
+.account-photo img {
+    height: 40%;
+    margin-bottom: 10%;
+}
+
+h2 {
+    margin-left: 10%;
 }

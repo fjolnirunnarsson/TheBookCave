@@ -30,6 +30,7 @@ namespace TheBookCave
 
         public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
         {
+
             /* 
             var db = new DataContext();
                 
