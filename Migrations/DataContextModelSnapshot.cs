@@ -103,65 +103,6 @@ namespace TheBookCave.Migrations
 
                     b.ToTable("Books");
                 });
-
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.CartItem", b =>
-                {
-                    b.Property<string>("ItemId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("BookItemId");
-
-                    b.Property<string>("CartId");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("ItemId");
-
-                    b.HasIndex("BookItemId");
-
-                    b.ToTable("CartItems");
-                });
-
-            modelBuilder.Entity("TheBookCave.Models.ViewModels.BookListViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Author");
-
-                    b.Property<int>("AuthorId");
-
-                    b.Property<int>("BoughtCopies");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Genre");
-
-                    b.Property<string>("Image");
-
-                    b.Property<double>("Price");
-
-                    b.Property<int>("Quantity");
-
-                    b.Property<double>("Rating");
-
-                    b.Property<string>("Title");
-
-                    b.Property<int>("Year");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BookListViewModel");
-                });
-
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.CartItem", b =>
-                {
-                    b.HasOne("TheBookCave.Models.ViewModels.BookListViewModel", "BookItem")
-                        .WithMany()
-                        .HasForeignKey("BookItemId");
-                });
 #pragma warning restore 612, 618
         }
     }

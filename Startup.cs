@@ -48,7 +48,7 @@ namespace TheBookCave
 
             services.AddDistributedMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped(s => ShoppingCart.GetCart(s));
+            //services.AddScoped(s => ShoppingCart.GetCart(s));
 
             services.AddMvc();
 

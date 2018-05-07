@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TheBookCave.Data.EntityModels
+/*namespace TheBookCave.Data.EntityModels
 {
     public class Order
     {
@@ -29,4 +29,4 @@ namespace TheBookCave.Data.EntityModels
         public List<OrderDetails> OrderDetails { get; set; }
     
     }
-}
+}*/

@@ -9,7 +9,7 @@ namespace TheBookCave.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            /*migrationBuilder.CreateTable(
                 name: "Addresses",
                 columns: table => new
                 {
@@ -24,7 +24,7 @@ namespace TheBookCave.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Addresses", x => x.Id);
-                });
+                });*/
 
             migrationBuilder.CreateTable(
                 name: "Authors",
@@ -66,9 +66,9 @@ namespace TheBookCave.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+            /*migrationBuilder.DropTable(
                 name: "Addresses");
-
+*/
             migrationBuilder.DropTable(
                 name: "Authors");
 

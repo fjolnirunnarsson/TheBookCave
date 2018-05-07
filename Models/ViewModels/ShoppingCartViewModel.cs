@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using TheBookCave.Data.EntityModels;
 
-namespace TheBookCave.Models.ViewModels
+/*namespace TheBookCave.Models.ViewModels
 {
     public class ShoppingCartViewModel
     {
         public ShoppingCart ShoppingCart { get; set; }
         public double CartTotal { get; set; }
     }
-} 
+} */

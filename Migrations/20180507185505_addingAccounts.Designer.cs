@@ -11,8 +11,8 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180504144618_AuthorsTable")]
-    partial class AuthorsTable
+    [Migration("20180507185505_addingAccounts")]
+    partial class addingAccounts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,24 +21,42 @@ namespace TheBookCave.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Address", b =>
+            modelBuilder.Entity("TheBookCave.Data.EntityModels.Account", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("Email")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("City");
+                    b.Property<string>("BillingAddressCity");
 
-                    b.Property<string>("Country");
+                    b.Property<string>("BillingAddressCountry");
 
-                    b.Property<int>("HouseNumber");
+                    b.Property<int>("BillingAddressHouseNumber");
 
-                    b.Property<string>("PostalCode");
+                    b.Property<string>("BillingAddressLine2");
 
-                    b.Property<string>("Street");
+                    b.Property<string>("BillingAddressStreet");
 
-                    b.HasKey("Id");
+                    b.Property<string>("BillingAddressZipCode");
 
-                    b.ToTable("Addresses");
+                    b.Property<string>("DeliveryAddressCity");
+
+                    b.Property<string>("DeliveryAddressCountry");
+
+                    b.Property<int>("DeliveryAddressHouseNumber");
+
+                    b.Property<string>("DeliveryAddressLine2");
+
+                    b.Property<string>("DeliveryAddressStreet");
+
+                    b.Property<string>("DeliveryAddressZipCode");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("TheBookCave.Data.EntityModels.Author", b =>

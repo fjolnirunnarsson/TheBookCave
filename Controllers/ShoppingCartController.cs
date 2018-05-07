@@ -17,7 +17,7 @@ using TheBookCave.Models.ViewModels;
 using TheBookCave.Repositories;
 using TheBookCave.Services;
 
-namespace TheBookCave.Controllers
+/*namespace TheBookCave.Controllers
 {
     [Authorize]
     public class ShoppingCartController : Controller
@@ -68,3 +68,4 @@ namespace TheBookCave.Controllers
         }
     }
 }
+*/

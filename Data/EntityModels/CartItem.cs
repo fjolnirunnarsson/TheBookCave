@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using TheBookCave.Models.ViewModels;
 
-namespace TheBookCave.Data.EntityModels
+/*namespace TheBookCave.Data.EntityModels
 {
     public class CartItem
     {
@@ -12,4 +12,4 @@ namespace TheBookCave.Data.EntityModels
         public System.DateTime DateCreated { get; set; }
         public BookListViewModel BookItem { get; set; }
     }
-}
+}*/

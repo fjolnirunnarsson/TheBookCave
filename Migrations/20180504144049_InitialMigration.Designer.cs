@@ -21,7 +21,7 @@ namespace TheBookCave.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Address", b =>
+            /*modelBuilder.Entity("TheBookCave.Data.EntityModels.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -39,7 +39,7 @@ namespace TheBookCave.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
-                });
+                });*/
 
             modelBuilder.Entity("TheBookCave.Data.EntityModels.Author", b =>
                 {

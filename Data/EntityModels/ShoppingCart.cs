@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 
-namespace TheBookCave.Models.ViewModels
+/*namespace TheBookCave.Models.ViewModels
 {
     public class ShoppingCart
     {
@@ -123,4 +123,4 @@ namespace TheBookCave.Models.ViewModels
             
         }
     }
-}
+}*/

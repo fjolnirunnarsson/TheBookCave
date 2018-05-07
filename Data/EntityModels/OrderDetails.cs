@@ -1,4 +1,4 @@
-namespace TheBookCave.Data.EntityModels
+/*namespace TheBookCave.Data.EntityModels
 {
     public class OrderDetails
     {
@@ -10,4 +10,4 @@ namespace TheBookCave.Data.EntityModels
         public Book BookItem { get; set; }
         public Order Order { get; set; }
     }
-}
+}*/

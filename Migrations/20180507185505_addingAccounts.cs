@@ -1,23 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
 namespace TheBookCave.Migrations
 {
-    public partial class AddingAccount_List : Migration
+    public partial class addingAccounts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Addresses");
-
-            migrationBuilder.AddColumn<int>(
-                name: "Year",
-                table: "BookListViewModel",
-                nullable: false,
-                defaultValue: 0);
-
             migrationBuilder.CreateTable(
                 name: "Accounts",
                 columns: table => new
@@ -48,27 +38,6 @@ namespace TheBookCave.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Accounts");
-
-            migrationBuilder.DropColumn(
-                name: "Year",
-                table: "BookListViewModel");
-
-            migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    City = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
-                    HouseNumber = table.Column<int>(nullable: false),
-                    PostalCode = table.Column<string>(nullable: true),
-                    Street = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
-                });
         }
     }
 }

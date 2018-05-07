@@ -107,17 +107,23 @@ namespace TheBookCave.Controllers
         }
 
         public IActionResult Index(){
-            return View();
+
+            var accounts = _accountService.GetAllAccounts();
+
+            var account = (from a in accounts
+                        select a).SingleOrDefault();
+
+            return View(account);
         }
 
         [HttpGet]
-        public IActionResult Edit(string firstname) {
+        public IActionResult Edit(string email) {
         
 
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
-                         where a.FirstName == firstname
+                         where a.Email == email
                          select a).SingleOrDefault();
 
             return View(account);
