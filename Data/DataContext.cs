@@ -25,7 +25,7 @@ namespace TheBookCave.Data
         // dotnet ef database update
         // Með þessu erum við að segja: Ég vil að gagnagrunnurinn uppfærist í samræmi við þetta migration. Nú ættu að vera komnar tvær töflur í gagnagrunninn.
 
-       // public DbSet<Account> Accounts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
 
         public DbSet<Cart> Carts { get; set; }
 
