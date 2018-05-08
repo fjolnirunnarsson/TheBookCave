@@ -1,41 +1,51 @@
-@model List<TheBookCave.Models.ViewModels.BookListViewModel>
+@model TheBookCave.Models.ViewModels.BookListViewModel
 <link rel="stylesheet" href="~/css/details.css" />
 
 
 <div class="detailsContainer">
-@{
-    foreach(var book in Model)
-    {
+
         <div class="heart-img">
             <span class="glyphicon glyphicon-heart heart-icon"></span>
         </div>
         <div class="detailsImage">
-            <img src="@book.Image" alt="No Images" class="cover">
+            <img src="@Model.Image" alt="No Images" class="cover">
         </div>
         <div class="detailsDescription">
-            <h2>@book.Title</h2>
+            <h2>@Model.Title</h2>
             <hr>
-            <h4>@book.Author</h4>
-            <a asp-controller="Book" asp-action="Genre" asp-route-genre="@book.Genre"><h4>@book.Genre</h4></a>
+            <h4>@Model.Author</h4>
             
-            @await Html.PartialAsync("_StarsPartial", @book.Rating)
+            <a asp-controller="Book" asp-action="Genre" asp-route-genre="@Model.Genre"><h4>@Model.Genre</h4></a>
             
-            <h4 class="price">$ @book.Price</h4>
+            @await Html.PartialAsync("_StarsPartial", @Model.Rating)
+            
+            <h4 class="price">$ @Model.Price</h4>
             <button class="btn btn-default btn-primary">Add to cart</button>
-            <p class="description">@book.Description</p>
-            <hr>
-            <form method="POST" id="review">
-                <h5 id="yourrating">Your Rating:</h5>
-                <span  id="stjarna1" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <span id="stjarna2" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <span id="stjarna3" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <span id="stjarna4" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <span id="stjarna5" class="glyphicon glyphicon-star-empty stjornur-tomar"></span>
-                <h5>Your Review:</h5>
-                <textarea id="yourreview"></textarea>
-                <input type="submit" value="Submit" class="btn btn-default btn-primary"/>
-            </form>
-        </div>
-    }
-}
+            <p class="description">@Model.Description</p>
 </div>
+            <div id="review">
+            <form method="POST" class="form-horizontal">
+                <div class="form-group">
+                    <label for="Rating">Your Rating</label>
+                    <select name="Rating" class="form-control">
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Comment">Your Review</label>
+                    <input type="text"  id="comment" class="form-control" name="Comment">
+                </div>
+                <div class="form-group">
+                    <label for="Username">Your Username</label>
+                    <input type="text" class="form-control" name="UserName">
+                </div>
+                    <input type="text" class="form-control" id="book-id" name="BookId" value="@Model.Id">
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-default btn-primary"/>
+                </div>
+            </form>
+            </div>

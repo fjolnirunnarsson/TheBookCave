@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models;
 using TheBookCave.Models.InputModels;
@@ -66,17 +67,43 @@ namespace TheBookCave.Controllers
 
             return View(bestsellers);
         }
-
+        [HttpGet]
         public IActionResult Details(string title){
 
                 var books = _BookService.GetAllBooks();
 
                 var onebook = (from newbook in books
                             where ((newbook.Title).ToLower() == title.ToLower())
-                            select newbook).ToList();
+                            select newbook).First();
 
                 return View(onebook);
         }
+        [HttpPost]
+        public IActionResult Details(ReviewInputModel review){
+
+                SeedDataCreate(review);
+
+                return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public static void SeedDataCreate(ReviewInputModel review){
+
+            var db = new DataContext();
+
+            var Reviews = new List<Review>{
+
+                new Review{
+                    Rating = review.Rating,
+                    Comment = review.Comment,
+                    UserName = review.UserName,
+                    BookId = review.BookId
+                }
+            };
+            db.AddRange(Reviews);
+            db.SaveChanges();
+
+        }
+
         public IActionResult Genre(string genre){
 
             var books = _BookService.GetAllBooks();

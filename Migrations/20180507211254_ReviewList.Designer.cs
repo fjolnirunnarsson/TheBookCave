@@ -11,9 +11,10 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180507211254_ReviewList")]
+    partial class ReviewList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,36 +104,6 @@ namespace TheBookCave.Migrations
 
                     b.ToTable("Books");
                 });
-            
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Cart", b =>
-                {
-                    b.Property<int>("RecordId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BookId");
-
-                    b.Property<string>("CartId");
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("RecordId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Cart", b =>
-                {
-                    b.HasOne("TheBookCave.Data.EntityModels.Book", "book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-
 
             modelBuilder.Entity("TheBookCave.Data.EntityModels.Review", b =>
                 {
@@ -140,7 +111,7 @@ namespace TheBookCave.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("BookId");
-                    
+
                     b.Property<string>("Comment");
 
                     b.Property<int>("Rating");
@@ -151,8 +122,6 @@ namespace TheBookCave.Migrations
 
                     b.ToTable("Reviews");
                 });
-
-
 
             modelBuilder.Entity("TheBookCave.Models.ViewModels.ReviewViewModel", b =>
                 {

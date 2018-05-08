@@ -45,8 +45,7 @@ namespace TheBookCave
     }
 }
 
-           /*
-            var db = new DataContext();
+            /*var db = new DataContext();
                 
                 var Books = new List<Book>
                 {
@@ -89,7 +88,7 @@ namespace TheBookCave
                 new Book{
                     Title = "The Theory of Everything", Author = "Stephen Hawking", Description = "Stephen Hawking is widely believed to be one of the worlds greatest minds: a brilliant theoretical physicist whose work helped to reconfigure models of the universe and to redefine whats in it. Imagine sitting in a room listening to Hawking discuss these achievements and place them in historical context. It would be like hearing Christopher Columbus on the New World.Hawking presents a series of seven lec-turescovering everything from big bang to black holes to string theorythat capture not only the brilliance of Hawkings mind but his characteristic wit as well.",
                     Year = 2007, Image = "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9788/1799/9788179925911.jpg", Genre = "Nature", Rating = 4.12, Price = 14.71, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
-                }
+                },
                 new Book{
                     Title = "Steve Jobs", Author = "Walter Isaacson", Description = "Based on more than forty interviews with Jobs conducted over two years—as well as interviews with more than a hundred family members, friends, adversaries, competitors, and colleagues—Walter Isaacson has written a riveting story of the roller-coaster life and searingly intense personality of a creative entrepreneur whose passion for perfection and ferocious drive revolutionized six industries: personal computers, animated movies, music, phones, tablet computing, and digital publishing.",
                      Year = 2011, Image = "https://images-na.ssl-images-amazon.com/images/I/418oH6YjpFL.jpg", Genre = "Biography", Rating = 4.4, Price = 14.20, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1
@@ -138,4 +137,7 @@ namespace TheBookCave
             
                 db.AddRange(Books);
                 db.SaveChanges();
-            */
+
+        }
+    }
+}*/

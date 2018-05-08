@@ -18,6 +18,7 @@ using TheBookCave.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using TheBookCave.Models.EntityModels;
+using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Repositories
 {
