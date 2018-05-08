@@ -1,11 +1,4 @@
 .detailsContainer {
-    height: 800px;
-    width: 90%;
-    margin-left: 30px;
-    background-color: #f7f7f7;
-    margin-bottom: 10px;
-}
-.detailsContain {
     height: 400px;
     width: 90%;
     margin-left: 30px;
@@ -103,4 +96,14 @@
 }
 #comment{
     height: 50px;
+}
+.onereview{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    height: 100px;
+    width: 90%;
+    border-radius: 7px;
+    background-color: #f7f7f7;
 }
