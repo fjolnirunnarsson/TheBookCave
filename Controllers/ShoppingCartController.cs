@@ -9,6 +9,7 @@ using TheBookCave.Models.EntityModels;
 using Microsoft.AspNetCore.Authorization;
 using TheBookCave.Repositories;
 using TheBookCave.Models.ViewModels;
+using System.Dynamic;
 
 namespace TheBookCave.Controllers
 {
@@ -32,30 +33,54 @@ namespace TheBookCave.Controllers
 
             var cartId = cart.ShoppingCartId;
 
-            var cartViewModel = new ShoppingCartViewModel
+            dynamic myModel = new ExpandoObject();
+            
+            var cartModel = new ShoppingCartViewModel
             {
                 CartItems = _cartRepo.GetCartItems(cartId),
-                CartTotal = _cartRepo.GetTotal()
+                CartTotal = _cartRepo.GetTotal(cartId)
             };
 
-            return View(cartViewModel);
+            var books = (from items in _db.Books
+                        join citems in _db.Carts on items.Id equals citems.BookId
+                        where citems.CartId == cartId
+                        select new BookListViewModel
+                        {
+                            Id = items.Id,
+                            Image = items.Image,
+                            Title = items.Title,
+                            Author = items.Author,
+                            AuthorId = items.AuthorId,
+                            Rating = items.Rating,
+                            Price = items.Price,
+                            Genre = items.Genre,
+                            BoughtCopies = items.BoughtCopies,
+                            Year = items.Year,
+                            Description = items.Description,
+                            Quantity = citems.Quantity
+                        }).ToList();
+
+            myModel.cartItems = cartModel;
+            myModel.bookItems = books;
+
+            return View(myModel);
         }
 
         [Authorize]
-        public RedirectToActionResult AddToCart(int bookId)
+        public IActionResult AddToCart(int bookId)
         {
             var books = _bookService.GetAllBooks();
 
             var bookAdded = (from book in books
                             where book.Id == bookId
-                            select book).Single();
+                            select book).SingleOrDefault();
 
             var cart = CartRepo.GetCart(this.HttpContext);
 
 
-            _cartRepo.AddToCart(bookAdded);
+            _cartRepo.AddToCart(bookAdded, this.HttpContext);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace TheBookCave
         public static void Main(string[] args)
         {
             var host = BuildWebHost(args);
-            SeedData();     // Þessi gæjir hleður gagnagrunninn.
+            //SeedData();     // Þessi gæjir hleður gagnagrunninn.
             host.Run(); 
         }
 
@@ -34,7 +34,7 @@ namespace TheBookCave
 
             var cart = new Cart
             {
-                CartId = "stefansdottir8@gmail.com", BookId =  22, Quantity = 1, DateCreated = DateTime.Now, 
+                CartId = "halldor8@gmail.com", BookId =  22, Quantity = 1, DateCreated = DateTime.Now, 
                 Book = new Book { Title = "Sample", Author = "Halldor Logi", Description = "SampleBook",
                            Year = 2018, Image = "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/9978/9780997895827.jpg", 
                            Genre = "Biography", Rating = 4.56, Price = 20.42, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1 }

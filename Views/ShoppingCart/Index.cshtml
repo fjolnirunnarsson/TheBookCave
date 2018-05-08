@@ -1,23 +1,24 @@
-@model TheBookCave.Models.ViewModels.ShoppingCartViewModel
+@model dynamic
 <link rel="stylesheet" href="~/css/styles.cart.css" />
 
 @{
-    if (Model.CartItems.Count > 0) 
+    if (Model.bookItems.Count > 0) 
     {
         <div class="cart">
             <h1 id="cart-title">Your Items</h1>
             <div class="cart-items">
-                    @foreach(var item in @Model.CartItems)
+                    @foreach(var item in @Model.bookItems)
                     {
                         <div class="book-item">
-                            <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Book.Title"><img class="cart-img" src="@item.Book.Image" alt="No Image"></a>
+                            <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title"><img class="cart-img" src="@item.Image" alt="No Image"></a>
                             <div class="book-info"> 
-                                <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Book.Title">
-                                    <h2 class="item-title">@item.Book.Title</h2>
+                                <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title">
+                                    <h2 class="item-title">@item.Title</h2>
                                 </a>
-                                <h3>@item.Book.Author</h3>
-                                <h4>$ @item.Book.Price</h4>
-                                <h4>Rating: @item.Book.Rating stars</h4>
+                                <h3>@item.Author</h3>
+                                <h4>$ @item.Price</h4>
+                                <h4>Rating: @item.Rating stars</h4>
+                                <h4>Quantity: @item.Quantity</h4>  
                             </div>
                             <div class="trash">
                                 <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
@@ -29,7 +30,7 @@
             <div class="checkout-window">
                 <div class="total-price">
                     <h4>Total price:</h4>
-                    <h5>US$ @Model.CartTotal</h5>    
+                    <h5>US$ @Model.cartItems.CartTotal</h5>    
                     <button id="btn" class="btn btn-default btn-primary">Checkout</button>
                 </div>
             </div>
