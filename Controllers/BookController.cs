@@ -109,7 +109,7 @@ namespace TheBookCave.Controllers
                             where ((newreview.BookId) == onebook.Id)
                             select newreview).ToList();
 
-                onebook.Rating = getRating(allreviews);
+                onebook.Rating = Math.Round(getRating(allreviews),2);
                 db.SaveChanges();
             }
 
