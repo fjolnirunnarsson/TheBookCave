@@ -28,7 +28,11 @@
                 <td><a href="#">Change password</a></td>
             </tr>
             <tr>
-                <td><a href="#">Log out</a></td>
+                <td>
+                    <form asp-controller="Account" asp-action="LogOut" method="POST" id="yourFormId">
+                        <a href="#" id="yourLinkId">Log out</a>
+                    </form>
+                </td>
             </tr>
         </table>
     </div>
