@@ -1,71 +1,61 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
-using TheBookCave.Models;
 using TheBookCave.Models.InputModels;
-using TheBookCave.Models.ViewModels;
-using TheBookCave.Repositories;
 using TheBookCave.Services;
+using System.Linq;
+using System.Collections.Generic;
+using TheBookCave.Models.EntityModels;
+using Microsoft.AspNetCore.Authorization;
+using TheBookCave.Repositories;
+using TheBookCave.Models.ViewModels;
 
-/*namespace TheBookCave.Controllers
+namespace TheBookCave.Controllers
 {
     [Authorize]
     public class ShoppingCartController : Controller
     {
-        private readonly BookService _BookService;
-        private readonly ShoppingCart _shoppingCart;
+        private CartRepo _cartRepo;
 
+        private BookService _bookService;
+        private DataContext _db = new DataContext();
 
-        public ShoppingCartController(BookService BookService, ShoppingCart shoppingCart)
+        public ShoppingCartController()
         {
-            _BookService = BookService;
-            _shoppingCart = shoppingCart;
-        } 
+            _cartRepo = new CartRepo();
+            _bookService = new BookService();
+        }
+
         public IActionResult Index()
         {
-            var items = _shoppingCart.GetCartItems();
-            _shoppingCart.CartItems = items;
+            var cart = CartRepo.GetCart(this.HttpContext);
 
-            var cartModel = new ShoppingCartViewModel()
+            var cartId = cart.ShoppingCartId;
+
+            var cartViewModel = new ShoppingCartViewModel
             {
-                ShoppingCart = _shoppingCart,
-                CartTotal = _shoppingCart.GetCartTotal()
+                CartItems = _cartRepo.GetCartItems(cartId),
+                CartTotal = _cartRepo.GetTotal()
             };
-            
-            return View(cartModel);
+
+            return View(cartViewModel);
         }
 
-        public RedirectToActionResult AddToCart(int bookId)  
+        [Authorize]
+        public RedirectToActionResult AddToCart(int bookId)
         {
-            var books = _BookService.GetAllBooks();
-            var selectedBook = books.FirstOrDefault(b => b.Id == bookId);
-            if (selectedBook != null)
-            {
-                _shoppingCart.AddToCart(selectedBook, 1);
-            }
-            return RedirectToAction("Index");
-        }
+            var books = _bookService.GetAllBooks();
 
-        public RedirectToActionResult RemoveFromCart(int bookId)
-        {
-            var books = _BookService.GetAllBooks();
-            var selectedBook = books.FirstOrDefault(b => b.Id == bookId);
-            if (selectedBook != null) 
-            {
-                _shoppingCart.RemoveFromCart(selectedBook);
-            }
+            var bookAdded = (from book in books
+                            where book.Id == bookId
+                            select book).Single();
+
+            var cart = CartRepo.GetCart(this.HttpContext);
+
+
+            _cartRepo.AddToCart(bookAdded);
+
             return RedirectToAction("Index");
         }
     }
 }
-*/

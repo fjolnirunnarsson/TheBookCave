@@ -1,15 +1,17 @@
 using System.ComponentModel.DataAnnotations;
-using TheBookCave.Models.ViewModels;
 
-/*namespace TheBookCave.Data.EntityModels
+namespace TheBookCave.Data.EntityModels
 {
-    public class CartItem
+    public class Cart
     {
         [Key]
-        public string ItemId { get; set; }
+        public int RecordId { get; set; }
         public string CartId { get; set; }
+        public int BookId { get; set; }
         public int Quantity { get; set; }
         public System.DateTime DateCreated { get; set; }
-        public virtual Book book { get; set; }
+        public virtual Book Book { get; set; }
+
+        
     }
-}*/
+}
