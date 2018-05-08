@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using TheBookCave.Models.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace TheBookCave.Data.EntityModels
 {

@@ -52,7 +52,8 @@
         <div asp-validation-for="Price"></div>
 
         <label for="Discount" class="control-label">Discount</label>
-        <select name="Discount" id="discount" class="form-control">
+        <input type="text" asp-for="Discount" class="form-control">
+        <!--<select name="Discount" id="discount" class="form-control">
             <option value="">N/A</option>
             <option value="0.9">10%</option>
             <option value="0.85">15%</option>
@@ -61,7 +62,7 @@
             <option value="0.7">30%</option>
             <option value="0.5">50%</option>
             <option value="0.3">70%</option>
-        </select>
+        </select>-->
         <div asp-validation-for="Discount"></div>
 
         <label for="Quantity" class="control-label">Quantity</label>
