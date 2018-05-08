@@ -6,6 +6,6 @@ namespace TheBookCave.Models.ViewModels
     public class ShoppingCartViewModel
     {
         public List<Cart> CartItems { get; set; }
-        public decimal CartTotal { get; set; }
+        public double CartTotal { get; set; }
     }
 } 

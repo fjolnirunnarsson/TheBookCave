@@ -26,6 +26,8 @@ namespace TheBookCave.Repositories
     {
         private DataContext _db = new DataContext();
 
+        private BookRepo _bookRepo = new BookRepo();
+
         public static ShoppingCart GetCart(HttpContext context)
         {
             var cart = new ShoppingCart();
@@ -38,12 +40,14 @@ namespace TheBookCave.Repositories
             return GetCart(controller.HttpContext);
         }
 
-        public void AddToCart(BookListViewModel book)
+        public void AddToCart(BookListViewModel book, HttpContext context)
         {
-            var cart = new ShoppingCart();
-            var cartItem = _db.Carts.SingleOrDefault(
-                c => c.CartId == cart.ShoppingCartId
-                && c.BookId == book.Id);
+            var cart = GetCart(context);
+
+            var cartItem = (from item in _db.Carts
+                        where item.Book.Id == book.Id && item.CartId == cart.ShoppingCartId
+                        select item).SingleOrDefault();
+            
             
             if (cartItem == null)
             {
@@ -65,19 +69,20 @@ namespace TheBookCave.Repositories
 
         public List<Cart> GetCartItems(string shoppingCartId)
         {
-            return _db.Carts.Where(
-                cart => cart.CartId == shoppingCartId).ToList();
+            var cartItems = (from item in _db.Carts
+                            where item.CartId == shoppingCartId
+                            select item).ToList();
+            return cartItems;
                         
         }
 
-        public decimal GetTotal()
+        public double GetTotal(string shoppingCartId)
         {
-            var newCart = new ShoppingCart();
-            decimal? total = (from cartItems in _db.Carts
-                                where cartItems.CartId == newCart.ShoppingCartId
-                                select (int?)cartItems.Quantity *
-                                (decimal)cartItems.Book.Price).Sum();
-            return total ?? decimal.Zero;
+            var total = (from items in _db.Carts
+                        where items.CartId == shoppingCartId
+                        select items.Quantity * items.Book.Price).Sum();
+            
+            return total;
         }
     }
 }
