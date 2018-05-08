@@ -11,9 +11,10 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180508155446_addedDiscount2")]
+    partial class addedDiscount2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +84,7 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<double>("Discount");
+                    b.Property<int>("Discount");
 
                     b.Property<double>("DiscountPrice");
 

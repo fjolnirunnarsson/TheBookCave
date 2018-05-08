@@ -30,7 +30,7 @@ namespace TheBookCave
 
         public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
         {
-           var db = new DataContext();
+           /*var db = new DataContext();
 
             var cart = new Cart
             {
@@ -40,7 +40,7 @@ namespace TheBookCave
                            Genre = "Biography", Rating = 4.56, Price = 20.42, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1 }
             };
             db.AddRange(cart);
-            db.SaveChanges();
+            db.SaveChanges();*/
         }
     }
 }
