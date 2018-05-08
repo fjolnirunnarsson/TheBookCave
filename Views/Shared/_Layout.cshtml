@@ -4,6 +4,12 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 
+@{
+    var firstName = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "FirstName")?.Value;
+    var lastName = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "LastName")?.Value;
+    var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Email")?.Value;
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +45,7 @@
                     <div class="dropdown-list">
                         @{
                             if(SignInManager.IsSignedIn(User)) {
-                                <a asp-controller="Account" asp-action="Index">My Account</a>
+                                <a asp-controller="Account" asp-action="Index" asp-route-email="@email">My Account</a>
                                 
                                 <a href="#">My Orders</a>
                             }

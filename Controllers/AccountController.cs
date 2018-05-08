@@ -108,13 +108,8 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult Index(){
+        public IActionResult Index(string email){
 
-            return View();
-        }
-
-        public IActionResult Details(string email)
-        {
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
