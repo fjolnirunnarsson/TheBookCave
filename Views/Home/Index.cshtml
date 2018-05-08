@@ -43,7 +43,10 @@
                 }
                 }
                 <button class="btn btn-primary addcart">
-                    @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { bookId = @book.Id }, new { @class = "addToCart" })
+                    @Html.ActionLink("Add to cart", "AddToCart",
+                     "ShoppingCart", 
+                     new { bookId = @book.Id }, 
+                     new { @class = "addToCart" })
                 </button>
             </div>
     }

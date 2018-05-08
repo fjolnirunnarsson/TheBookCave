@@ -67,6 +67,33 @@ namespace TheBookCave.Repositories
             _db.SaveChanges();
         }
 
+        public int RemoveFromCart(BookListViewModel book, HttpContext context)
+        {
+        var cart = GetCart(context);
+
+        var cartItem = (from item in _db.Carts
+                    where item.Book.Id == book.Id && item.CartId == cart.ShoppingCartId
+                    select item).SingleOrDefault();
+        
+        var localQuantity = 0;
+        
+            if (cartItem != null)
+            {
+                if (cartItem.Quantity > 1)
+                {
+                    cartItem.Quantity--;
+                    localQuantity = cartItem.Quantity;
+                }
+                else
+                {
+                    _db.Carts.Remove(cartItem);
+                }
+            }
+            _db.SaveChanges();
+
+            return localQuantity;
+        }
+
         public List<Cart> GetCartItems(string shoppingCartId)
         {
             var cartItems = (from item in _db.Carts

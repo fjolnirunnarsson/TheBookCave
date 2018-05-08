@@ -82,5 +82,21 @@ namespace TheBookCave.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult RemoveFromCart(int bookId)
+        {
+            var books = _bookService.GetAllBooks();
+
+            var bookAdded = (from book in books
+                            where book.Id == bookId
+                            select book).SingleOrDefault();
+
+            var cart = CartRepo.GetCart(this.HttpContext);
+
+
+            _cartRepo.RemoveFromCart(bookAdded, this.HttpContext);
+
+            return RedirectToAction("Index");
+        }
     }
 }
