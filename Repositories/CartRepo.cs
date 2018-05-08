@@ -13,105 +13,70 @@ using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models;
 using TheBookCave.Models.InputModels;
-using TheBookCave.Models.ViewModels;
 using TheBookCave.Repositories;
 using TheBookCave.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using TheBookCave.Models.EntityModels;
 
-/*namespace TheBookCave.Repositories
+namespace TheBookCave.Repositories
 {
     public class CartRepo
     {
-        /*private readonly DataContext _db;
+        private DataContext _db = new DataContext();
 
-        public CartRepo()
+        public static ShoppingCart GetCart(HttpContext context)
         {
-
+            var cart = new ShoppingCart();
+            cart.ShoppingCartId = context.User.Identity.Name;
+            return cart;
         }
-        public string ShoppingCartId { get; set; }
-        public List<CartItem> CartItems { get; set; }
 
-        public static ShoppingCart GetCart(IServiceProvider services)
+        public static ShoppingCart GetCart(Controller controller)
         {
-            ISession session = services.GetRequiredService<IHttpContextAccessor>()?
-                .HttpContext.Session;
+            return GetCart(controller.HttpContext);
+        }
+
+        public void AddToCart(BookListViewModel book)
+        {
+            var cart = new ShoppingCart();
+            var cartItem = _db.Carts.SingleOrDefault(
+                c => c.CartId == cart.ShoppingCartId
+                && c.BookId == book.Id);
             
-            var context = services.GetService<DataContext>();
-            string cartId = session.GetString("CartId") ?? Guid.NewGuid().ToString();
-
-            session.SetString("CartId", cartId);
-            
-            return new ShoppingCart(context) { ShoppingCartId = cartId };
-        }
-
-        public void AddToCart(BookListViewModel book, int amount)
-        {
-
-            var cartItem = _db.CartItems.SingleOrDefault(
-                c => c.CartId == ShoppingCartId
-                && c.BookItem.Id == book.Id);
-                if (cartItem == null)
-                {
-                    cartItem = new CartItem
-                    {
-                        ItemId = ShoppingCartId,
-                        CartId = ShoppingCartId,
-                        BookItem = book,
-                        Quantity = 1,
-                        DateCreated = DateTime.Now
-                    };
-
-                    _db.CartItems.Add(cartItem);
-                }
-                else 
-                {
-                    cartItem.Quantity++;
-                }
-                _db.SaveChanges();   
-        }
-
-        public int RemoveFromCart(BookListViewModel book)
-        {
-            var cartItem = _db.CartItems.SingleOrDefault(
-                c => c.CartId == ShoppingCartId 
-                && c.BookItem.Id == book.Id);
-
-            var localQuantity = 0;
-
-            if (cartItem.Quantity > 1)
+            if (cartItem == null)
             {
-                cartItem.Quantity--;
-                localQuantity = cartItem.Quantity;
+                cartItem = new Cart
+                {
+                    BookId = book.Id,
+                    CartId = cart.ShoppingCartId,
+                    Quantity = 1,
+                    DateCreated = DateTime.Now
+                };
+                _db.Carts.Add(cartItem);
             }
             else
             {
-                _db.CartItems.Remove(cartItem);
+                cartItem.Quantity++;
             }
             _db.SaveChanges();
-            return localQuantity;
         }
 
-        public List<CartItem> GetCartItems()
+        public List<Cart> GetCartItems(string shoppingCartId)
         {
-            return CartItems ?? (CartItems = _db.CartItems.Where(c => c.CartId == ShoppingCartId)
-                .Include(c => c.BookItem).ToList());
+            return _db.Carts.Where(
+                cart => cart.CartId == shoppingCartId).ToList();
+                        
         }
 
-        public void ClearCart()
+        public decimal GetTotal()
         {
-            var cartItems = _db.CartItems
-                .Where(c => c.CartId == ShoppingCartId);
-
-            _db.CartItems.RemoveRange(cartItems);
-            _db.SaveChanges(); 
+            var newCart = new ShoppingCart();
+            decimal? total = (from cartItems in _db.Carts
+                                where cartItems.CartId == newCart.ShoppingCartId
+                                select (int?)cartItems.Quantity *
+                                (decimal)cartItems.Book.Price).Sum();
+            return total ?? decimal.Zero;
         }
-
-        public double GetCartTotal()
-        {
-            var total = _db.CartItems.Where(c => c.CartId == ShoppingCartId)
-                .Select(c => c.BookItem.Price * c.Quantity).Sum();
-
-            return total;
-        }
-    }*/
+    }
+}
