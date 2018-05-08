@@ -22,7 +22,10 @@ namespace TheBookCave.Models.InputModels
 
         [Required(ErrorMessage="Field required")]
         public string Genre { get; set; }
-        public int Discount { get; set; }
+        public double Discount { get; set; }
+
+        [RegularExpression(@"^\d+\.\d{1.2}")]
+        public double DiscountPrice { get; set; }
 
         [Required(ErrorMessage="Field required")]
         public int Quantity { get; set; }

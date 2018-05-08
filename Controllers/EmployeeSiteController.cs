@@ -76,7 +76,6 @@ namespace TheBookCave.Controllers
                 onebook.Quantity = updatedBook.Quantity;
                 onebook.Rating = updatedBook.Rating;
                 onebook.Price = updatedBook.Price;
-                onebook.Genre = updatedBook.Genre;
                 onebook.BoughtCopies = updatedBook.BoughtCopies;
                 onebook.Year = updatedBook.Year;
                 onebook.Description = updatedBook.Description;
