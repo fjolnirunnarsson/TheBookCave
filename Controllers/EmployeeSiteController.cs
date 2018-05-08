@@ -27,10 +27,11 @@ namespace TheBookCave.Controllers
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from book in books
+            var top10 = (from book in books
+                        orderby book.Rating descending
                         select book).ToList();
 
-            return View(booklist);
+            return View(top10);
         }
 
         [HttpGet]
