@@ -201,7 +201,7 @@ a .search {
     text-decoration: line-through;
     display: inline;
     font-size: 15px;
-    margin-left: 20px;
+    margin-left: 15px;
     
 }
 
@@ -209,7 +209,7 @@ a .search {
     color: red;
     display: inline;
     font-size: 15px;
-    margin-left: 30px;
+    margin-left: 35px;
 }
 
 #newprice-div {
