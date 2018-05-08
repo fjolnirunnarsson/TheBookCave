@@ -48,7 +48,7 @@ namespace TheBookCave.Controllers
                 SeedDataCreateAccount(model);
                 // The User is successfully registered
                 // Add the concatenated first and last name as fullname in claims
-                await _userManager.AddClaimAsync(user, new Claim("Name", $"{model.FirstName}"));
+                await _userManager.AddClaimAsync(user, new Claim("Name", $"{model.FirstName} {model.LastName}"));
                 await _signInManager.SignInAsync(user, false);
 
                 return RedirectToAction("Index", "Home");
@@ -68,7 +68,7 @@ namespace TheBookCave.Controllers
                     }
                 };
                 db.AddRange(Accounts);
-                db.SaveChanges();    
+                db.SaveChanges();
         }
 
         public IActionResult Login()
@@ -110,14 +110,15 @@ namespace TheBookCave.Controllers
 
             var accounts = _accountService.GetAllAccounts();
 
-            var account = (from a in accounts
-                        select a).SingleOrDefault();
+            var accountlist = (from a in accounts
+                            select a).ToList();
 
-            return View(account);
+            return View(accountlist);
         }
 
         [HttpGet]
-        public IActionResult Edit(string email) {
+        public IActionResult Edit(string email)
+        {
         
 
             var accounts = _accountService.GetAllAccounts();
@@ -125,6 +126,17 @@ namespace TheBookCave.Controllers
             var account = (from a in accounts
                          where a.Email == email
                          select a).SingleOrDefault();
+
+            return View(account);
+        }
+
+        public IActionResult Details(string email)
+        {
+            var accounts = _accountService.GetAllAccounts();
+
+            var account = (from a in accounts
+                        where a.Email == email
+                        select a).SingleOrDefault();
 
             return View(account);
         }

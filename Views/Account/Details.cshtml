@@ -1,0 +1,12 @@
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using TheBookCave.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Name")?.Value;
+}
+
+
+<h2>@claim</h2>
