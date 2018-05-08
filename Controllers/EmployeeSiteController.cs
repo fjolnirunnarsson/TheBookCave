@@ -80,7 +80,7 @@ namespace TheBookCave.Controllers
                 onebook.Year = updatedBook.Year;
                 onebook.Description = updatedBook.Description;
                 onebook.Discount = updatedBook.Discount ;
-                onebook.DiscountPrice = (1 - updatedBook.Discount/100) * updatedBook.Price;
+                onebook.DiscountPrice = System.Math.Round( (1 - updatedBook.Discount/100) * updatedBook.Price,2);
                 db.SaveChanges();
             }
 
