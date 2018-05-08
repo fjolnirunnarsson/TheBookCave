@@ -4,11 +4,6 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 
-@{
-var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Name")?.Value;
-}
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +39,7 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
                         @{
                             if(SignInManager.IsSignedIn(User)) {
                                 <a asp-controller="Account" asp-action="Index">My Account</a>
+                                
                                 <a href="#">My Orders</a>
                             }
                             else {
@@ -59,8 +55,6 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
         </div>
     </div>
 </nav>
-
-
 
 <div id="sidebar-wrap">
     <ul class="sidebar-nav">

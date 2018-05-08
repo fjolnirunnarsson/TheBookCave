@@ -48,7 +48,9 @@ namespace TheBookCave.Controllers
                 SeedDataCreateAccount(model);
                 // The User is successfully registered
                 // Add the concatenated first and last name as fullname in claims
-                await _userManager.AddClaimAsync(user, new Claim("Name", $"{model.FirstName}"));
+                await _userManager.AddClaimAsync(user, new Claim("FirstName", $"{model.FirstName}"));
+                await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
+                await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
                 await _signInManager.SignInAsync(user, false);
 
                 return RedirectToAction("Index", "Home");
@@ -68,7 +70,7 @@ namespace TheBookCave.Controllers
                     }
                 };
                 db.AddRange(Accounts);
-                db.SaveChanges();    
+                db.SaveChanges();
         }
 
         public IActionResult Login()
@@ -108,18 +110,24 @@ namespace TheBookCave.Controllers
 
         public IActionResult Index(){
 
+            return View();
+        }
+
+        public IActionResult Details(string email)
+        {
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
+                        where a.Email == email
                         select a).SingleOrDefault();
 
             return View(account);
         }
 
         [HttpGet]
-        public IActionResult Edit(string email) {
+        public IActionResult Edit(string email)
+        {
         
-
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
@@ -128,5 +136,36 @@ namespace TheBookCave.Controllers
 
             return View(account);
         }
+
+        [HttpPost]
+        public IActionResult Edit(AccountListViewModel updatedAccount)
+        {
+            using (var db = new DataContext())
+            {
+                var account = (from a in db.Accounts
+                            where a.Email == updatedAccount.Email
+                            select a).FirstOrDefault();
+
+                account.FirstName = updatedAccount.FirstName;
+                account.LastName = updatedAccount.LastName;
+                account.Email = updatedAccount.Email;
+                account.BillingAddressStreet = updatedAccount.BillingAddressStreet;
+                account.BillingAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
+                account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;
+                account.BillingAddressCity = updatedAccount.BillingAddressCity;
+                account.BillingAddressCountry = updatedAccount.BillingAddressCountry;
+                account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
+                account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
+                account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
+                account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
+                account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

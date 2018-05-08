@@ -18,7 +18,7 @@ namespace TheBookCave.Models.InputModels
         public string BillingAddressStreet { get; set; }
 
         [Required(ErrorMessage="Field required")]
-        public int BillingAddressHouseNumber { get; set; }
+        public string BillingAddressHouseNumber { get; set; }
         public string BillingAddressLine2 { get; set; }
 
         [Required(ErrorMessage="Field required")]
@@ -34,7 +34,7 @@ namespace TheBookCave.Models.InputModels
         public string DeliveryAddressStreet { get; set; }
 
         [Required(ErrorMessage="Field required")]
-        public int DeliveryAddressHouseNumber { get; set; }
+        public string DeliveryAddressHouseNumber { get; set; }
         public string DeliveryAddressLine2 { get; set; }
 
         [Required(ErrorMessage="Field required")]
