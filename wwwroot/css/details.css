@@ -45,6 +45,14 @@
 .price {
     display: inline;
 }
+
+#detail-oldprice {
+    text-decoration: line-through;
+}
+
+#detail-newprice {
+    color: red;
+}
 .btn {
     margin-left: 10px;
     display: inline;

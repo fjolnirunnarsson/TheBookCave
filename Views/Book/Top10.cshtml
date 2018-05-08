@@ -4,8 +4,8 @@
 @{
     int i = 0;
 }
-@{
-    foreach(var book in Model)
+
+    @foreach(var book in Model)
     {
         i++;
         <div class="detailsContainer">
@@ -26,12 +26,22 @@
                 <a asp-controller="Book" asp-action="Genre" asp-route-genre="@book.Genre"><h4>@book.Genre</h4></a>
                 
                 @await Html.PartialAsync("_StarsPartial", @book.Rating)
-                
-                <h4 class="price">$ @book.Price</h4>
+
+                @{
+                    if(@book.Price != @book.DiscountPrice)
+                    {
+                        <h4 class="price" id="detail-oldprice">$@book.Price</h4>
+                        <h4 class="price" id="detail-newprice">$@book.DiscountPrice</h4>
+                    }
+                    else
+                    {
+                        <h4 class="price">$@book.Price</h4>
+                    }
+                }
+
                 <button class="btn btn-default btn-primary">Add to cart</button>
                 <p class="description">@book.Description</p>
                 <hr>
             </div>
         </div>
     }
-}

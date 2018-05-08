@@ -33,19 +33,16 @@
         @await Html.PartialAsync("_StarsPartial", @number)
 
         @{
-                if(@Model.Book.Price != @Model.Book.DiscountPrice)
-                {
-
-                    <h4  class="price">$@Model.Book.Price</h4>
-                    <h4  class="price">$@Model.Book.DiscountPrice</h4>
-                }
-                else
-                {
-                    <h4 class="price">$@Model.Book.Price</h4>
-                    <h2>HALLO</h2>
-                    
-                }
+            if(@Model.Book.Price != @Model.Book.DiscountPrice)
+            {
+                <h4 class="price" id="detail-oldprice">$@Model.Book.Price</h4>
+                <h4 class="price" id="detail-newprice">$@Model.Book.DiscountPrice</h4>
             }
+            else
+            {
+                <h4 class="price">$@Model.Book.Price</h4>
+            }
+        }
         <button class="btn btn-default btn-primary">Add to cart</button>
         <p class="description">@Model.Book.Description</p>
     </div>

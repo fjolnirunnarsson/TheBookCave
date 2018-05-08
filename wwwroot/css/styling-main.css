@@ -161,6 +161,16 @@ a .search {
     border-radius: 5px;
 }
 
+.addToCart {
+    color: white;
+}
+
+.addToCart:hover {
+    color: white;
+    text-decoration: none;
+    
+}
+
 
 #front-page-books {
     margin-top: 25px;
