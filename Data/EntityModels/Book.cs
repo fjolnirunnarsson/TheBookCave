@@ -14,7 +14,6 @@ namespace TheBookCave.Data.EntityModels
         public double Price { get; set; }
         public string Genre { get; set; }
         public double Discount { get; set; }
-
         public double DiscountPrice { get; set; }
         public int BoughtCopies { get; set; }
         public int Quantity { get; set; }
