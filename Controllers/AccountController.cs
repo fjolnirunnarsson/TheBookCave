@@ -154,11 +154,13 @@ namespace TheBookCave.Controllers
                 account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;
                 account.BillingAddressCity = updatedAccount.BillingAddressCity;
                 account.BillingAddressCountry = updatedAccount.BillingAddressCountry;
+                account.BillingAddressZipCode = updatedAccount.BillingAddressZipCode;
                 account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
                 account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
                 account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
                 account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
                 account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
+                account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
 
                 db.SaveChanges();
             }

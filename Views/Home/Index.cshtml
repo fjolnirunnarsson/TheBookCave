@@ -13,7 +13,7 @@
         </ul>
     </div>
 
-    @foreach(var book in @Model)
+@foreach(var book in @Model)
     {
         <form action="POST">
             <div id="default-book">
@@ -24,11 +24,33 @@
                 <h2 id="book-title"><a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title">@book.Title</a></h2>
                 <h3 class="book-important">@book.Author</h3>
                 @await Html.PartialAsync("_StarsPartial", @book.Rating)
-                <h4 class="book-important">$ @book.Price</h4>
+            
+            @{
+                if(@book.Price != @book.DiscountPrice)
+                {
+                    <div id="price">
+                        <div id="oldprice-div">
+                            <h4  id="old-price">$@book.Price</h4>
+                        </div>
+                        <div id="newprice-div">
+                            <h4  id="new-price">$@book.DiscountPrice</h4>
+                        </div>
+                        
+                    </div>
+                }
+                else
+                {
+                    <h4 class="book-important">$ @book.Price</h4>
+                    
+                }
+            }
+
+
                 <button class="btn btn-primary addcart" id="cartButton" asp-controller="ShoppingCart" asp-action="AddToCart">Add to cart</button>
             </div>
         </form>
     }
+    
 
     
 </div>

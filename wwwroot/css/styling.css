@@ -197,6 +197,43 @@ a .search {
     text-align: center;
 }
 
+#old-price {
+    text-decoration: line-through;
+    display: inline;
+    font-size: 15px;
+    margin-left: 20px;
+    
+}
+
+#new-price {
+    color: red;
+    display: inline;
+    font-size: 15px;
+    margin-left: 30px;
+}
+
+#newprice-div {
+    float: left;
+    width: 50px;
+    height: 18px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+#oldprice-div {
+    float: left;
+    width: 50px;
+    height: 18px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+#price {
+    width: 150px;
+    height: 36px;
+    margin: auto;
+}
+
 .heart-img {
     position: fixed;
     margin-left: 140px;
