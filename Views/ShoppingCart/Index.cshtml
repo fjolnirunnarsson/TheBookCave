@@ -1,26 +1,23 @@
 @model TheBookCave.Models.ViewModels.ShoppingCartViewModel
 <link rel="stylesheet" href="~/css/styles.cart.css" />
 
-@Model.ShoppingCart.CartItems.Count = 0;
-
 @{
-    if (Model.ShoppingCart.CartItems.Count > 0) 
+    if (Model.CartItems.Count > 0) 
     {
         <div class="cart">
             <h1 id="cart-title">Your Items</h1>
             <div class="cart-items">
-                    @foreach(var item in @Model.ShoppingCart.CartItems)
+                    @foreach(var item in @Model.CartItems)
                     {
-                        
                         <div class="book-item">
-                            <a asp-controller="Book" asp-action="Details" asp-route-title="@item.BookItem.Title"><img class="cart-img" src="@item.BookItem.Image" alt="No Image"></a>
+                            <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Book.Title"><img class="cart-img" src="@item.Book.Image" alt="No Image"></a>
                             <div class="book-info"> 
-                                <a asp-controller="Book" asp-action="Details" asp-route-title="@item.BookItem.Title">
-                                    <h2 class="item-title">@item.BookItem.Title</h2>
+                                <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Book.Title">
+                                    <h2 class="item-title">@item.Book.Title</h2>
                                 </a>
-                                <h3>@item.BookItem.Author</h3>
-                                <h4>$ @item.BookItem.Price</h4>
-                                <h4>Rating: @item.BookItem.Rating stars</h4>
+                                <h3>@item.Book.Author</h3>
+                                <h4>$ @item.Book.Price</h4>
+                                <h4>Rating: @item.Book.Rating stars</h4>
                             </div>
                             <div class="trash">
                                 <a href="#"><span class="glyphicon glyphicon-trash"></span></a>

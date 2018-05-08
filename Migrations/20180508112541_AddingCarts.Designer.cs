@@ -11,9 +11,10 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180508112541_AddingCarts")]
+    partial class AddingCarts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,7 +104,7 @@ namespace TheBookCave.Migrations
 
                     b.ToTable("Books");
                 });
-            
+
             modelBuilder.Entity("TheBookCave.Data.EntityModels.Cart", b =>
                 {
                     b.Property<int>("RecordId")
@@ -128,56 +129,6 @@ namespace TheBookCave.Migrations
                 {
                     b.HasOne("TheBookCave.Data.EntityModels.Book", "book")
                         .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-
-
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BookId");
-                    
-                    b.Property<string>("Comment");
-
-                    b.Property<int>("Rating");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Reviews");
-                });
-
-
-
-            modelBuilder.Entity("TheBookCave.Models.ViewModels.ReviewViewModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BookId");
-
-                    b.Property<string>("Comment");
-
-                    b.Property<int>("Rating");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("ReviewViewModel");
-                });
-
-            modelBuilder.Entity("TheBookCave.Models.ViewModels.ReviewViewModel", b =>
-                {
-                    b.HasOne("TheBookCave.Data.EntityModels.Book")
-                        .WithMany("Reviews")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
