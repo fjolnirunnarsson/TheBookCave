@@ -15,7 +15,7 @@ namespace TheBookCave.Repositories
         }
 
         public List<AuthorListViewModel> GetAllAuthors()
-        {
+        {   
             var authors = (from a in _db.Authors              // Skipta þessari breytu inn þegar við erum komin með database link.
                             select new AuthorListViewModel
                             {
