@@ -29,6 +29,9 @@
     <tr>
         <th>Title</th>
         <th>Quantity</th>
+        <td>Price</td>
+        <td>Discount</td>
+        <td>DPrice</td>
     </tr>
     </br>
     @foreach(var book in @Model)
@@ -36,6 +39,9 @@
         <tr>
             <td>@book.Title</td>
             <td>@book.Quantity</td>
+            <td>@book.Price</td>
+            <td>@book.Discount</td>
+            <td>@book.DiscountPrice</td>
             <td><a asp-controller="EmployeeSite" asp-action="Change" asp-route-id="@book.Id"><span id="delete-button" class="glyphicon glyphicon-wrench"></span></a></td>
             <td><a asp-controller="EmployeeSite" asp-action="Delete" asp-route-id="@book.Id"><span class="glyphicon glyphicon-trash"></span></a></td>
         </tr>

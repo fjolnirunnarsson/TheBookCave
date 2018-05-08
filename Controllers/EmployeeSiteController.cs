@@ -27,11 +27,10 @@ namespace TheBookCave.Controllers
         {
             var books = _bookService.GetAllBooks();
 
-            var top10 = (from book in books
-                        orderby book.Rating descending
+            var booklist = (from book in books
                         select book).ToList();
 
-            return View(top10);
+            return View(booklist);
         }
 
         [HttpGet]
@@ -74,12 +73,11 @@ namespace TheBookCave.Controllers
                 onebook.Image = updatedBook.Image;
                 onebook.Author = updatedBook.Author;
                 onebook.Quantity = updatedBook.Quantity;
-                onebook.Rating = updatedBook.Rating;
                 onebook.Price = updatedBook.Price;
-                onebook.Genre = updatedBook.Genre;
-                onebook.BoughtCopies = updatedBook.BoughtCopies;
                 onebook.Year = updatedBook.Year;
                 onebook.Description = updatedBook.Description;
+                onebook.Discount = updatedBook.Discount ;
+                onebook.DiscountPrice = System.Math.Round( (1 - updatedBook.Discount/100) * updatedBook.Price,2);
                 db.SaveChanges();
             }
 

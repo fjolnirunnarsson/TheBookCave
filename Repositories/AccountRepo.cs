@@ -14,8 +14,10 @@ namespace TheBookCave.Repositories
             _db = new DataContext();
         }
 
+        
         public List<AccountListViewModel> GetAllAccounts()
         {
+            
             var accounts = (from a in _db.Accounts
                             select new AccountListViewModel
                            {
@@ -33,7 +35,7 @@ namespace TheBookCave.Repositories
                                 DeliveryAddressLine2 = a.DeliveryAddressLine2,
                                 DeliveryAddressCity = a.DeliveryAddressCity,
                                 DeliveryAddressCountry = a.DeliveryAddressCountry,
-                                DeliveryAddressZipCode = a.DeliveryAddressZipCode
+                                DeliveryAddressZipCode = a.DeliveryAddressZipCode,
                            }).ToList();
             return accounts;
         }

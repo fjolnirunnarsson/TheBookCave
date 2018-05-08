@@ -31,7 +31,9 @@ namespace TheBookCave.Repositories
                             BoughtCopies = a.BoughtCopies,
                             Description = a.Description,
                             Quantity = a.Quantity,
-                            Year = a.Year
+                            Year = a.Year,
+                            Discount = a.Discount,
+                            DiscountPrice = System.Math.Round((1 - a.Discount/100) * a.Price,2)
                         }).ToList();
             
             return books;

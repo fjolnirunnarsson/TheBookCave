@@ -10,3 +10,8 @@ $(document).ready(function() {
         $(this).toggleClass('heart-icon-active');
     });
 });
+
+
+document.getElementById("yourLinkId").onclick = function() {
+    document.getElementById("yourFormId").submit();
+}

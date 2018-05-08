@@ -1,51 +1,82 @@
-@model TheBookCave.Models.ViewModels.BookListViewModel
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using TheBookCave.Models
+@using System.Collections.Generic
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@model dynamic
+
+@{
+    double number = @Model.Book.Rating;
+}
+
 <link rel="stylesheet" href="~/css/details.css" />
 
 
 <div class="detailsContainer">
+    <div class="heart-img">
+        <span class="glyphicon glyphicon-heart heart-icon"></span>
+    </div>
 
-        <div class="heart-img">
-            <span class="glyphicon glyphicon-heart heart-icon"></span>
-        </div>
-        <div class="detailsImage">
-            <img src="@Model.Image" alt="No Images" class="cover">
-        </div>
-        <div class="detailsDescription">
-            <h2>@Model.Title</h2>
-            <hr>
-            <h4>@Model.Author</h4>
-            
-            <a asp-controller="Book" asp-action="Genre" asp-route-genre="@Model.Genre"><h4>@Model.Genre</h4></a>
-            
-            @await Html.PartialAsync("_StarsPartial", @Model.Rating)
-            
-            <h4 class="price">$ @Model.Price</h4>
-            <button class="btn btn-default btn-primary">Add to cart</button>
-            <p class="description">@Model.Description</p>
+    <div class="detailsImage">
+        <img src="@Model.Book.Image" alt="No Images" class="cover">
+    </div>
+
+    <div class="detailsDescription">
+        <h2>@Model.Book.Title</h2>
+        <hr>
+        <h4>@Model.Book.Author</h4>
+        
+        <a asp-controller="Book" asp-action="Genre" asp-route-genre="@Model.Book.Genre"><h4>@Model.Book.Genre</h4></a>
+
+        @await Html.PartialAsync("_StarsPartial", @number)
+
+        <h4 class="price">$ @Model.Book.Price</h4>
+        <button class="btn btn-default btn-primary">Add to cart</button>
+        <p class="description">@Model.Book.Description</p>
+    </div>
 </div>
-            <div id="review">
-            <form method="POST" class="form-horizontal">
-                <div class="form-group">
-                    <label for="Rating">Your Rating</label>
-                    <select name="Rating" class="form-control">
-                        <option value="1">1 Star</option>
-                        <option value="2">2 Stars</option>
-                        <option value="3">3 Stars</option>
-                        <option value="4">4 Stars</option>
-                        <option value="5">5 Stars</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="Comment">Your Review</label>
-                    <input type="text"  id="comment" class="form-control" name="Comment">
-                </div>
-                <div class="form-group">
-                    <label for="Username">Your Username</label>
-                    <input type="text" class="form-control" name="UserName">
-                </div>
-                    <input type="text" class="form-control" id="book-id" name="BookId" value="@Model.Id">
-                <div class="form-group">
-                    <input type="submit" value="Submit" class="btn btn-default btn-primary"/>
-                </div>
-            </form>
+@if(SignInManager.IsSignedIn(User)) {
+    <div id="review">
+        <form method="POST" class="form-horizontal">
+            <div class="form-group">
+                <label for="Rating">Your Rating</label>
+                <select name="Rating" class="form-control">
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
             </div>
+            <div class="form-group">
+                <label for="Comment">Your Review</label>
+                <input type="text"  id="comment" class="form-control" name="Comment">
+            </div>
+            <div class="form-group">
+                <label for="Username">Your Username</label>
+                <input type="text" class="form-control" name="UserName">
+            </div>
+                <input type="text" class="form-control" id="book-id" name="BookId" value="@Model.Book.Id">
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-default btn-primary"/>
+            </div>
+        </form>
+    </div>
+}
+@{
+    bool variable = true;
+}
+@foreach(var item in @Model.Reviews)
+{
+    if(variable == true){
+        <h3>Reviews by users</h3>
+        variable = false;
+    }
+    <div class="onereview">
+        <p>Review by: @item.UserName</p>
+        <p>@item.Rating stars out of 5</p>
+        <p>@item.Comment</p>
+    </div>
+}

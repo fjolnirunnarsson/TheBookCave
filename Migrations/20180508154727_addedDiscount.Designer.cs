@@ -3,15 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using TheBookCave.Data;
 
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180508154727_addedDiscount")]
+    partial class addedDiscount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +30,7 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("BillingAddressCountry");
 
-                    b.Property<string>("BillingAddressHouseNumber");
+                    b.Property<int>("BillingAddressHouseNumber");
 
                     b.Property<string>("BillingAddressLine2");
 
@@ -35,13 +38,11 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("BillingAddressZipCode");
 
-                    b.Property<int>("BookId");
-
                     b.Property<string>("DeliveryAddressCity");
 
                     b.Property<string>("DeliveryAddressCountry");
 
-                    b.Property<string>("DeliveryAddressHouseNumber");
+                    b.Property<int>("DeliveryAddressHouseNumber");
 
                     b.Property<string>("DeliveryAddressLine2");
 
@@ -83,7 +84,7 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<double>("Discount");
+                    b.Property<int>("Discount");
 
                     b.Property<double>("DiscountPrice");
 

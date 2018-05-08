@@ -13,7 +13,7 @@
         </ul>
     </div>
 
-    @foreach(var book in @Model)
+@foreach(var book in @Model)
     {
             <div id="default-book">
                 <div class="heart-img">
@@ -27,8 +27,30 @@
                 <button class="btn btn-primary addcart">
                     @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { bookId = @book.Id }, "")
                 </button>
+            
+            @{
+                if(@book.Price != @book.DiscountPrice)
+                {
+                    <div id="price">
+                        <div id="oldprice-div">
+                            <h4  id="old-price">$@book.Price</h4>
+                        </div>
+                        <div id="newprice-div">
+                            <h4  id="new-price">$@book.DiscountPrice</h4>
+                        </div>
+                        
+                    </div>
+                }
+                else
+                {
+                    <h4 class="book-important">$ @book.Price</h4>
+                    
+                }
+            }
+
+
+                <button class="btn btn-primary addcart" id="cartButton" asp-controller="ShoppingCart" asp-action="AddToCart">Add to cart</button>
             </div>
     }
-    
 </div>
 

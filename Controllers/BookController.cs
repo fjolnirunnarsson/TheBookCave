@@ -11,6 +11,8 @@ using TheBookCave.Models;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Repositories;
 using TheBookCave.Services;
+using System.Dynamic;
+using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
 {
@@ -76,14 +78,52 @@ namespace TheBookCave.Controllers
                             where ((newbook.Title).ToLower() == title.ToLower())
                             select newbook).First();
 
-                return View(onebook);
+                var reviews = _BookService.GetAllReviews();
+
+                var thisbookreviews = (from rev in reviews
+                                    where (rev.BookId == onebook.Id)
+                                    select rev).ToList();
+
+                dynamic mymodel = new ExpandoObject();
+                mymodel.Book = onebook;
+                mymodel.Reviews = thisbookreviews;
+
+                return View(mymodel);
         }
         [HttpPost]
         public IActionResult Details(ReviewInputModel review){
 
                 SeedDataCreate(review);
 
-                return RedirectToAction("Index");
+             using (var db = new DataContext())
+            {
+                var books = _BookService.GetAllBooks();
+                var reviews = _BookService.GetAllReviews();
+
+
+                var onebook = (from newbook in db.Books
+                            where ((newbook.Id) == review.BookId)
+                            select newbook).First();
+                            
+                var allreviews = (from newreview in db.Reviews
+                            where ((newreview.BookId) == onebook.Id)
+                            select newreview).ToList();
+
+                onebook.Rating = getRating(allreviews);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public double getRating(List<Review> reviews)
+        {
+            double rating = 0;
+            foreach(var review in reviews){
+                rating += review.Rating;
+            }
+            rating = rating/reviews.Count();
+            return rating;
         }
         [HttpGet]
         public static void SeedDataCreate(ReviewInputModel review){

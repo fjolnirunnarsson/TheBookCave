@@ -48,19 +48,5 @@ namespace TheBookCave.Controllers
 
             return View(booklist);
         }
-
-        public IActionResult Top10()
-        {
-            var books = _BookService.GetAllBooks();
-
-            return View(books);
-        }
-
-        public IActionResult Details(){
-
-            var books = _BookService.GetAllBooks();
-            
-            return View(books);
-        }
     }
 }

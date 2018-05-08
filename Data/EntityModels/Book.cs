@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using TheBookCave.Models.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace TheBookCave.Data.EntityModels
 {
@@ -13,7 +12,9 @@ namespace TheBookCave.Data.EntityModels
         public double Rating { get; set; }
         public double Price { get; set; }
         public string Genre { get; set; }
-        public int Discount { get; set; }
+        public double Discount { get; set; }
+        [RegularExpression(@"^\d+\.\d{1.2}")]
+        public double DiscountPrice { get; set; }
         public int BoughtCopies { get; set; }
         public int Quantity { get; set; }
         public string Description { get; set; }

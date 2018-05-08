@@ -5,7 +5,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Name")?.Value;
+var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "FirstName")?.Value;
 }
 
 @{
@@ -13,9 +13,9 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
     {
 
 
-        <form asp-controller="Account" asp-action="LogOut" method="POST">
+        <form asp-controller="Account" asp-action="LogOut" method="POST" id="yourFormId">
             <p id="username">Hi @claim!</p>
-            <a href="#"><button class="btn btn-link navbar-btn navbar-link">Log Out</button></a>
+            <a href="#" id="yourLinkId">Log out</a>
         </form>
     }
     else
