@@ -35,8 +35,7 @@ namespace TheBookCave.Repositories
                                 DeliveryAddressLine2 = a.DeliveryAddressLine2,
                                 DeliveryAddressCity = a.DeliveryAddressCity,
                                 DeliveryAddressCountry = a.DeliveryAddressCountry,
-                                DeliveryAddressZipCode = a.DeliveryAddressZipCode
-                                
+                                DeliveryAddressZipCode = a.DeliveryAddressZipCode,
                            }).ToList();
             return accounts;
         }
