@@ -4,11 +4,6 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 
-@{
-var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Name")?.Value;
-}
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +39,7 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
                         @{
                             if(SignInManager.IsSignedIn(User)) {
                                 <a asp-controller="Account" asp-action="Index">My Account</a>
+                                
                                 <a href="#">My Orders</a>
                             }
                             else {
@@ -60,8 +56,6 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
     </div>
 </nav>
 
-
-
 <div id="sidebar-wrap">
     <ul class="sidebar-nav">
         <li class="sidebar-brand"><a href="#">ON SALE</a></li>
@@ -71,14 +65,24 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
     </ul>
     <ul class="sidebar-nav">
         <li class="sidebar-brand"><a asp-controller="Book" asp-action="Index">Genres</li></a>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Art & Photography">Art & Photography</a></li>
         <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Biography">Biography</a></li>
-        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Fiction">Fiction</a></li>
-        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Romance">Romance</a></li>
-        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Crime">Crime</a></li>
-        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Fantasy">Fantasy</a></li>
-        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Philosophy">Philosophy</a></li>
         <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Children">Children</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Crime">Crime</a></li>
         <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Education">Education</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Fantasy">Fantasy</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Fiction">Fiction</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Food">Food</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Historical Fiction">Historical Fiction</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="History">History</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Nature">Nature</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Self Help">Self Help</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Philosophy">Philosophy</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Romance">Romance</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Science Fiction">Science Fiction</a></li>
+        <li><a asp-controller="Book" asp-action="Genre" asp-route-genre="Thriller">Thriller</a></li>
+
+
     </ul>
 </div>
 

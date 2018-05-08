@@ -30,22 +30,22 @@ namespace TheBookCave
 
         public static void SeedData()   // Fall sem er notað til að frumstilla gagnagrunninn, þ.e. bæta upprunalegum gögnum í hann.
         {
-           /* var db = new DataContext();
+           var db = new DataContext();
 
-            var Accounts = new List<Account>
+            var cart = new Cart
             {
-                new Account{
-                    FirstName = "Arnbjörg", LastName = "Frímannsdóttir", Email = "abbabara@gmail.com",
-                    BillingAddressStreet = "Stekkjargrund", BillingAddressHouseNumber = 6, BillingAddressLine2= "",
-                    BillingAddressCity = "Reyðarfjörður", BillingAddressCountry = "Iceland", BillingAddressZipCode = "730",
-                    DeliveryAddressStreet = "Stekkjargrund", DeliveryAddressHouseNumber = 6, DeliveryAddressLine2= "",
-                    DeliveryAddressCity = "Reyðarfjörður", DeliveryAddressCountry = "Iceland", DeliveryAddressZipCode = "730"
-                }  
+                CartId = "stefansdottir8@gmail.com", BookId =  22, Quantity = 1, DateCreated = DateTime.Now, 
+                Book = new Book { Title = "Sample", Author = "Halldor Logi", Description = "SampleBook",
+                           Year = 2018, Image = "https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/9978/9780997895827.jpg", 
+                           Genre = "Biography", Rating = 4.56, Price = 20.42, Discount = 0, BoughtCopies = 0, Quantity = 100, AuthorId = 1 }
             };
-            db.AddRange(Accounts);
+            db.AddRange(cart);
             db.SaveChanges();
+        }
+    }
+}
 
-            var db = new DataContext();
+            /*var db = new DataContext();
                 
                 var Books = new List<Book>
                 {
@@ -136,8 +136,8 @@ namespace TheBookCave
             };
             
                 db.AddRange(Books);
-                db.SaveChanges();*/
+                db.SaveChanges();
 
         }
     }
-}
+}*/

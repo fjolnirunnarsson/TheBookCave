@@ -11,9 +11,10 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20180508112541_AddingCarts")]
+    partial class AddingCarts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +30,7 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("BillingAddressCountry");
 
-                    b.Property<string>("BillingAddressHouseNumber");
+                    b.Property<int>("BillingAddressHouseNumber");
 
                     b.Property<string>("BillingAddressLine2");
 
@@ -41,7 +42,7 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("DeliveryAddressCountry");
 
-                    b.Property<string>("DeliveryAddressHouseNumber");
+                    b.Property<int>("DeliveryAddressHouseNumber");
 
                     b.Property<string>("DeliveryAddressLine2");
 
@@ -124,27 +125,9 @@ namespace TheBookCave.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("TheBookCave.Data.EntityModels.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BookId");
-
-                    b.Property<string>("Comment");
-
-                    b.Property<int>("Rating");
-
-                    b.Property<string>("UserName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Reviews");
-                });
-
             modelBuilder.Entity("TheBookCave.Data.EntityModels.Cart", b =>
                 {
-                    b.HasOne("TheBookCave.Data.EntityModels.Book", "Book")
+                    b.HasOne("TheBookCave.Data.EntityModels.Book", "book")
                         .WithMany()
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
