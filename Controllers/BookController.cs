@@ -82,7 +82,17 @@ namespace TheBookCave.Controllers
         public IActionResult Details(ReviewInputModel review){
 
                 SeedDataCreate(review);
+                var books = _BookService.GetAllBooks();
+                var reviews = _BookService.Getall
 
+
+                var onebook = (from newbook in books
+                            where ((newbook.Id) == review.BookId)
+                            select newbook).First();
+                            
+                var allreviews = (from newreview in reviews
+                            where ((newreview.BookId) == onebook.Id)
+                            select newbook).First();
                 return RedirectToAction("Index");
         }
         [HttpGet]
