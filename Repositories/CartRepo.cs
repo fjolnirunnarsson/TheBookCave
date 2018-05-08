@@ -79,15 +79,9 @@ namespace TheBookCave.Repositories
         
             if (cartItem != null)
             {
-                if (cartItem.Quantity > 1)
-                {
-                    cartItem.Quantity--;
-                    localQuantity = cartItem.Quantity;
-                }
-                else
-                {
-                    _db.Carts.Remove(cartItem);
-                }
+
+                _db.Carts.Remove(cartItem);
+    
             }
             _db.SaveChanges();
 
