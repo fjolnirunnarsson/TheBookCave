@@ -1,27 +1,37 @@
-@model List<TheBookCave.Models.ViewModels.AccountListViewModel>
+@model TheBookCave.Models.ViewModels.AccountListViewModel
+
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using TheBookCave.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    var firstName = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "FirstName")?.Value;
+    var lastName = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "LastName")?.Value;
+    var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Email")?.Value;
+}
 
 <link rel="stylesheet" href="~/css/account.css">
 
-@foreach(var account in Model)
-
-{
-    <div class="account-info">
-    <h2>My Account</h2>
-    <div class="account-table">
-            <table class="table table-striped table-hover">
-                <tr>
-                    <td><a asp-controller="Account" asp-action="Details">Personal information</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">My orders</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">Change password</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#">Log out</a></td>
-                </tr>
-            </table>
-        </div>
+<div class="account-info">
+<h2>My Account</h2>
+<div class="account-table">
+        <table class="table table-striped table-hover">
+            <tr>
+                <td><a asp-controller="Account" asp-action="Details" asp-route-email="@email">Personal information</a></td>
+            </tr>
+            <tr>
+                <td><a href="#">My orders</a></td>
+            </tr>
+            <tr>
+                <td><a href="#">Change password</a></td>
+            </tr>
+            <tr>
+                <td><a href="#">Log out</a></td>
+            </tr>
+        </table>
     </div>
-}
+</div>
+
+

@@ -14,8 +14,10 @@ namespace TheBookCave.Repositories
             _db = new DataContext();
         }
 
+        
         public List<AccountListViewModel> GetAllAccounts()
         {
+            
             var accounts = (from a in _db.Accounts
                             select new AccountListViewModel
                            {

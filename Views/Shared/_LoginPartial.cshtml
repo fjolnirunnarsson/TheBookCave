@@ -5,7 +5,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Name")?.Value;
+var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "FirstName")?.Value;
 }
 
 @{
