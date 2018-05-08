@@ -21,7 +21,12 @@
                                 <h4>Quantity: @item.Quantity</h4>  
                             </div>
                             <div class="trash">
-                                <a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                                <span> @Html.ActionLink("",
+                                 "RemoveFromCart", "ShoppingCart", 
+                                 new { bookId = @item.Id }, 
+                                 new { @class= "glyphicon glyphicon-trash" })
+                                 </span>
+                                
                             </div>
                         </div>
                         
