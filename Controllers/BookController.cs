@@ -12,6 +12,7 @@ using TheBookCave.Models.InputModels;
 using TheBookCave.Repositories;
 using TheBookCave.Services;
 using System.Dynamic;
+using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
 {
@@ -94,7 +95,35 @@ namespace TheBookCave.Controllers
 
                 SeedDataCreate(review);
 
-                return RedirectToAction("Index");
+             using (var db = new DataContext())
+            {
+                var books = _BookService.GetAllBooks();
+                var reviews = _BookService.GetAllReviews();
+
+
+                var onebook = (from newbook in db.Books
+                            where ((newbook.Id) == review.BookId)
+                            select newbook).First();
+                            
+                var allreviews = (from newreview in db.Reviews
+                            where ((newreview.BookId) == onebook.Id)
+                            select newreview).ToList();
+
+                onebook.Rating = getRating(allreviews);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public double getRating(List<Review> reviews)
+        {
+            double rating = 0;
+            foreach(var review in reviews){
+                rating += review.Rating;
+            }
+            rating = rating/reviews.Count();
+            return rating;
         }
         [HttpGet]
         public static void SeedDataCreate(ReviewInputModel review){

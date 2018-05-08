@@ -65,13 +65,18 @@
         </form>
     </div>
 }
-
-    <h3>Reviews by other users</h3>
-    @foreach(var item in @Model.Reviews)
-    {
-        <div class="onereview">
+@{
+    bool variable = true;
+}
+@foreach(var item in @Model.Reviews)
+{
+    if(variable == true){
+        <h3>Reviews by other users</h3>
+        variable = false;
+    }
+    <div class="onereview">
         <p>Review by: @item.UserName</p>
         <p>@item.Rating stars out of 5</p>
         <p>@item.Comment</p>
-        </div>
-    }
+    </div>
+}
