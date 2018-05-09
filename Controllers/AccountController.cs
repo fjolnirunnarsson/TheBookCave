@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
@@ -15,7 +16,6 @@ namespace TheBookCave.Controllers
     public class AccountController : Controller
     {
         private AccountService _accountService;
-
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
@@ -52,7 +52,7 @@ namespace TheBookCave.Controllers
                 await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
                 await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
                 await _signInManager.SignInAsync(user, false);
-
+                
                 return RedirectToAction("Index", "Home");
             }
             return View();
@@ -168,6 +168,26 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Index");
         }
 
-
+        /*public IActionResult History(DataContext db, HttpContext context) 
+        {
+            var books = (from items in db.Books
+                        join citems in db.Purchased on items.Id equals citems.BookId
+                        where citems.CustomerId == context.User.Identity.Name
+                        select new BookListViewModel
+                        {
+                            Id = items.Id,
+                            Image = items.Image,
+                            Title = items.Title,
+                            Author = items.Author,
+                            AuthorId = items.AuthorId,
+                            Rating = items.Rating,
+                            Price = items.DiscountPrice,
+                            Genre = items.Genre,
+                            Year = items.year,
+                            Description = items.Description,
+                        }).ToList();
+            return View(books);
+        }*/
     }
 }
+

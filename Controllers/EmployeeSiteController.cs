@@ -6,17 +6,82 @@ using TheBookCave.Models.ViewModels;
 using TheBookCave.Services;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using TheBookCave.Models;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace TheBookCave.Controllers
 {
+    //[Authorize(Roles = "Loser")]
     public class EmployeeSiteController : Controller
     {
          private BookService _bookService;
-
-        public EmployeeSiteController()
+        private AccountService _accountService;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+    
+        public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _bookService = new BookService();
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _accountService = new AccountService();
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(); //Sagði í fyrirlestri að hér ætti að hafa client side validation
+            }
+            
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+            var result = await _userManager.CreateAsync(user, model.Password);
+            await _userManager.AddToRoleAsync(user,"Admin");
+
+
+            if(result.Succeeded)
+            {
+                SeedDataCreateAccount(model);
+                // The User is successfully registered
+                // Add the concatenated first and last name as fullname in claims
+                await _userManager.AddClaimAsync(user, new Claim("FirstName", $"{model.FirstName}"));
+                await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
+                await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
+                await _signInManager.SignInAsync(user, false);
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        public static void SeedDataCreateAccount(RegisterViewModel model)
+        {
+             var db = new DataContext();
+                var Accounts = new List<Account>
+                {
+                    new Account{
+                        FirstName = model.FirstName, 
+                        LastName = model.LastName,
+                        Email = model.Email
+                    }
+                };
+                db.AddRange(Accounts);
+                db.SaveChanges();
+        }
+
+        
+        
         public IActionResult Login()
         {
             return View();
