@@ -6,7 +6,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="FirstName" placeholder="First name">
         </div>
-        <div asp-validation-for="FirstName"></div>
     </div>
 
     <div class="form-group">
@@ -14,7 +13,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="LastName" placeholder="Last name">
         </div>
-        <div asp-validation-for="LastName"></div>
     </div>
 
     <div class="form-group">
@@ -22,7 +20,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="Email" placeholder="Email">
         </div>
-        <div asp-validation-for="Email"></div>
     </div>
 
     <div class="form-group">
@@ -30,7 +27,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="ProfilePicture" placeholder="A link to your profile picture...">
         </div>
-        <div asp-validation-for="ProfilePicture"></div>
     </div>
 
     <div class="form-group">
@@ -38,7 +34,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="FavoriteBook" placeholder="Your favorite book">
         </div>
-        <div asp-validation-for="FavoriteBook"></div>
     </div>
 
     <div class="form-group">
@@ -46,7 +41,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="BillingAddressStreet" placeholder="Street name">
         </div>
-        <div asp-validation-for="BillingAddressStreet"></div>
     </div>
 
     <div class="form-group">
@@ -54,7 +48,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="BillingAddressHouseNumber" placeholder="House number">
         </div>
-        <div asp-validation-for="BillingAddressHouseNumber"></div>
     </div>
 
     <div class="form-group">
@@ -62,7 +55,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="BillingAddressLine2" placeholder="(Optional) Apartment / suite ...">
         </div>
-        <div asp-validation-for="BillingAddressLine2"></div>
     </div>
 
     <div class="form-group">
@@ -70,7 +62,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="BillingAddressZipCode" placeholder="Postal code">
         </div>
-        <div asp-validation-for="BillingAddressZipCode"></div>
     </div>
 
     <div class="form-group">
@@ -78,7 +69,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="BillingAddressCity" placeholder="City / town">
         </div>
-        <div asp-validation-for="BillingAddressCity"></div>
     </div>
 
     <div class="form-group">
@@ -99,9 +89,7 @@
                 <option value="United Kingdom">United Kingdom</option>
                 <option value="United States">United States</option>
             </select>
-        </div>
-        <div asp-validation-for="BillingAddressCountry"></div>
-    
+        </div>  
     </div>
 
     <div class="form-group">
@@ -109,7 +97,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="DeliveryAddressStreet" placeholder="Street name">
         </div>
-        <div asp-validation-for="DeliveryAddressStreet"></div>
     </div>
 
     <div class="form-group">
@@ -117,7 +104,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="DeliveryAddressHouseNumber" placeholder="House number">
         </div>
-        <div asp-validation-for="DeliveryAddressHouseNumber"></div>
     </div>
 
     <div class="form-group">
@@ -125,7 +111,6 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="DeliveryAddressLine2" placeholder="(Optional) Apartment / suite ...">
         </div>
-        <div asp-validation-for="DeliveryAddressLine2"></div>
     </div>
 
     <div class="form-group">
@@ -133,10 +118,7 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="DeliveryAddressZipCode" placeholder="Postal code">
         </div>
-        <div asp-validation-for="DeliveryAddressZipCode"></div>
     </div>
-
-
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="DeliveryAddressCountry"></label>
@@ -157,11 +139,9 @@
                 <option value="United States">United States</option>
             </select>
         </div>
-        <div asp-validation-for="DeliveryAddressCountry"></div>
     </div>
-
-    
 
     <input type="submit" value="Save changes" class="btn btn-default">
     <a asp-controller="Account" asp-action="Index" asp-route-email="@Model.Email"><input type="button" value="Cancel" class="btn btn-danger"></a>
+    <div asp-validation-summary="All"></div>
 </form>
