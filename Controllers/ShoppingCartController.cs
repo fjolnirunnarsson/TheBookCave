@@ -120,7 +120,7 @@ namespace TheBookCave.Controllers
         }
 
         [HttpPost]
-        public IActionResult Checkout(AccountListViewModel updatedAccount)
+        public IActionResult Checkout(AccountInputModel updatedAccount)
         {
             using (var db = new DataContext())
             {

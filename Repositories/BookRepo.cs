@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
+using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Repositories
