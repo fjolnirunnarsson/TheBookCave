@@ -13,6 +13,7 @@ namespace TheBookCave.Models.InputModels
 
         [Required(ErrorMessage="Field required")]
         public string Email { get; set; }
+        public string ProfilePicture {get; set;}
 
         [Required(ErrorMessage="Field required")]
         public string BillingAddressStreet { get; set; }
