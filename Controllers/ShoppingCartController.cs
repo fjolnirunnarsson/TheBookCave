@@ -1,3 +1,6 @@
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
@@ -10,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using TheBookCave.Repositories;
 using TheBookCave.Models.ViewModels;
 using System.Dynamic;
+
 
 namespace TheBookCave.Controllers
 {
@@ -27,7 +31,7 @@ namespace TheBookCave.Controllers
             _bookService = new BookService();
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
             var cart = CartService.GetCart(this.HttpContext);
 
