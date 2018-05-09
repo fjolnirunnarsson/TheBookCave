@@ -117,6 +117,9 @@ namespace TheBookCave.Controllers
 
         public IActionResult Details(string email){
 
+            var user = HttpContext.User.Identity.Name;
+            
+
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
@@ -169,7 +172,7 @@ namespace TheBookCave.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details");
         }
 
         /*public IActionResult History(DataContext db, HttpContext context) 
