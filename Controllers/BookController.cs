@@ -88,12 +88,15 @@ namespace TheBookCave.Controllers
             mymodel.Book = onebook;
             mymodel.Reviews = thisbookreviews;
 
-            return View(mymodel);
+                
+
+                return View(mymodel);
         }
         [HttpPost]
-        public IActionResult Details(ReviewInputModel review)
-        {
-            SeedDataCreate(review);
+        public IActionResult Details(ReviewInputModel review){
+
+            var user = HttpContext.User.Identity.Name;
+            SeedDataCreate(review, user);
 
             using (var db = new DataContext())
             {
@@ -112,8 +115,13 @@ namespace TheBookCave.Controllers
                 onebook.Rating = Math.Round(getRating(allreviews),2);
                 db.SaveChanges();
             }
+            var books2 = _bookService.GetAllBooks();
 
-            return RedirectToAction("Index");
+            var onebook2 = (from newbook in books2
+                            where ((newbook.Id) == review.BookId)
+                            select newbook).First();
+
+            return RedirectToAction("Details", onebook2);
         }
 
         public double getRating(List<Review> reviews)
@@ -125,17 +133,18 @@ namespace TheBookCave.Controllers
             rating = rating/reviews.Count();
             return rating;
         }
-
-        public static void SeedDataCreate(ReviewInputModel review)
+        
+        [HttpGet]
+        public static void SeedDataCreate(ReviewInputModel review, string user)
         {
             var db = new DataContext();
-
+            
             var Reviews = new List<Review>{
 
                 new Review{
                     Rating = review.Rating,
                     Comment = review.Comment,
-                    UserName = review.UserName,
+                    UserName = user,
                     BookId = review.BookId
                 }
             };
