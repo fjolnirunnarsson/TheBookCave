@@ -20,7 +20,6 @@ namespace TheBookCave.Controllers
     [Authorize]
     public class ShoppingCartController : Controller
     {
-        private CartRepo _cartRepo;
         private AccountService _accountService;
         private CartService _cartService;
 
