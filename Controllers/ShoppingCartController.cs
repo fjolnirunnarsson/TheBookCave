@@ -17,7 +17,7 @@ namespace TheBookCave.Controllers
     public class ShoppingCartController : Controller
     {
         private CartRepo _cartRepo;
-
+        private AccountService _accountService;
         private BookService _bookService;
         private DataContext _db = new DataContext();
 
@@ -25,6 +25,7 @@ namespace TheBookCave.Controllers
         {
             _cartRepo = new CartRepo();
             _bookService = new BookService();
+            _accountService = new AccountService();
         }
 
         public IActionResult Index()
@@ -97,6 +98,18 @@ namespace TheBookCave.Controllers
             _cartRepo.RemoveFromCart(bookAdded, this.HttpContext);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Checkout(string email)
+        {
+                    
+            var accounts = _accountService.GetAllAccounts();
+
+            var account = (from a in accounts
+                         where a.Email == email
+                         select a).SingleOrDefault();
+            return View();
         }
     }
 }
