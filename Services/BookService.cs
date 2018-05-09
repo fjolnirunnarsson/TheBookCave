@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 using TheBookCave.Repositories;
 
@@ -28,6 +29,5 @@ namespace TheBookCave.Services
 
             return reviews;
         }
-        
     }
 }
