@@ -28,16 +28,11 @@ namespace TheBookCave.Repositories
 
         private BookRepo _bookRepo = new BookRepo();
 
-        public static ShoppingCart GetCart(HttpContext context)
+        public ShoppingCart GetCart(HttpContext context)
         {
             var cart = new ShoppingCart();
             cart.ShoppingCartId = context.User.Identity.Name;
             return cart;
-        }
-
-        public static ShoppingCart GetCart(Controller controller)
-        {
-            return GetCart(controller.HttpContext);
         }
 
         public void AddToCart(BookListViewModel book, HttpContext context)
@@ -101,7 +96,7 @@ namespace TheBookCave.Repositories
         {
             var total = (from items in _db.Carts
                         where items.CartId == shoppingCartId
-                        select items.Quantity * items.Book.Price).Sum();
+                        select items.Quantity * items.Book.DiscountPrice).Sum();
             
             return total;
         }

@@ -16,7 +16,7 @@
 
 <div class="detailsContainer">
     <div class="heart-img">
-        <span class="glyphicon glyphicon-heart heart-icon"></span>
+        @Html.ActionLink(" ", "AddToWishList", "WishList", new { bookId = @Model.Book.Id }, new { @class ="glyphicon glyphicon-heart heart-icon addToWishList" })
     </div>
 
     <div class="detailsImage">
