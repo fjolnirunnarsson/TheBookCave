@@ -167,7 +167,7 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-    [HttpGet]
+        [HttpGet]
         public IActionResult ConfirmationStep(string email)
         {
             var cart = CartService.GetCart(this.HttpContext);
