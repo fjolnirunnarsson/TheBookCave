@@ -110,20 +110,14 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Details(string email){
+        public IActionResult Index(){
 
             var user = HttpContext.User.Identity.Name;
-            
 
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
-                        where a.Email == email
+                        where a.Email == user
                         select a).SingleOrDefault();
 
             return View(account);
@@ -172,7 +166,7 @@ namespace TheBookCave.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Details");
+            return RedirectToAction("Index");
         }
 
         public IActionResult Purchases() 
