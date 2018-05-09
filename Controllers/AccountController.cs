@@ -135,6 +135,9 @@ namespace TheBookCave.Controllers
         [HttpPost]
         public IActionResult Edit(AccountListViewModel updatedAccount)
         {
+
+            
+
             using (var db = new DataContext())
             {
                 var account = (from a in db.Accounts
@@ -163,6 +166,30 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult ResetPassword(string token)
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel model)
+        {
+            ApplicationUser user = _userManager.FindByNameAsync(model.UserName).Result;
+
+            var result = _userManager.ResetPasswordAsync(user, model.Token, model.Password).Result;
+
+
+
+            if(result.Succeeded)
+            {
+                ViewBag.Message = "Password reset successful!";
+                return View("Success");
+            }
+            else
+            {
+                ViewBag.Message = "Error while resetting the password!";
+                return View("Error");
+            }
+        }
     }
 }
