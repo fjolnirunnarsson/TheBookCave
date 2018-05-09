@@ -149,6 +149,8 @@ namespace TheBookCave.Controllers
                 account.FirstName = updatedAccount.FirstName;
                 account.LastName = updatedAccount.LastName;
                 account.Email = updatedAccount.Email;
+                account.ProfilePicture = updatedAccount.ProfilePicture;
+                account.FavoriteBook = updatedAccount.FavoriteBook;
                 account.BillingAddressStreet = updatedAccount.BillingAddressStreet;
                 account.BillingAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
                 account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;

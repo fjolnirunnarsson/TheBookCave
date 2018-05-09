@@ -49,9 +49,13 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("DeliveryAddressZipCode");
 
+                    b.Property<string>("FavoriteBook");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
+
+                    b.Property<string>("ProfilePicture");
 
                     b.HasKey("Email");
 
