@@ -1,3 +1,6 @@
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
@@ -10,24 +13,32 @@ using Microsoft.AspNetCore.Authorization;
 using TheBookCave.Repositories;
 using TheBookCave.Models.ViewModels;
 using System.Dynamic;
+using Microsoft.AspNetCore.Http;
 
 namespace TheBookCave.Controllers
 {
     [Authorize]
     public class ShoppingCartController : Controller
     {
+        private CartRepo _cartRepo;
+        private AccountService _accountService;
         private CartService _cartService;
 
         private BookService _bookService;
         private DataContext _db = new DataContext();
+        
+        private string emailll = "";
+        
 
         public ShoppingCartController()
         {
             _cartService = new CartService();
             _bookService = new BookService();
+            _accountService = new AccountService();
+            
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
             var cart = CartService.GetCart(this.HttpContext);
 
@@ -40,6 +51,8 @@ namespace TheBookCave.Controllers
                 CartItems = _cartService.GetCartItems(cartId),
                 CartTotal = _cartService.GetTotal(cartId)
             };
+
+            var accountModel = _accountService.GetAllAccounts();
 
             var books = (from items in _db.Books
                         join citems in _db.Carts on items.Id equals citems.BookId
@@ -62,7 +75,8 @@ namespace TheBookCave.Controllers
 
             myModel.cartItems = cartModel;
             myModel.bookItems = books;
-
+            myModel.account = accountModel;
+            
             return View(myModel);
         }
 
@@ -97,5 +111,91 @@ namespace TheBookCave.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Checkout(string email)
+        {
+            emailll = email;
+            var accounts = _accountService.GetAllAccounts();
+
+            var account = (from a in accounts
+                         where a.Email == email
+                         select a).SingleOrDefault();
+            return View(account);
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(AccountListViewModel updatedAccount)
+        {
+            using (var db = new DataContext())
+            {
+                var account = (from a in db.Accounts
+                            where a.Email == updatedAccount.Email
+                            select a).FirstOrDefault();
+
+                account.FirstName = updatedAccount.FirstName;
+                account.LastName = updatedAccount.LastName;
+                account.Email = updatedAccount.Email;
+                account.BillingAddressStreet = updatedAccount.BillingAddressStreet;
+                account.BillingAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
+                account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;
+                account.BillingAddressCity = updatedAccount.BillingAddressCity;
+                account.BillingAddressCountry = updatedAccount.BillingAddressCountry;
+                account.BillingAddressZipCode = updatedAccount.BillingAddressZipCode;
+                account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
+                account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
+                account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
+                account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
+                account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
+                account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
+               
+
+                db.SaveChanges();
+            }
+            return RedirectToAction("MilliSkref");
+        }
+        public IActionResult Milliskref()
+        {
+            /*var user = context.User.Identity.Name;
+
+            var accounts = _accountService.GetAllAccounts();
+
+            var account = (from a in accounts
+                         where a.Email == user
+                         select a).SingleOrDefault();
+            return View(account);*/
+            return View();
+        }
+
+    [HttpGet]
+        public IActionResult ConfirmationStep(string email)
+        {
+            var cart = CartService.GetCart(this.HttpContext);
+
+            var cartId = cart.ShoppingCartId;
+
+            dynamic myModel = new ExpandoObject();
+            
+            var cartModel = new ShoppingCartViewModel
+            {
+                CartItems = _cartService.GetCartItems(cartId),
+                CartTotal = _cartService.GetTotal(cartId)
+            };
+
+            var accounts = _accountService.GetAllAccounts();
+
+            var accountmodel = (from a in accounts
+                         where a.Email == email
+                         select a).SingleOrDefault();
+
+            myModel.cartItems = cartModel;
+            myModel.account = accountmodel;
+
+            return View(myModel);
+        }
+
+
     }
+
+
 }

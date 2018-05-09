@@ -17,6 +17,29 @@
         <input type="text" asp-for="Author" class="form-control">
         <div asp-validation-for="Author"></div>
 
+        <label for="Genre" class="control-label">Genre</label>
+        <select name="Genre" id="genre" class="form-control">
+            <option value="@Model.Genre" selected>@Model.Genre</option>
+            <option value="Art & Photography">Art & Photography</option>
+            <option value="Biography">Biography</option>
+            <option value="Children">Children</option>
+            <option value="Crime">Crime</option>
+            <option value="Education">Education</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Food">Food</option>
+            <option value="Historical Fiction">Historical Fiction</option>
+            <option value="History">History</option>
+            <option value="Nature">Nature</option>
+            <option value="Self Help">Self Help</option>
+            <option value="Philosophy">Philosophy</option>
+            <option value="Romance">Romance</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Thriller">Thriller</option>
+        </select>
+        <div asp-validation-for="Discount"></div>
+
+
         <label for="Image" class="control-label">Image</label>
         <input type="text" asp-for="Image" class="form-control">
         <div asp-validation-for="Image"></div>

@@ -11,8 +11,8 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180509072739_WishList")]
-    partial class WishList
+    [Migration("20180509133104_accountAndList")]
+    partial class accountAndList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,9 +50,13 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("DeliveryAddressZipCode");
 
+                    b.Property<string>("FavoriteBook");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
+
+                    b.Property<string>("ProfilePicture");
 
                     b.HasKey("Email");
 

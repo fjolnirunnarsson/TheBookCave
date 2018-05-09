@@ -1,4 +1,13 @@
 @model dynamic
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using TheBookCave.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Email")?.Value;
+}
+
 <link rel="stylesheet" href="~/css/styles.cart.css" />
 
 @{
@@ -9,6 +18,7 @@
             <div class="cart-items">
                     @foreach(var item in @Model.bookItems)
                     {
+                        double rating = @item.Rating;
                         <div class="heart-img">
                             <span> @Html.ActionLink("",
                                 "AddToWishList", "WishList", 
@@ -23,8 +33,8 @@
                                     <h2 class="item-title">@item.Title</h2>
                                 </a>
                                 <h3>@item.Author</h3>
+                                @await Html.PartialAsync("_StarsPartial", rating)
                                 <h4>$ @item.Price</h4>
-                                <h4>Rating: @item.Rating stars</h4>
                                 <h4>Quantity: @item.Quantity</h4>  
                             </div>
                             <div class="trash">
@@ -42,7 +52,7 @@
                 <div class="total-price">
                     <h4>Total price:</h4>
                     <h5>US$ @Model.cartItems.CartTotal</h5>    
-                    <button id="btn" class="btn btn-default btn-primary">Checkout</button>
+                    <a id="btn" class="btn btn-default btn-primary" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@email">Checkout</a>
                 </div>
             </div>
         </div>

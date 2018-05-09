@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -108,13 +110,13 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult Index(){
-
+        public IActionResult Index()
+        {
             return View();
         }
 
-        public IActionResult Details(string email)
-        {
+        public IActionResult Details(string email){
+
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
@@ -136,7 +138,7 @@ namespace TheBookCave.Controllers
 
             return View(account);
         }
-
+        
         [HttpPost]
         public IActionResult Edit(AccountListViewModel updatedAccount)
         {
@@ -149,6 +151,8 @@ namespace TheBookCave.Controllers
                 account.FirstName = updatedAccount.FirstName;
                 account.LastName = updatedAccount.LastName;
                 account.Email = updatedAccount.Email;
+                //account.ProfilePicture = updatedAccount.ProfilePicture;
+                //account.FavoriteBook = updatedAccount.FavoriteBook;
                 account.BillingAddressStreet = updatedAccount.BillingAddressStreet;
                 account.BillingAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
                 account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;

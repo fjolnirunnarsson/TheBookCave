@@ -9,6 +9,8 @@ namespace TheBookCave.Data.EntityModels
         public string LastName { get; set; }
         [Key]
         public string Email { get; set; }
+        public string ProfilePicture {get; set;}
+        public string FavoriteBook { get; set; }
         public string BillingAddressStreet { get; set; }
         public string BillingAddressHouseNumber { get; set; }
         public string BillingAddressLine2 { get; set; }
