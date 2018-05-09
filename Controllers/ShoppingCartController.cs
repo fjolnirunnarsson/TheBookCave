@@ -20,15 +20,11 @@ namespace TheBookCave.Controllers
     [Authorize]
     public class ShoppingCartController : Controller
     {
-        private CartRepo _cartRepo;
         private AccountService _accountService;
         private CartService _cartService;
 
         private BookService _bookService;
         private DataContext _db = new DataContext();
-        
-        private string emailll = "";
-        
 
         public ShoppingCartController()
         {
@@ -38,7 +34,7 @@ namespace TheBookCave.Controllers
             
         }
 
-        public IActionResult Index(string searchString)
+        public IActionResult Index()
         {
             var cart = CartService.GetCart(this.HttpContext);
 
@@ -115,7 +111,6 @@ namespace TheBookCave.Controllers
         [HttpGet]
         public IActionResult Checkout(string email)
         {
-            emailll = email;
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
@@ -151,25 +146,15 @@ namespace TheBookCave.Controllers
                
 
                 db.SaveChanges();
+
             }
-            return RedirectToAction("MilliSkref");
+            return RedirectToAction("ReviewStep");
+
         }
-        public IActionResult Milliskref()
+        public IActionResult ReviewStep()
         {
-            /*var user = context.User.Identity.Name;
+            var user = HttpContext.User.Identity.Name;
 
-            var accounts = _accountService.GetAllAccounts();
-
-            var account = (from a in accounts
-                         where a.Email == user
-                         select a).SingleOrDefault();
-            return View(account);*/
-            return View();
-        }
-
-        [HttpGet]
-        public IActionResult ConfirmationStep(string email)
-        {
             var cart = CartService.GetCart(this.HttpContext);
 
             var cartId = cart.ShoppingCartId;
@@ -185,17 +170,14 @@ namespace TheBookCave.Controllers
             var accounts = _accountService.GetAllAccounts();
 
             var accountmodel = (from a in accounts
-                         where a.Email == email
+                         where a.Email == user
                          select a).SingleOrDefault();
 
             myModel.cartItems = cartModel;
             myModel.account = accountmodel;
 
             return View(myModel);
+
         }
-
-
     }
-
-
 }

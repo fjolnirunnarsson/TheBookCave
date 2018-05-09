@@ -7,7 +7,6 @@
 @{
     var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Email")?.Value;
 }
-
 <link rel="stylesheet" href="~/css/styles.cart.css" />
 
 @{
@@ -51,7 +50,7 @@
             <div class="checkout-window">
                 <div class="total-price">
                     <h4>Total price:</h4>
-                    <h5>US$ @Model.cartItems.CartTotal</h5>    
+                    <h5>US$ @Model.cartItems.CartTotal</h5>
                     <a id="btn" class="btn btn-default btn-primary" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@email">Checkout</a>
                 </div>
             </div>
