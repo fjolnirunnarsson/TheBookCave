@@ -210,25 +210,6 @@ namespace TheBookCave.Controllers
                 RemoveFromCart(item.BookId);
             }
 
-            var books = (from items in _db.Books
-                        join citems in _db.Purchased on items.Id equals citems.BookId
-                        where citems.CartId == cartId
-                        select new BookListViewModel
-                        {
-                            Id = items.Id,
-                            Image = items.Image,
-                            Title = items.Title,
-                            Author = items.Author,
-                            AuthorId = items.AuthorId,
-                            Rating = items.Rating,
-                            Price = items.DiscountPrice,
-                            Genre = items.Genre,
-                            BoughtCopies = items.BoughtCopies,
-                            Year = items.Year,
-                            Description = items.Description,
-                            Quantity = citems.Quantity,
-                        }).ToList();
-            myModel.purchasedItems = books;
             _db.SaveChanges();
 
             return View("Final");

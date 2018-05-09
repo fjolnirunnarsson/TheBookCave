@@ -21,7 +21,7 @@ namespace TheBookCave.Services
             return accounts;
         }
 
-        public List<BookListViewModel> GetAllPurchases(HttpContext context)
+        public List<PurchasesViewModel> GetAllPurchases(HttpContext context)
         {
             
             return _accountRepo.GetAllPurchases(context);
