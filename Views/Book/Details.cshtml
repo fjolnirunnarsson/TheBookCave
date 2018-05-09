@@ -43,7 +43,12 @@
                 <h4 class="price">$@Model.Book.Price</h4>
             }
         }
-        <button class="btn btn-default btn-primary">Add to cart</button>
+        <button class="btn btn-primary addcart">
+            @Html.ActionLink("Add to cart", "AddToCart",
+            "ShoppingCart", 
+            new { bookId = @Model.Book.Id }, 
+            new { @class = "addToCart" })
+        </button>
         <p class="description">@Model.Book.Description</p>
     </div>
 </div>

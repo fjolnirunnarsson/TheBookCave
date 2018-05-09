@@ -108,7 +108,12 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult Index(string email){
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Details(string email){
 
             var accounts = _accountService.GetAllAccounts();
 
@@ -144,6 +149,8 @@ namespace TheBookCave.Controllers
                 account.FirstName = updatedAccount.FirstName;
                 account.LastName = updatedAccount.LastName;
                 account.Email = updatedAccount.Email;
+                account.ProfilePicture = updatedAccount.ProfilePicture;
+                account.FavoriteBook = updatedAccount.FavoriteBook;
                 account.BillingAddressStreet = updatedAccount.BillingAddressStreet;
                 account.BillingAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
                 account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;
@@ -161,32 +168,6 @@ namespace TheBookCave.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-        public IActionResult ResetPassword(string token)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult ResetPassword(ResetPasswordViewModel model)
-        {
-            ApplicationUser user = _userManager.FindByNameAsync(model.UserName).Result;
-
-            var result = _userManager.ResetPasswordAsync(user, model.Token, model.Password).Result;
-
-
-
-            if(result.Succeeded)
-            {
-                ViewBag.Message = "Password reset successful!";
-                return View("Success");
-            }
-            else
-            {
-                ViewBag.Message = "Error while resetting the password!";
-                return View("Error");
-            }
         }
     }
 }

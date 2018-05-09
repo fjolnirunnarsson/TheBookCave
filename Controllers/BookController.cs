@@ -169,7 +169,7 @@ namespace TheBookCave.Controllers
                             orderby b.Title ascending
                             select b).ToList();
 
-            return View(booklist);
+            return View("Index", booklist);
         }
 
         public IActionResult PriceLowToHigh()
@@ -180,7 +180,7 @@ namespace TheBookCave.Controllers
                             orderby b.Price ascending
                             select b).ToList();
 
-            return View(booklist);
+            return View("Index", booklist);
         }
 
         public IActionResult PriceHighToLow()
@@ -191,7 +191,7 @@ namespace TheBookCave.Controllers
                             orderby b.Price descending
                             select b).ToList();
 
-            return View(booklist);
+            return View("Index", booklist);
         }
 
         public IActionResult Newest()
@@ -202,7 +202,66 @@ namespace TheBookCave.Controllers
                             orderby b.Id descending
                             select b).ToList();
 
-            return View(booklist);
+            return View("Index", booklist);
+        }
+
+        public IActionResult Sale()
+        {
+            var books = _BookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            where b.Price != b.DiscountPrice
+                            select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public IActionResult SaleOrderAlphabetical()
+        {
+            var books = _BookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            where b.Price != b.DiscountPrice
+                            orderby b.Title ascending
+                            select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public IActionResult SalePriceLowToHigh()
+        {
+            var books = _BookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            where b.Price != b.DiscountPrice
+                            orderby b.Price ascending
+                            select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public IActionResult SalePriceHighToLow()
+        {
+            var books = _BookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            where b.Price != b.DiscountPrice
+                            orderby b.Price descending
+                            select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public IActionResult SaleNewest()
+        {
+            var books = _BookService.GetAllBooks();
+
+            var booklist = (from b in books
+                            where b.Price != b.DiscountPrice
+                            orderby b.Id descending
+                            select b).ToList();
+
+            return View("Index", booklist);
         }
 
     }

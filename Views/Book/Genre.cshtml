@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="~/css/stars-position.css" />
 
     <div id="front-page-books">
+        
     @foreach(var book in @Model)
     {
 
@@ -22,7 +23,7 @@
                             <h4  id="old-price">$@book.Price</h4>
                         </div>
                         <div id="newprice-div">
-                            <h4  id="new-price">$@book.DiscountPrice</h4>
+                            <h4 id="new-price">$@book.DiscountPrice</h4>
                         </div>
                         
                     </div>

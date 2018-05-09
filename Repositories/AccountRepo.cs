@@ -24,6 +24,8 @@ namespace TheBookCave.Repositories
                                 FirstName = a.FirstName,
                                 LastName = a.LastName,
                                 Email = a.Email,
+                                ProfilePicture = a.ProfilePicture,
+                                FavoriteBook = a.FavoriteBook,
                                 BillingAddressStreet = a.BillingAddressStreet,
                                 BillingAddressHouseNumber = a.BillingAddressHouseNumber,
                                 BillingAddressLine2 = a.BillingAddressLine2, 
