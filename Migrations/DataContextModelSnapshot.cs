@@ -49,6 +49,8 @@ namespace TheBookCave.Migrations
 
                     b.Property<string>("DeliveryAddressZipCode");
 
+                    b.Property<string>("FavoriteBook");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");

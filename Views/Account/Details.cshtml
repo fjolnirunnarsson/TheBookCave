@@ -34,13 +34,16 @@
                 </tr>
                 <tr>
                     <th>Favorite book</th>
-                    <td>The Great Gatsby</td>
+                    <td>@Model.FavoriteBook</td>
                 </tr>
             </table>
             <a asp-controller="Account" asp-action="Edit" asp-route-email="@Model.Email">Edit profile</a>
     </div>
-    
+
     <div class="account-photo">
-            <img src="@Model.ProfilePicture" alt="No image">
+        @if(@Model.ProfilePicture == ""){
+            <img src="~/images/user.png/" alt="No image">
+        }
+        else{<img src="@Model.ProfilePicture" alt="No image">}
     </div>
 </div>

@@ -11,8 +11,8 @@ using TheBookCave.Data;
 namespace TheBookCave.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180508224722_addinprofilepicture")]
-    partial class addinprofilepicture
+    [Migration("20180509133104_accountAndList")]
+    partial class accountAndList
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,8 @@ namespace TheBookCave.Migrations
                     b.Property<string>("DeliveryAddressStreet");
 
                     b.Property<string>("DeliveryAddressZipCode");
+
+                    b.Property<string>("FavoriteBook");
 
                     b.Property<string>("FirstName");
 
@@ -129,6 +131,22 @@ namespace TheBookCave.Migrations
                     b.ToTable("Carts");
                 });
 
+            modelBuilder.Entity("TheBookCave.Data.EntityModels.List", b =>
+                {
+                    b.Property<int>("RecordId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BookId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("RecordId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Lists");
+                });
+
             modelBuilder.Entity("TheBookCave.Data.EntityModels.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -148,6 +166,14 @@ namespace TheBookCave.Migrations
                 });
 
             modelBuilder.Entity("TheBookCave.Data.EntityModels.Cart", b =>
+                {
+                    b.HasOne("TheBookCave.Data.EntityModels.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TheBookCave.Data.EntityModels.List", b =>
                 {
                     b.HasOne("TheBookCave.Data.EntityModels.Book", "Book")
                         .WithMany()

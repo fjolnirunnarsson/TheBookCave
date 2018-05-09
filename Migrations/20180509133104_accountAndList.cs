@@ -5,13 +5,29 @@ using System.Collections.Generic;
 
 namespace TheBookCave.Migrations
 {
-    public partial class WishList : Migration
+    public partial class accountAndList : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
                 name: "BookId",
                 table: "Accounts");
+
+            migrationBuilder.AlterColumn<double>(
+                name: "Discount",
+                table: "Books",
+                nullable: false,
+                oldClrType: typeof(int));
+
+            migrationBuilder.AddColumn<string>(
+                name: "FavoriteBook",
+                table: "Accounts",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "ProfilePicture",
+                table: "Accounts",
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Lists",
@@ -43,6 +59,24 @@ namespace TheBookCave.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Lists");
+
+            migrationBuilder.DropColumn(
+                name: "DiscountPrice",
+                table: "Books");
+
+            migrationBuilder.DropColumn(
+                name: "FavoriteBook",
+                table: "Accounts");
+
+            migrationBuilder.DropColumn(
+                name: "ProfilePicture",
+                table: "Accounts");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "Discount",
+                table: "Books",
+                nullable: false,
+                oldClrType: typeof(double));
 
             migrationBuilder.AddColumn<int>(
                 name: "BookId",
