@@ -1,53 +1,48 @@
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TheBookCave.Data;
-using TheBookCave.Data.EntityModels;
-using TheBookCave.Models.InputModels;
-using TheBookCave.Services;
+using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using System.Dynamic;
 using System.Collections.Generic;
 using TheBookCave.Models.EntityModels;
-using Microsoft.AspNetCore.Authorization;
-using TheBookCave.Repositories;
+using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
-using System.Dynamic;
-
+using TheBookCave.Repositories;
+using TheBookCave.Data;
+using TheBookCave.Data.EntityModels;
+using TheBookCave.Services;
 
 namespace TheBookCave.Controllers
 {
     [Authorize]
-    public class ShoppingCartController : Controller
+    public class WishListController : Controller
     {
-        private CartService _cartService;
+        private WishListService _wishListService;
 
         private BookService _bookService;
         private DataContext _db = new DataContext();
 
-        public ShoppingCartController()
+        public WishListController()
         {
-            _cartService = new CartService();
+            _wishListService = new WishListService();
             _bookService = new BookService();
         }
 
-        public IActionResult Index(string searchString)
+        public IActionResult Index()
         {
-            var cart = CartService.GetCart(this.HttpContext);
+            var user = WishListService.GetUser(this.HttpContext);
 
-            var cartId = cart.ShoppingCartId;
+            var userId = user.UserId;
 
             dynamic myModel = new ExpandoObject();
             
-            var cartModel = new ShoppingCartViewModel
+            var listModel = new WishListViewModel
             {
-                CartItems = _cartService.GetCartItems(cartId),
-                CartTotal = _cartService.GetTotal(cartId)
+                ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = (from items in _db.Books
-                        join citems in _db.Carts on items.Id equals citems.BookId
-                        where citems.CartId == cartId
+                        join citems in _db.Lists on items.Id equals citems.BookId
+                        where citems.UserId == userId
                         select new BookListViewModel
                         {
                             Id = items.Id,
@@ -61,17 +56,16 @@ namespace TheBookCave.Controllers
                             BoughtCopies = items.BoughtCopies,
                             Year = items.Year,
                             Description = items.Description,
-                            Quantity = citems.Quantity,
                         }).ToList();
 
-            myModel.cartItems = cartModel;
+            myModel.listItems = listModel;
             myModel.bookItems = books;
 
             return View(myModel);
         }
 
         [Authorize]
-        public IActionResult AddToCart(int bookId)
+        public IActionResult AddToWishList(int bookId)
         {
             var books = _bookService.GetAllBooks();
 
@@ -79,15 +73,15 @@ namespace TheBookCave.Controllers
                             where book.Id == bookId
                             select book).SingleOrDefault();
 
-            var cart = CartService.GetCart(this.HttpContext);
+            var user = WishListService.GetUser(this.HttpContext);
 
 
-            _cartService.AddToCart(bookAdded, this.HttpContext);
+            _wishListService.AddToWishList(bookAdded, this.HttpContext);
 
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult RemoveFromCart(int bookId)
+        public IActionResult RemoveFromWishList(int bookId)
         {
             var books = _bookService.GetAllBooks();
 
@@ -95,9 +89,9 @@ namespace TheBookCave.Controllers
                             where book.Id == bookId
                             select book).SingleOrDefault();
 
-            var cart = CartService.GetCart(this.HttpContext);
+            var user = WishListService.GetUser(this.HttpContext);
 
-            _cartService.RemoveFromCart(bookAdded, this.HttpContext);
+            _wishListService.RemoveFromWishList(bookAdded, this.HttpContext);
 
             return RedirectToAction("Index");
         }
