@@ -47,7 +47,7 @@
                             if(SignInManager.IsSignedIn(User)) {
                                 <a asp-controller="Account" asp-action="Index" asp-route-email="@email">My Account</a>
                                 
-                                <a href="#">My Orders</a>
+                                <a asp-controller="Account" asp-action="Purchases">My Orders</a>
                             }
                             else {
                                 <a asp-area="action" asp-controller="Account" asp-action="Login">My Account</a>
@@ -110,7 +110,7 @@
         <a href="https://twitter.com/totystefans"><img src="~/Images/Twitter.png" alt="No Images" class="social"></a>
         <a href="https://www.instagram.com/halldorlogi/?hl=en"><img src="~/Images/Instagram.png" alt="No Images" class="social"> </a>
     </div>
-    <a id="lock-icon" asp-action="Login" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
+    <a id="lock-icon" asp-action="Index" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
 </div>
 
     <environment include="Development">

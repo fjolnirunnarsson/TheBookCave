@@ -151,6 +151,8 @@ namespace TheBookCave.Controllers
             return RedirectToAction("ReviewStep");
 
         }
+
+        [HttpGet]
         public IActionResult ReviewStep()
         {
             var user = HttpContext.User.Identity.Name;
@@ -177,7 +179,60 @@ namespace TheBookCave.Controllers
             myModel.account = accountmodel;
 
             return View(myModel);
-
         }
+
+        public IActionResult ConfirmationStep()
+        {
+            var user = HttpContext.User.Identity.Name;
+            var cart = CartService.GetCart(this.HttpContext);
+            var cartId = cart.ShoppingCartId;
+
+            dynamic myModel = new ExpandoObject();
+            
+            var cartItems = _cartService.GetCartItems(cartId);
+            
+            foreach (var item in cartItems)
+            {
+                var cartItem = new Purchased()
+                {
+                    CartId = item.CartId,
+                    BookId = item.BookId,
+                    Quantity = item.Quantity,
+                    DateCreated = item.DateCreated,
+                    Book = item.Book
+                };
+                _db.Purchased.Add(cartItem);
+            }
+
+            foreach (var item in cartItems)
+            {
+
+                RemoveFromCart(item.BookId);
+            }
+
+            var books = (from items in _db.Books
+                        join citems in _db.Purchased on items.Id equals citems.BookId
+                        where citems.CartId == cartId
+                        select new BookListViewModel
+                        {
+                            Id = items.Id,
+                            Image = items.Image,
+                            Title = items.Title,
+                            Author = items.Author,
+                            AuthorId = items.AuthorId,
+                            Rating = items.Rating,
+                            Price = items.DiscountPrice,
+                            Genre = items.Genre,
+                            BoughtCopies = items.BoughtCopies,
+                            Year = items.Year,
+                            Description = items.Description,
+                            Quantity = citems.Quantity,
+                        }).ToList();
+            myModel.purchasedItems = books;
+            _db.SaveChanges();
+
+            return View("Final");
+        }
+
     }
 }

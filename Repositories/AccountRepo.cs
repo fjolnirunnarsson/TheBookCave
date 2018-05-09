@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using TheBookCave.Data;
+using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Repositories
@@ -40,6 +42,36 @@ namespace TheBookCave.Repositories
                                 DeliveryAddressZipCode = a.DeliveryAddressZipCode,
                            }).ToList();
             return accounts;
+        }
+
+        public static string GetUser(HttpContext context)
+        {
+            var user = context.User.Identity.Name;
+            return user;
+        }
+        
+        public List<BookListViewModel> GetAllPurchases(HttpContext context)
+        {
+            var user = GetUser(context);
+            var purchased = (from item in _db.Books
+                            join citems in _db.Purchased on item.Id equals citems.BookId 
+                            where citems.CartId == user
+                            select new BookListViewModel
+                            {
+                                Id = item.Id,
+                                Image = item.Image,
+                                Title = item.Title,
+                                Author = item.Author,
+                                AuthorId = item.AuthorId,
+                                Rating = item.Rating,
+                                Price = item.DiscountPrice,
+                                Genre = item.Genre,
+                                BoughtCopies = item.BoughtCopies,
+                                Year = item.Year,
+                                Description = item.Description,
+                                Quantity = citems.Quantity,
+                            }).ToList();
+                            return purchased;
         }
     }
 }

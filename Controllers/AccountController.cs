@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
@@ -18,7 +19,6 @@ namespace TheBookCave.Controllers
     public class AccountController : Controller
     {
         private AccountService _accountService;
-
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
@@ -55,7 +55,7 @@ namespace TheBookCave.Controllers
                 await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
                 await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
                 await _signInManager.SignInAsync(user, false);
-
+                
                 return RedirectToAction("Index", "Home");
             }
             return View();
@@ -177,5 +177,12 @@ namespace TheBookCave.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult Purchases() 
+        {
+            var books = _accountService.GetAllPurchases(this.HttpContext);
+            return View(books);
+        }
     }
 }
+

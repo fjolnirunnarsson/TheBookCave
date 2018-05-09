@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 using TheBookCave.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace TheBookCave.Services
 {
@@ -37,7 +38,18 @@ namespace TheBookCave.Services
             if(string.IsNullOrEmpty(account.DeliveryAddressCity)) { throw new Exception("City is missing"); }
             if(string.IsNullOrEmpty(account.DeliveryAddressCountry)) { throw new Exception("Country is missing"); }
             if(string.IsNullOrEmpty(account.DeliveryAddressZipCode)) { throw new Exception("Postal code is missing"); }
+        }
 
+        public List<BookListViewModel> GetAllPurchases(HttpContext context)
+        {
+            
+            return _accountRepo.GetAllPurchases(context);
+        }
+
+        public static string GetUser(HttpContext context)
+        {
+            var user = context.User.Identity.Name;
+            return user;
         }
     }
 }

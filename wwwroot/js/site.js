@@ -15,3 +15,11 @@ $(document).ready(function() {
 document.getElementById("yourLinkId").onclick = function() {
     document.getElementById("yourFormId").submit();
 }
+
+function itemadded(tala){
+        var strengur = "isadded" + tala;
+        var elem2 = document.getElementById(strengur);
+        elem2.innerText = "Added to cart!";
+        elem2.classList.remove("btn-primary");
+        elem2.classList.add("btn-success");
+    }
