@@ -124,5 +124,5 @@
     
 
     <input type="submit" value="Save changes" class="btn btn-default">
-    <a asp-controller="Account" asp-action="Index"><input type="button" value="Cancel" class="btn btn-danger"></a>
+    <a asp-controller="Account" asp-action="Index" asp-route-email="@Model.Email"><input type="button" value="Cancel" class="btn btn-danger"></a>
 </form>

@@ -1,0 +1,47 @@
+@model TheBookCave.Models.ViewModels.AccountListViewModel
+
+<link rel="stylesheet" href="~/css/account.css">
+
+<div class="account-info">
+    <h2>My Account</h2>
+    <div class="account-table">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th>Name</th>
+                    <td>@Model.FirstName @Model.LastName</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <th>Billing address</th>
+                    <td>@Model.BillingAddressStreet @Model.BillingAddressHouseNumber @Model.BillingAddressLine2
+                        </br>
+                        @Model.BillingAddressZipCode @Model.BillingAddressCity
+                        </br>
+                        @Model.BillingAddressCountry
+                    </td>
+                </tr>
+                <tr>
+                    <th>Delivery address</th>
+                    <td>@Model.DeliveryAddressStreet @Model.DeliveryAddressHouseNumber @Model.DeliveryAddressLine2
+                        </br>
+                        @Model.DeliveryAddressZipCode @Model.DeliveryAddressCity
+                        </br>
+                        @Model.DeliveryAddressCountry
+                    </td>
+                </tr>
+                <tr>
+                    <th>Favorite book</th>
+                    <td>The Great Gatsby</td>
+                </tr>
+            </table>
+            <a asp-controller="Account" asp-action="Edit" asp-route-email="@Model.Email">Edit profile</a>
+    </div>
+    
+    <div class="account-photo">
+        <img src="~/images/user.png" alt="No image">
+        <input type="file">
+    </div>
+</div>
