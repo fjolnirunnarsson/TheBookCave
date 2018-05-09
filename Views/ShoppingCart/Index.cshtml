@@ -4,7 +4,6 @@
 @using TheBookCave.Models
 
 @inject SignInManager<ApplicationUser> SignInManager
-
 @{
     var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Email")?.Value;
 }
@@ -18,6 +17,7 @@
             <div class="cart-items">
                     @foreach(var item in @Model.bookItems)
                     {
+                        double rating = @item.Rating;
                         <div class="heart-img">
                             <span> @Html.ActionLink("",
                                 "AddToWishList", "WishList", 
@@ -32,8 +32,8 @@
                                     <h2 class="item-title">@item.Title</h2>
                                 </a>
                                 <h3>@item.Author</h3>
+                                @await Html.PartialAsync("_StarsPartial", rating)
                                 <h4>$ @item.Price</h4>
-                                <h4>Rating: @item.Rating stars</h4>
                                 <h4>Quantity: @item.Quantity</h4>  
                             </div>
                             <div class="trash">

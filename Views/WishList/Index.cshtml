@@ -10,6 +10,7 @@
             <div class="cart-items">
                     @foreach(var item in @Model.bookItems)
                     {
+                        double rating = @item.Rating;
                         <div class="book-item">
                             <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title"><img class="cart-img" src="@item.Image" alt="No Image"></a>
                             <div class="book-info"> 
@@ -17,8 +18,8 @@
                                     <h2 class="item-title">@item.Title</h2>
                                 </a>
                                 <h3>@item.Author</h3>
-                                <h4>$ @item.Price</h4>
-                                <h4>Rating: @item.Rating stars</h4> 
+                                @await Html.PartialAsync("_StarsPartial", rating)
+                                <h4>$ @item.Price</h4> 
                             </div>
                             <div class="trash">
                                 <span> @Html.ActionLink("",

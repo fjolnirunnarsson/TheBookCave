@@ -39,11 +39,16 @@
             </table>
             <a asp-controller="Account" asp-action="Edit" asp-route-email="@Model.Email">Edit profile</a>
     </div>
-
     <div class="account-photo">
-        @if(@Model.ProfilePicture == ""){
-            <img src="~/images/user.png/" alt="No image">
+        @{
+            if(String.IsNullOrEmpty(@Model.ProfilePicture))
+            {
+                <img src="~/images/user.png" alt="No image">
+            }
+            else
+            {
+                <img src="@Model.ProfilePicture" alt="No image">
+            }
         }
-        else{<img src="@Model.ProfilePicture" alt="No image">}
     </div>
 </div>
