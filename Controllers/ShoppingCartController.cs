@@ -118,6 +118,41 @@ namespace TheBookCave.Controllers
             var account = (from a in accounts
                          where a.Email == email
                          select a).SingleOrDefault();
+            return View(account);
+        }
+
+        [HttpPost]
+        public IActionResult Checkout(AccountListViewModel updatedAccount)
+        {
+            using (var db = new DataContext())
+            {
+                var account = (from a in db.Accounts
+                            where a.Email == updatedAccount.Email
+                            select a).FirstOrDefault();
+
+                account.FirstName = updatedAccount.FirstName;
+                account.LastName = updatedAccount.LastName;
+                account.Email = updatedAccount.Email;
+                account.BillingAddressStreet = updatedAccount.BillingAddressStreet;
+                account.BillingAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
+                account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;
+                account.BillingAddressCity = updatedAccount.BillingAddressCity;
+                account.BillingAddressCountry = updatedAccount.BillingAddressCountry;
+                account.BillingAddressZipCode = updatedAccount.BillingAddressZipCode;
+                account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
+                account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
+                account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
+                account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
+                account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
+                account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
+
+                db.SaveChanges();
+            }
+            return View();
+        }
+
+        public IActionResult ConfirmationStep()
+        {
             return View();
         }
     }

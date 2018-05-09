@@ -131,13 +131,10 @@ namespace TheBookCave.Controllers
 
             return View(account);
         }
-
+        
         [HttpPost]
         public IActionResult Edit(AccountListViewModel updatedAccount)
         {
-
-            
-
             using (var db = new DataContext())
             {
                 var account = (from a in db.Accounts

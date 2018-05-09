@@ -1,5 +1,13 @@
 @model dynamic
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using TheBookCave.Models
 
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Email")?.Value;
+}
 <link rel="stylesheet" href="~/css/styles.cart.css" />
 
 @{
@@ -43,7 +51,7 @@
                 <div class="total-price">
                     <h4>Total price:</h4>
                     <h5>US$ @Model.cartItems.CartTotal</h5>    
-                    <a id="btn" class="btn btn-default btn-primary" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@Model.account.Email">Checkout</a>
+                    <a id="btn" class="btn btn-default btn-primary" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@email">Checkout</a>
                 </div>
             </div>
         </div>
