@@ -14,7 +14,7 @@ using System.Security.Claims;
 
 namespace TheBookCave.Controllers
 {
-    //[Authorize(Roles = "Loser")]
+    [Authorize(Roles = "Admin")]
     public class EmployeeSiteController : Controller
     {
          private BookService _bookService;
@@ -47,9 +47,7 @@ namespace TheBookCave.Controllers
             
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
             var result = await _userManager.CreateAsync(user, model.Password);
-            await _userManager.AddToRoleAsync(user,"Admin");
-
-
+    
             if(result.Succeeded)
             {
                 SeedDataCreateAccount(model);
@@ -59,6 +57,8 @@ namespace TheBookCave.Controllers
                 await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
                 await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
                 await _signInManager.SignInAsync(user, false);
+
+                await this._userManager.AddToRoleAsync(user, "Admin");
 
                 return RedirectToAction("Index", "Home");
             }
