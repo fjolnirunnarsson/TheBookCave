@@ -18,15 +18,15 @@ namespace TheBookCave.Controllers
 {
     public class BookController : Controller
     {
-        private BookService _BookService;
+        private BookService _bookService;
         
         public BookController()
         {
-            _BookService = new BookService();
+            _bookService = new BookService();
         }
         public IActionResult Index(string searchString)
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             if(String.IsNullOrEmpty(searchString))
             {
@@ -50,7 +50,7 @@ namespace TheBookCave.Controllers
         public IActionResult Top10()
         {
 
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var top10 = (from book in books
                         orderby book.Rating descending
@@ -61,7 +61,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult BestSellers()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
             
             var bestsellers = (from book in books
                         orderby book.BoughtCopies descending
@@ -70,23 +70,23 @@ namespace TheBookCave.Controllers
             return View(bestsellers);
         }
         [HttpGet]
-        public IActionResult Details(string title){
+        public IActionResult Details(string title)
+        {
+            var books = _bookService.GetAllBooks();
 
-                var books = _BookService.GetAllBooks();
+            var onebook = (from newbook in books
+                        where ((newbook.Title).ToLower() == title.ToLower())
+                        select newbook).First();
 
-                var onebook = (from newbook in books
-                            where ((newbook.Title).ToLower() == title.ToLower())
-                            select newbook).First();
+            var reviews = _bookService.GetAllReviews();
 
-                var reviews = _BookService.GetAllReviews();
+            var thisbookreviews = (from rev in reviews
+                                where (rev.BookId == onebook.Id)
+                                select rev).ToList();
 
-                var thisbookreviews = (from rev in reviews
-                                    where (rev.BookId == onebook.Id)
-                                    select rev).ToList();
-
-                dynamic mymodel = new ExpandoObject();
-                mymodel.Book = onebook;
-                mymodel.Reviews = thisbookreviews;
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Book = onebook;
+            mymodel.Reviews = thisbookreviews;
 
                 
 
@@ -98,10 +98,10 @@ namespace TheBookCave.Controllers
             var user = HttpContext.User.Identity.Name;
             SeedDataCreate(review, user);
 
-             using (var db = new DataContext())
+            using (var db = new DataContext())
             {
-                var books = _BookService.GetAllBooks();
-                var reviews = _BookService.GetAllReviews();
+                var books = _bookService.GetAllBooks();
+                var reviews = _bookService.GetAllReviews();
 
 
                 var onebook = (from newbook in db.Books
@@ -115,7 +115,7 @@ namespace TheBookCave.Controllers
                 onebook.Rating = Math.Round(getRating(allreviews),2);
                 db.SaveChanges();
             }
-            var books2 = _BookService.GetAllBooks();
+            var books2 = _bookService.GetAllBooks();
 
             var onebook2 = (from newbook in books2
                             where ((newbook.Id) == review.BookId)
@@ -133,9 +133,10 @@ namespace TheBookCave.Controllers
             rating = rating/reviews.Count();
             return rating;
         }
+        
         [HttpGet]
-        public static void SeedDataCreate(ReviewInputModel review, string user){
-
+        public static void SeedDataCreate(ReviewInputModel review, string user)
+        {
             var db = new DataContext();
             
             var Reviews = new List<Review>{
@@ -149,12 +150,11 @@ namespace TheBookCave.Controllers
             };
             db.AddRange(Reviews);
             db.SaveChanges();
-
         }
 
-        public IActionResult Genre(string genre){
-
-            var books = _BookService.GetAllBooks();
+        public IActionResult Genre(string genre)
+        {
+            var books = _bookService.GetAllBooks();
 
             if(genre.Count() == 0){
                 return View(books);
@@ -171,7 +171,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult OrderAlphabetical()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             orderby b.Title ascending
@@ -182,7 +182,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult PriceLowToHigh()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             orderby b.Price ascending
@@ -193,7 +193,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult PriceHighToLow()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             orderby b.Price descending
@@ -204,7 +204,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult Newest()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             orderby b.Id descending
@@ -215,7 +215,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult Sale()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             where b.Price != b.DiscountPrice
@@ -226,7 +226,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult SaleOrderAlphabetical()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             where b.Price != b.DiscountPrice
@@ -238,7 +238,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult SalePriceLowToHigh()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             where b.Price != b.DiscountPrice
@@ -250,7 +250,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult SalePriceHighToLow()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             where b.Price != b.DiscountPrice
@@ -262,7 +262,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult SaleNewest()
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             var booklist = (from b in books
                             where b.Price != b.DiscountPrice

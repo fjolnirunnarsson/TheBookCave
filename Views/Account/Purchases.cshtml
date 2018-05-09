@@ -1,5 +1,5 @@
 
-@model List<TheBookCave.Models.ViewModels.BookListViewModel>
+@model List<TheBookCave.Models.ViewModels.PurchasesViewModel>
 @using Microsoft.AspNetCore.Identity
 @using System.Security.Claims
 @using TheBookCave.Models
@@ -19,11 +19,13 @@
                             <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title"><img class="cart-img" src="@item.Image" alt="No Image"></a>
                             <div class="book-info"> 
                                 <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title">
-                                    <h2 class="item-title">@item.Title</h2>
+                                    <h3 class="item-title">@item.Title</h3>
                                 </a>
                                 <h3>@item.Author</h3>
                                 @await Html.PartialAsync("_StarsPartial", rating)
                                 <h4>$ @item.Price</h4>
+                                <h4>Quantity: @item.Quantity</h4>
+                                <h4>Date of purchase: @item.DateCreated</h4>
                             </div>
                         </div>
                     }

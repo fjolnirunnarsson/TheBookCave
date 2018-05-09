@@ -5,6 +5,7 @@
         <label class="control-label col-sm-2" for="FirstName">First name</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" asp-for="FirstName" placeholder="First name">
+            <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
 
@@ -150,5 +151,4 @@
 
     <input type="submit" value="Save changes" class="btn btn-default">
     <a asp-controller="Account" asp-action="Index" asp-route-email="@Model.Email"><input type="button" value="Cancel" class="btn btn-danger"></a>
-    <div asp-validation-summary="All"></div>
 </form>

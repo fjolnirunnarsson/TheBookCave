@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models;
+using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 using TheBookCave.Services;
 
@@ -137,8 +139,16 @@ namespace TheBookCave.Controllers
         }
         
         [HttpPost]
-        public IActionResult Edit(AccountListViewModel updatedAccount)
+        public IActionResult Edit(AccountInputModel updatedAccount)
         {
+            
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _accountService.ProcessAccount(updatedAccount);
+
             using (var db = new DataContext())
             {
                 var account = (from a in db.Accounts
@@ -172,6 +182,12 @@ namespace TheBookCave.Controllers
         public IActionResult Purchases() 
         {
             var books = _accountService.GetAllPurchases(this.HttpContext);
+
+            dynamic myModel = new ExpandoObject();
+
+            myModel.books = books;
+            
+
             return View(books);
         }
     }

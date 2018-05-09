@@ -18,7 +18,6 @@ namespace TheBookCave.Models.InputModels
 
         [Required(ErrorMessage="Field required")]
         public string BillingAddressStreet { get; set; }
-
         [Required(ErrorMessage="Field required")]
         public string BillingAddressHouseNumber { get; set; }
         public string BillingAddressLine2 { get; set; }
