@@ -17,8 +17,15 @@ document.getElementById("yourLinkId").onclick = function() {
 
 function itemadded(tala){
         var strengur = "isadded" + tala;
-        var elem2 = document.getElementById(strengur);
-        elem2.innerText = "Added to cart!";
-        elem2.classList.remove("btn-primary");
-        elem2.classList.add("btn-success");
+        var elem = document.getElementById(strengur);
+        elem.innerText = "Added to cart!";
+        elem.classList.remove("btn-primary");
+        elem.classList.add("btn-success");
     }
+
+function wishadded(tala){
+        var strengur = "wishadded" + tala;
+        var elem = document.getElementById(strengur);
+        elem.classList.add("red");
+
+}

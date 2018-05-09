@@ -17,6 +17,7 @@
 .detailsDescription {
     height: 400px;
     width: 70%;
+    overflow: hidden;
     float: left;
 }
 .cover {
