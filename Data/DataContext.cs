@@ -32,6 +32,8 @@ namespace TheBookCave.Data
         public DbSet<List> Lists { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<Purchased> Purchased { get; set; }
         
         //public DbSet<CartItem> CartItems { get; set; }
         //public DbSet<Order> Orders { get; set; }

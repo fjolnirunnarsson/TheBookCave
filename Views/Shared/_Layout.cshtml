@@ -47,7 +47,7 @@
                             if(SignInManager.IsSignedIn(User)) {
                                 <a asp-controller="Account" asp-action="Details" asp-route-email="@email">My Account</a>
                                 
-                                <a href="#">My Orders</a>
+                                <a asp-controller="Account" asp-action="Purchases">My Orders</a>
                             }
                             else {
                                 <a asp-area="action" asp-controller="Account" asp-action="Login">My Account</a>

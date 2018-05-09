@@ -154,8 +154,8 @@ namespace TheBookCave.Controllers
                 account.FirstName = updatedAccount.FirstName;
                 account.LastName = updatedAccount.LastName;
                 account.Email = updatedAccount.Email;
-                //account.ProfilePicture = updatedAccount.ProfilePicture;
-                //account.FavoriteBook = updatedAccount.FavoriteBook;
+                account.ProfilePicture = updatedAccount.ProfilePicture;
+                account.FavoriteBook = updatedAccount.FavoriteBook;
                 account.BillingAddressStreet = updatedAccount.BillingAddressStreet;
                 account.BillingAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
                 account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;
@@ -175,26 +175,11 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Details");
         }
 
-        /*public IActionResult History(DataContext db, HttpContext context) 
+        public IActionResult Purchases() 
         {
-            var books = (from items in db.Books
-                        join citems in db.Purchased on items.Id equals citems.BookId
-                        where citems.CustomerId == context.User.Identity.Name
-                        select new BookListViewModel
-                        {
-                            Id = items.Id,
-                            Image = items.Image,
-                            Title = items.Title,
-                            Author = items.Author,
-                            AuthorId = items.AuthorId,
-                            Rating = items.Rating,
-                            Price = items.DiscountPrice,
-                            Genre = items.Genre,
-                            Year = items.year,
-                            Description = items.Description,
-                        }).ToList();
+            var books = _accountService.GetAllPurchases(this.HttpContext);
             return View(books);
-        }*/
+        }
     }
 }
 
