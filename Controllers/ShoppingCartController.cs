@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using TheBookCave.Repositories;
 using TheBookCave.Models.ViewModels;
 using System.Dynamic;
-
+using Microsoft.AspNetCore.Http;
 
 namespace TheBookCave.Controllers
 {
@@ -152,19 +152,50 @@ namespace TheBookCave.Controllers
 
                 db.SaveChanges();
             }
-            emailll = updatedAccount.Email;
-            return RedirectToAction("ConfirmationStep");
+            return RedirectToAction("MilliSkref");
+        }
+        public IActionResult Milliskref()
+        {
+            /*var user = context.User.Identity.Name;
+
+            var accounts = _accountService.GetAllAccounts();
+
+            var account = (from a in accounts
+                         where a.Email == user
+                         select a).SingleOrDefault();
+            return View(account);*/
+            return View();
         }
 
     [HttpGet]
         public IActionResult ConfirmationStep(string email)
         {
+            var cart = CartService.GetCart(this.HttpContext);
+
+            var cartId = cart.ShoppingCartId;
+
+            dynamic myModel = new ExpandoObject();
+            
+            var cartModel = new ShoppingCartViewModel
+            {
+                CartItems = _cartService.GetCartItems(cartId),
+                CartTotal = _cartService.GetTotal(cartId)
+            };
+
             var accounts = _accountService.GetAllAccounts();
 
-            var account = (from a in accounts
-                         where a.Email == emailll
+            var accountmodel = (from a in accounts
+                         where a.Email == email
                          select a).SingleOrDefault();
-            return View(account);
+
+            myModel.cartItems = cartModel;
+            myModel.account = accountmodel;
+
+            return View(myModel);
         }
+
+
     }
+
+
 }
