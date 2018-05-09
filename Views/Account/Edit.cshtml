@@ -84,9 +84,24 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="BillingAddressCountry"></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="BillingAddressCountry" placeholder="Country">
+            <select class="form-control " id="country" name="country">
+                <option value="@Model.BillingAddressCountry" selected> @Model.BillingAddressCountry</option>
+                <option value="Canada">Canada</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="Germany">Germany</option>
+                <option value="Iceland">Iceland</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Italy">Italy</option>
+                <option value="Norway">Norway</option>
+                <option value="Sweden">Sweden</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+            </select>
         </div>
         <div asp-validation-for="BillingAddressCountry"></div>
+    
     </div>
 
     <div class="form-group">
@@ -121,18 +136,26 @@
         <div asp-validation-for="DeliveryAddressZipCode"></div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="DeliveryAddressCity"></label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="DeliveryAddressCity" placeholder="City / town">
-        </div>
-        <div asp-validation-for="DeliveryAddressCity"></div>
-    </div>
+
 
     <div class="form-group">
         <label class="control-label col-sm-2" for="DeliveryAddressCountry"></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="DeliveryAddressCountry" placeholder="Country">
+            <select class="form-control" id="country" name="country">
+                <option value="@Model.DeliveryAddressCountry" selected> @Model.DeliveryAddressCountry</option>
+                <option value="Canada">Canada</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="Germany">Germany</option>
+                <option value="Iceland">Iceland</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Italy">Italy</option>
+                <option value="Norway">Norway</option>
+                <option value="Sweden">Sweden</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+            </select>
         </div>
         <div asp-validation-for="DeliveryAddressCountry"></div>
     </div>

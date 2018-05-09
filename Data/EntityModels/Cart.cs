@@ -12,6 +12,5 @@ namespace TheBookCave.Data.EntityModels
         public System.DateTime DateCreated { get; set; }
         public virtual Book Book { get; set; }
 
-        
     }
 }
