@@ -110,12 +110,7 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Details(){
+        public IActionResult Index(){
 
             var user = HttpContext.User.Identity.Name;
 
@@ -171,7 +166,7 @@ namespace TheBookCave.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Details");
+            return RedirectToAction("Index");
         }
     }
 }
