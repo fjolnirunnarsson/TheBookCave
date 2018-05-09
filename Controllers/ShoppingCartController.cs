@@ -26,12 +26,16 @@ namespace TheBookCave.Controllers
 
         private BookService _bookService;
         private DataContext _db = new DataContext();
+        
+        private string emailll = "";
+        
 
         public ShoppingCartController()
         {
             _cartService = new CartService();
             _bookService = new BookService();
             _accountService = new AccountService();
+            
         }
 
         public IActionResult Index(string searchString)
@@ -73,7 +77,6 @@ namespace TheBookCave.Controllers
             myModel.bookItems = books;
             myModel.account = accountModel;
             
-
             return View(myModel);
         }
 
@@ -112,7 +115,7 @@ namespace TheBookCave.Controllers
         [HttpGet]
         public IActionResult Checkout(string email)
         {
-                    
+            emailll = email;
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
@@ -145,15 +148,23 @@ namespace TheBookCave.Controllers
                 account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
                 account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
                 account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
+               
 
                 db.SaveChanges();
             }
-            return View();
+            emailll = updatedAccount.Email;
+            return RedirectToAction("ConfirmationStep");
         }
 
-        public IActionResult ConfirmationStep()
+    [HttpGet]
+        public IActionResult ConfirmationStep(string email)
         {
-            return View();
+            var accounts = _accountService.GetAllAccounts();
+
+            var account = (from a in accounts
+                         where a.Email == emailll
+                         select a).SingleOrDefault();
+            return View(account);
         }
     }
 }
