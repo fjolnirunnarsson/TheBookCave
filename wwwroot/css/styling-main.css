@@ -168,9 +168,11 @@ a .search {
 .addToCart:hover {
     color: white;
     text-decoration: none;
-    
 }
 
+a:hover, a:active, a:visited, a:focus {
+    text-decoration: none;
+}
 
 #front-page-books {
     margin-top: 25px;
