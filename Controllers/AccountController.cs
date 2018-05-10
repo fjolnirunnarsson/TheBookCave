@@ -1,37 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Dynamic;
 using System.Linq;
+using System.Dynamic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
-using TheBookCave.Data.EntityModels;
 using TheBookCave.Models;
-using TheBookCave.Models.InputModels;
-using TheBookCave.Models.ViewModels;
 using TheBookCave.Services;
+using TheBookCave.Data.EntityModels;
+using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
 {
     public class AccountController : Controller
     {
-        private AccountService _accountService;
+        private AccountService _accountService = new AccountService();
+        private DataContext _db = new DataContext();
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _accountService = new AccountService();
         }
+
         [HttpGet]
         public IActionResult Register()
         {
-
             return View();
         }
 
@@ -41,7 +38,7 @@ namespace TheBookCave.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return View(); //Sagði í fyrirlestri að hér ætti að hafa client side validation
+                return View();
             }
 
             var user = new ApplicationUser{UserName = model.Email, Email = model.Email};
@@ -59,22 +56,22 @@ namespace TheBookCave.Controllers
                 
                 return RedirectToAction("Index", "Home");
             }
+
             return View();
         }
 
-        public static void SeedDataCreateAccount(RegisterViewModel model)
+        public void SeedDataCreateAccount(RegisterViewModel model)
         {
-             var db = new DataContext();
-                var Accounts = new List<Account>
-                {
-                    new Account{
-                        FirstName = model.FirstName, 
-                        LastName = model.LastName,
-                        Email = model.Email
-                    }
-                };
-                db.AddRange(Accounts);
-                db.SaveChanges();
+            var Accounts = new List<Account>
+            {
+                new Account{
+                    FirstName = model.FirstName, 
+                    LastName = model.LastName,
+                    Email = model.Email
+                }
+            };
+            _db.AddRange(Accounts);
+            _db.SaveChanges();
         }
 
         public IActionResult Login()
@@ -171,7 +168,7 @@ namespace TheBookCave.Controllers
                 account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
                 account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
                 account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
-                account.SameAdresses = updatedAccount.SameAdresses;
+                //account.SameAdresses = updatedAccount.SameAdresses;
 
                 db.SaveChanges();
             }
