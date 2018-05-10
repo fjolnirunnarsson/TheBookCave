@@ -74,7 +74,6 @@ namespace TheBookCave.Controllers
                             Price = items.DiscountPrice,
                             Genre = items.Genre,
                             BoughtCopies = items.BoughtCopies,
-                            Year = items.Year,
                             Description = items.Description,
                             Quantity = citems.Quantity,
                         }).ToList();
@@ -154,13 +153,24 @@ namespace TheBookCave.Controllers
                 account.BillingAddressCity = updatedAccount.BillingAddressCity;
                 account.BillingAddressCountry = updatedAccount.BillingAddressCountry;
                 account.BillingAddressZipCode = updatedAccount.BillingAddressZipCode;
-                account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
+
+                if(updatedAccount.SameAddresses == 1){
+                    account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
+                    account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
+                    account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
+                    account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
+                    account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
+                    account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
+                }
+                else {
+                    account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
                 account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
                 account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
                 account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
                 account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
                 account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
-
+                }
+                
                 db.SaveChanges();
             }
             return RedirectToAction("ReviewStep");

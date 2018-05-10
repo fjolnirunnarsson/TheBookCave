@@ -145,7 +145,6 @@ namespace TheBookCave.Controllers
                 onebook.Genre = updatedBook.Genre;
                 onebook.Quantity = updatedBook.Quantity;
                 onebook.Price = updatedBook.Price;
-                onebook.Year = updatedBook.Year;
                 onebook.Description = updatedBook.Description;
                 onebook.Discount = updatedBook.Discount;
                 onebook.DiscountPrice = System.Math.Round((1 - updatedBook.Discount/100) * updatedBook.Price,2);
@@ -201,7 +200,6 @@ namespace TheBookCave.Controllers
                         Title = book.Title, 
                         Author = book.Author, 
                         Description = book.Description,
-                        Year = book.Year, 
                         Image = book.Image, 
                         Genre = book.Genre,  
                         Price = book.Price, 

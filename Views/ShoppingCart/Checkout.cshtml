@@ -32,7 +32,7 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="BillingAddressHouseNumber"></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="BillingAddressHouseNumber" placeholder="House number">
+            <input id="bhousenumber" type="text" class="form-control" asp-for="BillingAddressHouseNumber" placeholder="House number">
             <span asp-validation-for="BillingAddressHouseNumber" class="text-danger"></span>
         </div>
     </div>
@@ -101,7 +101,7 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="DeliveryAddressHouseNumber"></label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" asp-for="DeliveryAddressHouseNumber" placeholder="House number">
+                <input  id="dhousenumber" type="text" class="form-control" asp-for="DeliveryAddressHouseNumber" placeholder="House number">
                 <span asp-validation-for="DeliveryAddressHouseNumber" class="text-danger"></span>
             </div>
         </div>
@@ -151,6 +151,8 @@
             </div>
         </div>
     </div>
+            
+
 
     <input type="submit" value="Proceed to next step" class="btn btn-default">
     <a asp-controller="Home" asp-action="Index"><input type="button" value="Cancel" class="btn btn-danger"></a>
