@@ -45,7 +45,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("../Home/Index", booklist);
             }
@@ -164,13 +164,10 @@ namespace TheBookCave.Controllers
                 account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
                 account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
                 account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
-               
 
                 db.SaveChanges();
-
             }
             return RedirectToAction("ReviewStep");
-
         }
 
         [HttpGet]
@@ -225,7 +222,7 @@ namespace TheBookCave.Controllers
                 _db.Purchased.Add(cartItem);
             }
 
-            //Change quantity og book and bought copies
+            //Change quantity of book and bought copies
             foreach (var item in cartItems)
             {
                     var thebook = (from b in _db.Books
@@ -235,8 +232,7 @@ namespace TheBookCave.Controllers
                     thebook.Quantity -= item.Quantity;
                     thebook.BoughtCopies += item.Quantity;
             }
-                 
-
+            
             foreach (var item in cartItems)
             {   
                 RemoveFromCart(item.BookId);
@@ -244,7 +240,7 @@ namespace TheBookCave.Controllers
 
             _db.SaveChanges();
 
-            return View("Final");
+            return View("Confirmation");
         }
 
     }

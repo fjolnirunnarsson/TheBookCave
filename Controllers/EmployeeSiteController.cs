@@ -159,15 +159,21 @@ namespace TheBookCave.Controllers
         public IActionResult Delete(int? id)
         {
 
-            // if(id == null) { return View("NotFound") }
+            if(id == null)
+            {
+                return View("NotFound");
+            }
 
             var books = _bookService.GetAllBooks();
 
             var book = (from b in books
                         where b.Id == id
-                        select b).SingleOrDefault();
+                        select b).First();
 
-            // if(student == null) { return View("NotFound"); }
+            if(book == null)
+            {
+                return View("NotFound");
+            }
 
             return View(book);
         }
