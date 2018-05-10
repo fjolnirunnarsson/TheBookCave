@@ -34,14 +34,13 @@ namespace TheBookCave.Controllers
             return View(account);
         }
 
-                public IActionResult Login()
+        public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if(!ModelState.IsValid)
@@ -58,7 +57,6 @@ namespace TheBookCave.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
