@@ -9,21 +9,26 @@
 
 <h2>Register a new employee</h2>
 <form asp-action="Register" asp-controller="EmployeeSite" class="">
-<div class="form-group col-sm-8">
-    <input type="email" asp-for="Email" class="form-control" placeholder="Enter email...">
-</div>
-<div class="form-group col-sm-8">
-    <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter first name...">
-</div>
-<div class="form-group col-sm-8">
-    <input type="text" asp-for="LastName" class="form-control" placeholder="Enter last name...">
-</div>
-<div class="form-group col-sm-8">
-    <input type="password" asp-for="Password" class="form-control" placeholder="Enter password...">
-</div>
-<div class="text-danger">@ViewData["ErrorMessage"]</div>
-<div class="form-group col-sm-8">
-    <button type="submit" class="btn btn-default">Confirm</button>
-    <a asp-controller="EmployeeSite" asp-action="Index"><input type="button" value="Cancel" class="btn btn-danger"></a>
-</div>
+    <div class="form-group col-sm-8">
+        <input type="email" asp-for="Email" class="form-control" placeholder="Enter email...">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group col-sm-8">
+        <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter first name...">
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group col-sm-8">
+        <input type="text" asp-for="LastName" class="form-control" placeholder="Enter last name...">
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group col-sm-8">
+        <input type="password" asp-for="Password" class="form-control" placeholder="Enter password...">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group col-sm-8">
+        <div class="text-danger">@ViewData["ErrorMessage"]</div>
+        </br>
+        <button type="submit" class="btn btn-default">Confirm</button>
+        <a asp-controller="EmployeeSite" asp-action="Index"><input type="button" value="Cancel" class="btn btn-danger"></a>
+    </div>
 </form>

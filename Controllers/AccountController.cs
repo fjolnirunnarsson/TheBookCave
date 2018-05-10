@@ -58,9 +58,7 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-
-
-                [HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> LogOut()

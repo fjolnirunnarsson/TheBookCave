@@ -1,5 +1,5 @@
 @model List<TheBookCave.Models.ViewModels.BookListViewModel>
-<link rel="stylesheet" href="~/css/details.css" />
+<link rel="stylesheet" href="~/css/details-style.css" />
 
 @{
     int i = 0;
@@ -41,7 +41,7 @@
                 @{
                     string strengur = "isadded" + @book.Id;
                 }
-                <div onclick="itemadded(@book.Id)"  id="div-onclick">
+                <div onclick="itemadded(@book.Id)" id="div-onclick">
                     @Html.ActionLink("Add to cart", "AddToCart",
                     "ShoppingCart", 
                     new { bookId = @book.Id }, 

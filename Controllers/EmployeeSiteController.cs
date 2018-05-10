@@ -50,7 +50,6 @@ namespace TheBookCave.Controllers
                         
             if(!ModelState.IsValid)
             {
-                ViewData["ErrorMessage"] = "You have to fill in every field!";
                 return View(); 
             }
             if(tempaccount != null &&  model.Email == tempaccount.Email){
