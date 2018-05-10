@@ -107,6 +107,15 @@ namespace TheBookCave.Controllers
         [HttpGet]
         public IActionResult Details(string title, string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -134,8 +143,10 @@ namespace TheBookCave.Controllers
                                 select rev).ToList();
 
             dynamic mymodel = new ExpandoObject();
+            
             mymodel.Book = onebook;
             mymodel.Reviews = thisbookreviews;
+            mymodel.Account = listModel;
 
             return View(mymodel);
         }

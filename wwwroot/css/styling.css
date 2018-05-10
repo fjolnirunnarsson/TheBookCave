@@ -78,8 +78,9 @@ a .search {
     position: absolute;
     z-index: 1;
     background-color: #f1f1f1;
-    min-width: 180px;
+    min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 5px;
 }
 
 .dropdown-window .login a {
@@ -97,6 +98,7 @@ a .search {
 }
 
 .dropdown-window .dropdown-list a {
+    text-align: left;
     color: black;
     text-decoration: none;
     display: block;
