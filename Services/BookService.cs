@@ -32,6 +32,37 @@ namespace TheBookCave.Services
             return reviews;
         }
 
+        public List<BookListViewModel> GetSearchBooks(string searchString)
+        {
+            return _bookRepo.GetSearchBooks(searchString);
+        }
+
+        public List<BookListViewModel> GetTop10()
+        {
+            return _bookRepo.GetTop10();
+        }
+
+        public dynamic GetBookByTitle(string title)
+        {
+            return _bookRepo.GetBookByTitle(title);
+        }
+        public List<ReviewViewModel> GetBookReviews(string title)
+        {
+            return _bookRepo.GetBookReviews(title);
+        }
+        public void SeedDataCreate(ReviewInputModel review, string user)
+        {
+            _bookRepo.SeedDataCreate(review, user);
+        }
+        public void UpdateBookRating(ReviewInputModel review)
+        {
+            _bookRepo.UpdateBookRating(review);
+        }
+        public BookListViewModel GetBookByReview(ReviewInputModel review)
+        {
+            return _bookRepo.GetBookByReview(review);
+        }
+
         public void ProcessBook(BookInputModel book)
         {
             if(string.IsNullOrEmpty(book.Title))
