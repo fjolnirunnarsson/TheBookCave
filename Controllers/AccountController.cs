@@ -171,6 +171,7 @@ namespace TheBookCave.Controllers
                 account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
                 account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
                 account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
+                account.SameAdresses = updatedAccount.SameAdresses;
 
                 db.SaveChanges();
             }

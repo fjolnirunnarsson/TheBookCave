@@ -47,6 +47,7 @@ namespace TheBookCave.Models.InputModels
 
         [Required(ErrorMessage="Postal code required")]
         public string DeliveryAddressZipCode { get; set; }
+        public int  SameAdresses { get; set; }
 
     }
 }
