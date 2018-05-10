@@ -39,7 +39,9 @@ namespace TheBookCave.Controllers
                 return View("NoResults");
             }
 
-            return View(bookList);
+            myModel.Book = bookList;
+
+            return View(myModel);
         }
 
         public IActionResult Top10(string searchString)
