@@ -165,12 +165,23 @@ namespace TheBookCave.Controllers
                 account.BillingAddressCity = updatedAccount.BillingAddressCity;
                 account.BillingAddressCountry = updatedAccount.BillingAddressCountry;
                 account.BillingAddressZipCode = updatedAccount.BillingAddressZipCode;
-                account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
-                account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
-                account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
-                account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
-                account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
-                account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
+
+                if(updatedAccount.SameAddresses == 1){
+                    account.DeliveryAddressStreet = updatedAccount.BillingAddressStreet;
+                    account.DeliveryAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
+                    account.DeliveryAddressLine2 = updatedAccount.BillingAddressLine2;
+                    account.DeliveryAddressCity = updatedAccount.BillingAddressCity;
+                    account.DeliveryAddressCountry = updatedAccount.BillingAddressCountry;
+                    account.DeliveryAddressZipCode = updatedAccount.BillingAddressZipCode;
+                }
+                else {
+                    account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
+                    account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
+                    account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
+                    account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
+                    account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
+                    account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
+                }
 
                 db.SaveChanges();
             }

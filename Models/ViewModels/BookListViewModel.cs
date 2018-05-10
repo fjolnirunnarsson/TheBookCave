@@ -17,7 +17,6 @@ namespace TheBookCave.Models.ViewModels
         public double DiscountPrice{ get; set; }
         public string Genre { get; set; }
         public int BoughtCopies { get; set; }
-        public int Year { get; set; }
         public string Description { get; set; }
         public int Quantity { get; set; }
     }

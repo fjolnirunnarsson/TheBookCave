@@ -34,3 +34,9 @@ function addclass(tala){
     var elem = document.getElementById(strengur);
     elem.classList.add("red");
 }
+
+$(document).ready(function() {
+    $('#mycheckbox').change(function() {
+        $('#mycheckboxdiv').toggle();
+    });
+});
