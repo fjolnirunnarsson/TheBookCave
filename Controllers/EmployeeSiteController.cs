@@ -31,6 +31,7 @@ namespace TheBookCave.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _accountService = new AccountService();
+
         }
         [HttpGet]
         public IActionResult Register()
@@ -41,10 +42,21 @@ namespace TheBookCave.Controllers
 
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            var accounts = _accountService.GetAllAccounts();
+
+            var tempaccount = (from a in accounts
+                        where a.Email == model.Email
+                        select a).SingleOrDefault();
+                        
             if(!ModelState.IsValid)
             {
-                return View(); //Sagði í fyrirlestri að hér ætti að hafa client side validation
+                return View(); 
             }
+            if(tempaccount != null &&  model.Email == tempaccount.Email){
+                ViewData["ErrorMessage"] = "This user already has an account!";
+                return View(); 
+            }
+            
             
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -67,22 +79,7 @@ namespace TheBookCave.Controllers
             return View("Created");
         }
 
-
-
-        public static void SeedDataCreateAccount(RegisterViewModel model)
-        {
-             var db = new DataContext();
-                var Accounts = new List<Account>
-                {
-                    new Account{
-                        FirstName = model.FirstName, 
-                        LastName = model.LastName,
-                        Email = model.Email
-                    }
-                };
-                db.AddRange(Accounts);
-                db.SaveChanges();
-        }
+        
 
         
         
@@ -97,9 +94,72 @@ namespace TheBookCave.Controllers
             var books = _bookService.GetAllBooks();
 
             var booklist = (from book in books
+                        orderby book.Title ascending
                         select book).ToList();
 
             return View(booklist);
+        }
+
+                public IActionResult OrderbyAuthor()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Author ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+                public IActionResult OrderbyGenre()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Genre ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+                public IActionResult OrderbyPrice()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Price ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+                public IActionResult OrderbyDiscount()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Discount ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public IActionResult OrderbyQuantity()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Quantity ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public static void SeedDataCreateAccount(RegisterViewModel model)
+        {
+             var db = new DataContext();
+                var Accounts = new List<Account>
+                {
+                    new Account{
+                        FirstName = model.FirstName, 
+                        LastName = model.LastName,
+                        Email = model.Email
+                    }
+                };
+                db.AddRange(Accounts);
+                db.SaveChanges();
         }
 
         [HttpGet]

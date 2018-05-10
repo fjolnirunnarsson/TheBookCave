@@ -2,6 +2,16 @@
     Layout=null;
 }
 
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+@using TheBookCave.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    var firstName = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "FirstName")?.Value;
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,41 +24,40 @@
     <title>Document</title>
 </head>
 <body>
+    <h2 class="text-center">Welcome to the employee sites @firstName!</h2>
     <div>
-        <h2>Welcome to Employee sites!</h2>
-    </div>
-    <div>
-        <a asp-action="Index" asp-controller="Home"> <button>Log out</button> </a>
-        <a asp-action="Create" asp-controller="EmployeeSite"><button>Create book</button></a>
-        <a href="#"><button>Discount codes</button></a>
-        <a asp-action="Register" asp-controller="EmployeeSite"><button>Register a new employee</button></a>
-
-
+        <p class="text-center"><a asp-action="Index" asp-controller="Home" class="btn btn-default">Home</a></p>
+        <p class="text-center"><a asp-action="Create" asp-controller="EmployeeSite" class="btn btn-default">Add book</a></p>
+        <p class="text-center"><a asp-action="Register" asp-controller="EmployeeSite" class="btn btn-default">Register a new employee</a></p>
     </div>
 
-<table>
-    <tr>
-        <th>Title</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>D</th>
-        <th>DPrice</th>
-    </tr>
-    </br>
-    @foreach(var book in @Model)
-    {
+
+    <table>
         <tr>
-            <td>@book.Title</td>
-            <td>@book.Quantity</td>
-            <td>@book.Price</td>
-            <td>@book.Discount</td>
-            <td>@book.DiscountPrice</td>
-            <td><a asp-controller="EmployeeSite" asp-action="Change" asp-route-id="@book.Id"><span id="delete-button" class="glyphicon glyphicon-wrench"></span></a></td>
-            <td><a asp-controller="EmployeeSite" asp-action="Delete" asp-route-id="@book.Id"><span class="glyphicon glyphicon-trash"></span></a></td>
+            <th><a asp-controller="EmployeeSite" asp-action="Index">Title</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyAuthor">Author</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyGenre">Genre</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyPrice">Price</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyDiscount">Discount</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyQuantity">Quantity</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbySold">Sold</a></th>
         </tr>
-    }
-    
-</table>
+        </br>
+        @foreach(var book in @Model)
+        {
+            <tr >
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>$@book.Price</td>
+                <td>@book.Discount</td>
+                <td>@book.Quantity</td>
+                <td>@book.BoughtCopies</td>
+                <td><a asp-controller="EmployeeSite" asp-action="Change" asp-route-id="@book.Id"><span id="delete-button" class="glyphicon glyphicon-wrench"></span></a></td>
+                <td><a asp-controller="EmployeeSite" asp-action="Delete" asp-route-id="@book.Id"><span class="glyphicon glyphicon-trash"></span></a></td>
+            </tr>
+        }
+    </table>
 </body>
 </html>
 

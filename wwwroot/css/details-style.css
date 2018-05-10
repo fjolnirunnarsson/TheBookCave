@@ -43,9 +43,6 @@
     size: 15px;
     margin-bottom: 20px;
 }
-.price {
-    display: inline;
-}
 
 #detail-oldprice {
     text-decoration: line-through;
