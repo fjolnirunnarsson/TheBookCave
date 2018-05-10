@@ -107,6 +107,7 @@ namespace TheBookCave.Repositories
                              }).ToList();
             return purchased;
         }
+<<<<<<< HEAD
 
         public void ProcessAccount(AccountInputModel account)
         {
@@ -124,5 +125,8 @@ namespace TheBookCave.Repositories
             if (string.IsNullOrEmpty(account.DeliveryAddressCountry)) { throw new Exception("Country is missing"); }
             if (string.IsNullOrEmpty(account.DeliveryAddressZipCode)) { throw new Exception("Postal code is missing"); }
         }
+=======
+        
+>>>>>>> 763167de2ef17c9b11e89930cf3c6db870fe3670
     }
 }

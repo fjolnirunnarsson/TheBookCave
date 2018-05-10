@@ -2,16 +2,20 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Services;
+using TheBookCave.Models.ViewModels;
+using System.Dynamic;
 
 namespace TheBookCave.Controllers
 {
     public class HomeController : Controller
     {
-  private BookService _bookService;
+        private BookService _bookService;
+        private WishListService _wishListService;
         
         public HomeController()
         {
             _bookService = new BookService();
+            _wishListService = new WishListService();
         }
         public IActionResult Index(string searchString)
         {
@@ -24,7 +28,21 @@ namespace TheBookCave.Controllers
                                 orderby b.BoughtCopies descending
                                 select b).Take(8).ToList();
                 
-                return View(newestBooks);
+            dynamic mymodel = new ExpandoObject();
+
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
+            mymodel.Book = newestBooks;  
+            mymodel.Account = listModel;
+            
+            return View(mymodel);
             }
 
             var booklist = (from b in books
@@ -36,7 +54,7 @@ namespace TheBookCave.Controllers
             {
                 return View("NoResults");
             }
-
+            
             return View(booklist);
         }
         public IActionResult AboutUs(string searchString)
