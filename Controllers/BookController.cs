@@ -41,7 +41,7 @@ namespace TheBookCave.Controllers
 
             if(booklist.Count == 0)
             {
-                return View("NotFound");
+                return View("NoResults");
             }
 
             return View(booklist);
@@ -60,7 +60,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -91,7 +91,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -184,7 +184,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -222,7 +222,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -247,7 +247,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -272,7 +272,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -297,7 +297,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -322,7 +322,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -347,7 +347,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -373,7 +373,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -399,7 +399,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
@@ -425,7 +425,7 @@ namespace TheBookCave.Controllers
                 
                 if(booklist.Count == 0)
                 {
-                    return View("NotFound");
+                    return View("NoResults");
                 }
                 return View("Index", booklist);
             }
