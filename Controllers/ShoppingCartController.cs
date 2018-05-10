@@ -225,9 +225,20 @@ namespace TheBookCave.Controllers
                 _db.Purchased.Add(cartItem);
             }
 
+            //Change quantity og book and bought copies
             foreach (var item in cartItems)
             {
+                    var thebook = (from b in _db.Books
+                            where b.Id == item.BookId
+                            select b).SingleOrDefault();
 
+                    thebook.Quantity -= item.Quantity;
+                    thebook.BoughtCopies += item.Quantity;
+            }
+                 
+
+            foreach (var item in cartItems)
+            {   
                 RemoveFromCart(item.BookId);
             }
 
