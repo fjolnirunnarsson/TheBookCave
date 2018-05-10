@@ -80,22 +80,7 @@ namespace TheBookCave.Controllers
             return View("Created");
         }
 
-
-
-        public static void SeedDataCreateAccount(RegisterViewModel model)
-        {
-             var db = new DataContext();
-                var Accounts = new List<Account>
-                {
-                    new Account{
-                        FirstName = model.FirstName, 
-                        LastName = model.LastName,
-                        Email = model.Email
-                    }
-                };
-                db.AddRange(Accounts);
-                db.SaveChanges();
-        }
+        
 
         
         
@@ -110,9 +95,72 @@ namespace TheBookCave.Controllers
             var books = _bookService.GetAllBooks();
 
             var booklist = (from book in books
+                        orderby book.Title ascending
                         select book).ToList();
 
             return View(booklist);
+        }
+
+                public IActionResult OrderbyAuthor()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Author ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+                public IActionResult OrderbyGenre()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Genre ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+                public IActionResult OrderbyPrice()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Price ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+                public IActionResult OrderbyDiscount()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Discount ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public IActionResult OrderbyQuantity()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Quantity ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public static void SeedDataCreateAccount(RegisterViewModel model)
+        {
+             var db = new DataContext();
+                var Accounts = new List<Account>
+                {
+                    new Account{
+                        FirstName = model.FirstName, 
+                        LastName = model.LastName,
+                        Email = model.Email
+                    }
+                };
+                db.AddRange(Accounts);
+                db.SaveChanges();
         }
 
         [HttpGet]

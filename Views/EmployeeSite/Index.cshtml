@@ -31,21 +31,21 @@
         <p class="text-center"><a asp-action="Register" asp-controller="EmployeeSite" class="btn btn-default">Register a new employee</a></p>
     </div>
 
+
     <table>
         <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>Price</th>
-            <th>Discount</th>
-            <th>Quantity</th>
-            <th>Sold</th>
-            
+            <th><a asp-controller="EmployeeSite" asp-action="Index">Title</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyAuthor">Author</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyGenre">Genre</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyPrice">Price</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyDiscount">Discount</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbyQuantity">Quantity</a></th>
+            <th><a asp-controller="EmployeeSite" asp-action="OrderbySold">Sold</a></th>
         </tr>
         </br>
         @foreach(var book in @Model)
         {
-            <tr>
+            <tr >
                 <td>@book.Title</td>
                 <td>@book.Author</td>
                 <td>@book.Genre</td>
