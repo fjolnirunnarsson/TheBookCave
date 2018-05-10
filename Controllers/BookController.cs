@@ -15,7 +15,7 @@ namespace TheBookCave.Controllers
     {
         private BookService _bookService;
         private WishListService _wishListService;
-        private dynamic mymodel = new ExpandoObject();
+        private dynamic myModel = new ExpandoObject();
         
         public BookController()
         {
@@ -24,38 +24,22 @@ namespace TheBookCave.Controllers
         }
         public IActionResult Index(string searchString)
         {
-
-            var user = WishListService.GetUser(this.HttpContext);
-
-            var userId = user.UserId;
-            
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
-            
             var books = _bookService.GetAllBooks();
 
             if(String.IsNullOrEmpty(searchString))
             {
-                mymodel.Book = books;
-                mymodel.Account = listModel;
-
-                return View(mymodel);
+                return View(books);
             }
 
-            var booklist = (from b in books
-                        where b.Title.ToLower().Contains(searchString.ToLower())
-                        || b.Author.ToLower().Contains(searchString.ToLower())
-                        select b).ToList();
+            var bookList = _bookService.GetSearchBooks(searchString);
 
 
-            if(mymodel.Book.Count == 0)
+            if(bookList.Count == 0)
             {
                 return View("NoResults");
             }
 
-            return View(mymodel.Book);
+            return View(bookList);
         }
 
         public IActionResult Top10(string searchString)
@@ -63,6 +47,47 @@ namespace TheBookCave.Controllers
             var user = WishListService.GetUser(this.HttpContext);
 
             var userId = user.UserId;
+
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId)
+            };
+
+            var books = _bookService.GetAllBooks();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var bookList = _bookService.GetSearchBooks(searchString);
+                
+                if(bookList.Count == 0)
+                {
+                    return View("NoResults");
+                }
+
+                myModel.Book = bookList;
+                myModel.Account = listModel;
+                return View("Index", myModel);
+            }
+            
+            var top10 = _bookService.GetTop10();
+
+            if(top10.Count == 0)
+            {
+                return View("NotFound");
+            }
+
+            myModel.Book = top10;
+            myModel.Account = listModel;
+            
+            return View(myModel);
+        }
+
+       [HttpGet]
+        public IActionResult Details(string title, string searchString)
+        {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
             
             var listModel = new WishListViewModel
             {
@@ -73,72 +98,22 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var bookList = _bookService.GetSearchBooks(searchString);
                 
-                if(booklist.Count == 0)
+                if(bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
-
-                mymodel.Book = booklist;
-                mymodel.Account = listModel;
-
-                return View("Index", mymodel);
-            }
-            
-            var top10 = (from book in books
-                        orderby book.Rating descending
-                        select book).Take(10).ToList();
-
-            if(top10.Count == 0)
-            {
-                return View("NotFound");
+                return View("Index", bookList);
             }
 
-            mymodel.Book = top10;
-            mymodel.Account = listModel;
+            myModel.Book = _bookService.GetBookByTitle(title);
+            myModel.Reviews = _bookService.GetBookReviews(title);
+            myModel.Account = listModel;
 
-            return View(mymodel);
+            return View(myModel);
         }
-
-        [HttpGet]
-        public IActionResult Details(string title, string searchString)
-        {
-            var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
-            {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
-                
-                if(booklist.Count == 0)
-                {
-                    return View("NoResults");
-                }
-                return View("Index", booklist);
-            }
-
-            var onebook = (from newbook in books
-                        where newbook.Title.ToLower() == title.ToLower()
-                        select newbook).First();
-
-            var reviews = _bookService.GetAllReviews();
-
-            var thisbookreviews = (from rev in reviews
-                                where (rev.BookId == onebook.Id)
-                                select rev).ToList();
-
-            dynamic mymodel = new ExpandoObject();
-            mymodel.Book = onebook;
-            mymodel.Reviews = thisbookreviews;
-
-            return View(mymodel);
-        }
+        
         [HttpPost]
         public IActionResult Details(ReviewInputModel review){
 
@@ -149,61 +124,16 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
-            SeedDataCreate(review, user);
+            _bookService.SeedDataCreate(review, user);
 
-            using (var db = new DataContext())
-            {
-                var reviews = _bookService.GetAllReviews();
-
-                var onebook = (from newbook in db.Books
-                            where newbook.Id == review.BookId
-                            select newbook).First();
-                            
-                var allreviews = (from newreview in db.Reviews
-                            where newreview.BookId == onebook.Id
-                            select newreview).ToList();
-
-                onebook.Rating = Math.Round(GetRating(allreviews),2);
-                db.SaveChanges();
-            }
+            _bookService.UpdateBookRating(review);
 
             var books = _bookService.GetAllBooks();
 
-            var book = (from b in books
-                        where b.Id == review.BookId
-                        select b).First();
+            var book = _bookService.GetBookByReview(review);
 
             return RedirectToAction("Details", book);
         }
-
-        public double GetRating(List<Review> reviews)
-        {
-            double rating = 0;
-            foreach(var review in reviews){
-                rating += review.Rating;
-            }
-            rating = rating/reviews.Count();
-            return rating;
-        }
-        
-        [HttpGet]
-        public static void SeedDataCreate(ReviewInputModel review, string user)
-        {
-            var db = new DataContext();
-            
-            var Reviews = new List<Review>{
-
-                new Review{
-                    Rating = review.Rating,
-                    Comment = review.Comment,
-                    UserName = user,
-                    BookId = review.BookId
-                }
-            };
-            db.AddRange(Reviews);
-            db.SaveChanges();
-        }
-
         public IActionResult Genre(string genre, string searchString)
         {
             var books = _bookService.GetAllBooks();
