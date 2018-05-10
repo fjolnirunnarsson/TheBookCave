@@ -112,18 +112,16 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult Index(){
-            
-            var user = HttpContext.User.Identity.Name;
+        public IActionResult Index()
+        {
 
-            /*ApplicationUser getUser = await _userManager.FindByEmailAsync(user);
-            await _userManager.AddToRoleAsync(getUser, "Admin");*/
+            var user = HttpContext.User.Identity.Name;
 
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
                         where a.Email == user
-                        select a).SingleOrDefault();
+                        select a).First();
 
             return View(account);
         }
@@ -136,13 +134,13 @@ namespace TheBookCave.Controllers
 
             var account = (from a in accounts
                          where a.Email == email
-                         select a).SingleOrDefault();
+                         select a).First();
 
             return View(account);
         }
         
         [HttpPost]
-        public IActionResult Edit(AccountInputModel updatedAccount)
+        public IActionResult Edit(AccountListViewModel updatedAccount)
         {
             
             if(!ModelState.IsValid)
@@ -150,13 +148,11 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
-            _accountService.ProcessAccount(updatedAccount);
-
             using (var db = new DataContext())
             {
                 var account = (from a in db.Accounts
                             where a.Email == updatedAccount.Email
-                            select a).FirstOrDefault();
+                            select a).First();
 
                 account.FirstName = updatedAccount.FirstName;
                 account.LastName = updatedAccount.LastName;
@@ -189,7 +185,6 @@ namespace TheBookCave.Controllers
             dynamic myModel = new ExpandoObject();
 
             myModel.books = books;
-            
 
             return View(books);
         }

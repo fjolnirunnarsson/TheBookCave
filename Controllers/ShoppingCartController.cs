@@ -22,7 +22,6 @@ namespace TheBookCave.Controllers
     {
         private AccountService _accountService;
         private CartService _cartService;
-
         private BookService _bookService;
         private DataContext _db = new DataContext();
 
@@ -33,9 +32,24 @@ namespace TheBookCave.Controllers
             _accountService = new AccountService();
             
         }
-
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
+            var allBooks = _bookService.GetAllBooks();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in allBooks
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NotFound");
+                }
+                return View("../Home/Index", booklist);
+            }
+            
             var cart = CartService.GetCart(this.HttpContext);
 
             var cartId = cart.ShoppingCartId;
@@ -122,6 +136,13 @@ namespace TheBookCave.Controllers
         [HttpPost]
         public IActionResult Checkout(AccountInputModel updatedAccount)
         {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _accountService.ProcessAccount(updatedAccount);
+            
             using (var db = new DataContext())
             {
                 var account = (from a in db.Accounts
@@ -204,9 +225,20 @@ namespace TheBookCave.Controllers
                 _db.Purchased.Add(cartItem);
             }
 
+            //Change quantity og book and bought copies
             foreach (var item in cartItems)
             {
+                    var thebook = (from b in _db.Books
+                            where b.Id == item.BookId
+                            select b).SingleOrDefault();
 
+                    thebook.Quantity -= item.Quantity;
+                    thebook.BoughtCopies += item.Quantity;
+            }
+                 
+
+            foreach (var item in cartItems)
+            {   
                 RemoveFromCart(item.BookId);
             }
 
