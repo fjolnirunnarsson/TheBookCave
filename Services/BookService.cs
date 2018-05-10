@@ -6,7 +6,7 @@ using TheBookCave.Repositories;
 
 namespace TheBookCave.Services
 {
-    public class BookService
+    public class BookService : IBookService
     {
         private BookRepo _bookRepo;
         private ReviewRepo _reviewRepo;

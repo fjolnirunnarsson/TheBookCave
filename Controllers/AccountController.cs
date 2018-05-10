@@ -22,11 +22,13 @@ namespace TheBookCave.Controllers
         private AccountService _accountService;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private readonly IAccountService _IAccountService;
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IAccountService IAccountService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _accountService = new AccountService();
+            _IAccountService = IAccountService;
         }
         [HttpGet]
         public IActionResult Register()

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using TheBookCave.Repositories;
 using TheBookCave.Models.ViewModels;
 using System.Threading.Tasks;
+using TheBookCave.Services;
 
 namespace TheBookCave
 {
@@ -72,6 +73,7 @@ namespace TheBookCave
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddScoped(s => ShoppingCart.GetCart(s));
 
+            services.AddTransient<IAccountService, AccountService>();
             services.AddMvc();
 
             services.AddMemoryCache();
