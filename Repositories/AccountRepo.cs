@@ -50,26 +50,22 @@ namespace TheBookCave.Repositories
             return user;
         }
         
-        public List<BookListViewModel> GetAllPurchases(HttpContext context)
+        public List<PurchasesViewModel> GetAllPurchases(HttpContext context)
         {
             var user = GetUser(context);
             var purchased = (from item in _db.Books
                             join citems in _db.Purchased on item.Id equals citems.BookId 
                             where citems.CartId == user
-                            select new BookListViewModel
+                            select new PurchasesViewModel
                             {
                                 Id = item.Id,
                                 Image = item.Image,
                                 Title = item.Title,
                                 Author = item.Author,
-                                AuthorId = item.AuthorId,
                                 Rating = item.Rating,
                                 Price = item.DiscountPrice,
-                                Genre = item.Genre,
-                                BoughtCopies = item.BoughtCopies,
-                                Year = item.Year,
-                                Description = item.Description,
                                 Quantity = citems.Quantity,
+                                DateCreated = citems.DateCreated
                             }).ToList();
                             return purchased;
         }

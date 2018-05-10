@@ -22,7 +22,6 @@ namespace TheBookCave.Services
 
             return accounts;
         }
-
         public void ProcessAccount(AccountInputModel account)
         {
             if(string.IsNullOrEmpty(account.FirstName)) { throw new Exception("First name is missing"); }
@@ -40,7 +39,7 @@ namespace TheBookCave.Services
             if(string.IsNullOrEmpty(account.DeliveryAddressZipCode)) { throw new Exception("Postal code is missing"); }
         }
 
-        public List<BookListViewModel> GetAllPurchases(HttpContext context)
+        public List<PurchasesViewModel> GetAllPurchases(HttpContext context)
         {
             
             return _accountRepo.GetAllPurchases(context);

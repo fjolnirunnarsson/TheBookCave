@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -181,6 +182,12 @@ namespace TheBookCave.Controllers
         public IActionResult Purchases() 
         {
             var books = _accountService.GetAllPurchases(this.HttpContext);
+
+            dynamic myModel = new ExpandoObject();
+
+            myModel.books = books;
+            
+
             return View(books);
         }
     }
