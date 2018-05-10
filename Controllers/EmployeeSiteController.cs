@@ -11,13 +11,14 @@ using Microsoft.AspNetCore.Identity;
 using TheBookCave.Models;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System;
 
 namespace TheBookCave.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class EmployeeSiteController : Controller
     {
-         private BookService _bookService;
+        private BookService _bookService;
         private AccountService _accountService;
         
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -84,16 +85,26 @@ namespace TheBookCave.Controllers
             return View();
         }
         
+        
         [HttpGet]
         public IActionResult Index()
         {
-            var books = _bookService.GetAllBooks();
+            if(!User.IsInRole("Admin"))
+            {
 
-            var booklist = (from book in books
-                        orderby book.Title ascending
-                        select book).ToList();
+                return View("../Account/AccessDenied");
 
-            return View(booklist);
+            }
+            else{
+                var books = _bookService.GetAllBooks();
+
+                var booklist = (from book in books
+                            orderby book.Title ascending
+                            select book).ToList();
+
+                return View(booklist);
+            }
+
         }
 
         public IActionResult OrderbyAuthor()
