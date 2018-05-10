@@ -115,5 +115,9 @@
 }
 
 .addcart {
+    width: 150px;
     margin-left: 0;
+}
+.red{
+    color: red;
 }
