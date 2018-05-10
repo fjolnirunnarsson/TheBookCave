@@ -23,16 +23,14 @@ namespace TheBookCave.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IBookService _IBookService;
     
-        public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, IBookService IBookService)
+        public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _bookService = new BookService();
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _accountService = new AccountService();
-            _IBookService = IBookService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -137,8 +135,15 @@ namespace TheBookCave.Controllers
         }
 
         [HttpPost]
-        public IActionResult Change(BookListViewModel updatedBook)
+        public IActionResult Change(BookInputModel updatedBook)
         {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _bookService.ProcessBook(updatedBook);
+
             using (var db = new DataContext())
             {
                 var onebook = (from b in db.Books
