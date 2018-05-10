@@ -90,8 +90,10 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult RemoveFromWishList(int bookId)
+        public IActionResult RemoveFromWishList(int bookId, bool breyta)
         {
+            if(breyta == false)
+            {
             var books = _bookService.GetAllBooks();
 
             var bookAdded = (from book in books
@@ -103,6 +105,21 @@ namespace TheBookCave.Controllers
             _wishListService.RemoveFromWishList(bookAdded, this.HttpContext);
 
             return RedirectToAction("Index");
+            }
+            else
+            {
+                var books = _bookService.GetAllBooks();
+
+                var bookAdded = (from book in books
+                                where book.Id == bookId
+                                select book).SingleOrDefault();
+
+                var user = WishListService.GetUser(this.HttpContext);
+
+                _wishListService.RemoveFromWishList(bookAdded, this.HttpContext);
+
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

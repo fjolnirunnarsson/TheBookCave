@@ -22,21 +22,37 @@
                 <div class="heart-img" onclick="wishadded(@book.Id)">
                     @{
                     string strengur1 = "wishadded" + @book.Id;
+                    bool onList = false;
                     }
+                    @foreach(var tala in @Model.Account.ListItems)
+                    {
+                        if(@tala.BookId == @book.Id)
+                        {
+                            onList = true;
+                            @Html.ActionLink(" ", 
+                                    "RemoveFromWishList", 
+                                    "WishList", 
+                                    new { bookId = @book.Id, breyta = onList }, 
+                                    new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
+                        }
+                    }
+                    @if(onList == false)
+                    {
                     @Html.ActionLink(" ", 
                                     "AddToWishList", 
                                     "WishList", 
-                                    new { bookId = @book.Id }, 
+                                    new { bookId = @book.Id, breyta = onList }, 
                                     new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
-            </div>
-                @foreach(var tala in @Model.Account.ListItems)
-                {
-                    if(@tala.BookId == @book.Id){
-                        <script>
-                        addclass(@book.Id)
-                        </script>
                     }
-                }
+                    @foreach(var tala in @Model.Account.ListItems)
+                    {
+                        if(@tala.BookId == @book.Id){
+                            <script>
+                            addclass(@book.Id)
+                            </script>
+                        }
+                    }
+            </div>
                 <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img id="book-img" src="@book.Image" alt="No Images"></a>
                 <h2 id="book-title"><a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title">@book.Title</a></h2>
                 <h3 class="book-important">@book.Author</h3>
