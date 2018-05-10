@@ -1,18 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
-using TheBookCave.Models;
 using TheBookCave.Models.InputModels;
-using TheBookCave.Repositories;
 using TheBookCave.Services;
 using System.Dynamic;
-using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
 {

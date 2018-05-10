@@ -1,22 +1,23 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
+using TheBookCave.Models;
+using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Repositories
 {
     public class AccountRepo
     {
-        private DataContext _db;
+        private DataContext _db = new DataContext();
 
-        public AccountRepo()
-        {
-            _db = new DataContext();
-        }
-
-        
         public List<AccountListViewModel> GetAllAccounts()
         {
             
@@ -44,18 +45,61 @@ namespace TheBookCave.Repositories
             return accounts;
         }
 
-        public static string GetUser(HttpContext context)
+
+
+        public AccountListViewModel GetLoggedInAccount(string userId)
         {
-            var user = context.User.Identity.Name;
-            return user;
+            var accounts = GetAllAccounts();
+            var account = (from a in accounts
+                        where a.Email == userId
+                        select a).FirstOrDefault();
+            return account;
+        }
+
+        public void UpdateAccount(string userId, AccountListViewModel model)
+        {
+            var accounts = GetAllAccounts();
+            var account = (from a in _db.Accounts
+                            where a.Email == model.Email
+                            select a).FirstOrDefault();
+            
+            account.FirstName = model.FirstName;
+            account.LastName = model.LastName;
+            account.Email = model.Email;
+            account.ProfilePicture = model.ProfilePicture;
+            account.FavoriteBook = model.FavoriteBook;
+            account.BillingAddressStreet = model.BillingAddressStreet;
+            account.BillingAddressHouseNumber = model.BillingAddressHouseNumber;
+            account.BillingAddressLine2 = model.BillingAddressLine2;
+            account.BillingAddressCity = model.BillingAddressCity;
+            account.BillingAddressCountry = model.BillingAddressCountry;
+            account.BillingAddressZipCode = model.BillingAddressZipCode;
+
+            if(model.SameAddresses == 1){
+                account.DeliveryAddressStreet = model.BillingAddressStreet;
+                account.DeliveryAddressHouseNumber = model.BillingAddressHouseNumber;
+                account.DeliveryAddressLine2 = model.BillingAddressLine2;
+                account.DeliveryAddressCity = model.BillingAddressCity;
+                account.DeliveryAddressCountry = model.BillingAddressCountry;
+                account.DeliveryAddressZipCode = model.BillingAddressZipCode;
+            }
+            else {
+                account.DeliveryAddressStreet = model.DeliveryAddressStreet;
+                account.DeliveryAddressHouseNumber = model.DeliveryAddressHouseNumber;
+                account.DeliveryAddressLine2 = model.DeliveryAddressLine2;
+                account.DeliveryAddressCity = model.DeliveryAddressCity;
+                account.DeliveryAddressCountry = model.DeliveryAddressCountry;
+                account.DeliveryAddressZipCode = model.DeliveryAddressZipCode;
+            }
+
+            _db.SaveChanges();
         }
         
-        public List<PurchasesViewModel> GetAllPurchases(HttpContext context)
+        public List<PurchasesViewModel> GetAllPurchases(string userId)
         {
-            var user = GetUser(context);
             var purchased = (from item in _db.Books
                             join citems in _db.Purchased on item.Id equals citems.BookId 
-                            where citems.CartId == user
+                            where citems.CartId == userId
                             select new PurchasesViewModel
                             {
                                 Id = item.Id,
@@ -69,5 +113,6 @@ namespace TheBookCave.Repositories
                             }).ToList();
                             return purchased;
         }
+        
     }
 }

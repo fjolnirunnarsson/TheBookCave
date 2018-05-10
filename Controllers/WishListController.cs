@@ -3,12 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Dynamic;
 using System.Collections.Generic;
-using TheBookCave.Models.EntityModels;
-using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
-using TheBookCave.Repositories;
 using TheBookCave.Data;
-using TheBookCave.Data.EntityModels;
 using TheBookCave.Services;
 using System;
 
@@ -68,7 +64,6 @@ namespace TheBookCave.Controllers
                             Price = items.DiscountPrice,
                             Genre = items.Genre,
                             BoughtCopies = items.BoughtCopies,
-                            Year = items.Year,
                             Description = items.Description,
                         }).ToList();
 

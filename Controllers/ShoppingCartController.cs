@@ -1,16 +1,12 @@
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Services;
 using System.Linq;
+using System;
 using System.Collections.Generic;
-using TheBookCave.Models.EntityModels;
 using Microsoft.AspNetCore.Authorization;
-using TheBookCave.Repositories;
 using TheBookCave.Models.ViewModels;
 using System.Dynamic;
 using Microsoft.AspNetCore.Http;
@@ -24,12 +20,14 @@ namespace TheBookCave.Controllers
         private CartService _cartService;
         private BookService _bookService;
         private DataContext _db = new DataContext();
+        private readonly IAccountService _IAccountService;
 
-        public ShoppingCartController()
+        public ShoppingCartController(IAccountService IAccountService)
         {
             _cartService = new CartService();
             _bookService = new BookService();
             _accountService = new AccountService();
+            _IAccountService = IAccountService;
             
         }
         public IActionResult Index(string searchString)
@@ -78,7 +76,6 @@ namespace TheBookCave.Controllers
                             Price = items.DiscountPrice,
                             Genre = items.Genre,
                             BoughtCopies = items.BoughtCopies,
-                            Year = items.Year,
                             Description = items.Description,
                             Quantity = citems.Quantity,
                         }).ToList();
@@ -176,7 +173,6 @@ namespace TheBookCave.Controllers
                 account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
                 }
                 
-
                 db.SaveChanges();
             }
             return RedirectToAction("ReviewStep");

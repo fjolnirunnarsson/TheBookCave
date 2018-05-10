@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TheBookCave.Data;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 using TheBookCave.Repositories;
@@ -10,6 +11,7 @@ namespace TheBookCave.Services
     public class AccountService : IAccountService
     {
         private AccountRepo _accountRepo;
+        private DataContext _db = new DataContext();
 
         public AccountService()
         {
@@ -21,6 +23,11 @@ namespace TheBookCave.Services
             var accounts = _accountRepo.GetAllAccounts();
 
             return accounts;
+        }
+
+        public AccountListViewModel GetLoggedInAccount(string userId)
+        {
+            return _accountRepo.GetLoggedInAccount(userId);
         }
         public void ProcessAccount(AccountInputModel account)
         {
@@ -78,15 +85,20 @@ namespace TheBookCave.Services
             }
         }
 
-        public List<PurchasesViewModel> GetAllPurchases(HttpContext context)
+        public List<PurchasesViewModel> GetAllPurchases(string userId)
         {
-            return _accountRepo.GetAllPurchases(context);
+            return _accountRepo.GetAllPurchases(userId);
         }
 
         public static string GetUser(HttpContext context)
         {
             var user = context.User.Identity.Name;
             return user;
+        }
+
+        public void UpdateAccount(string userId, AccountListViewModel model)
+        {
+            _accountRepo.UpdateAccount(userId, model);
         }
     }
 }

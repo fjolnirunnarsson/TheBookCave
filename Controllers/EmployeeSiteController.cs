@@ -22,16 +22,17 @@ namespace TheBookCave.Controllers
         
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IBookService _IBookService;
     
-        public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, IBookService IBookService)
         {
             _bookService = new BookService();
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _accountService = new AccountService();
+            _IBookService = IBookService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -150,7 +151,6 @@ namespace TheBookCave.Controllers
                 onebook.Genre = updatedBook.Genre;
                 onebook.Quantity = updatedBook.Quantity;
                 onebook.Price = updatedBook.Price;
-                onebook.Year = updatedBook.Year;
                 onebook.Description = updatedBook.Description;
                 onebook.Discount = updatedBook.Discount;
                 onebook.DiscountPrice = System.Math.Round((1 - updatedBook.Discount/100) * updatedBook.Price,2);
@@ -208,7 +208,6 @@ namespace TheBookCave.Controllers
                         Title = book.Title, 
                         Author = book.Author, 
                         Description = book.Description,
-                        Year = book.Year, 
                         Image = book.Image, 
                         Genre = book.Genre,  
                         Price = book.Price, 
