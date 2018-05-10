@@ -116,8 +116,7 @@
 
 .addcart {
     width: 150px;
-    margin-left: 35px;
-    margin-right: 35px;
+    margin-left: 0;
 }
 .red{
     color: red;

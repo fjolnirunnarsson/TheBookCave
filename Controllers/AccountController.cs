@@ -26,7 +26,7 @@ namespace TheBookCave.Controllers
             _userManager = userManager;
         }
 
-                public IActionResult Index()
+        public IActionResult Index()
         {
             var user = HttpContext.User.Identity.Name;
             var account = _accountService.GetLoggedInAccount(user);

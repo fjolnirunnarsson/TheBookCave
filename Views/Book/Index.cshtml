@@ -1,8 +1,8 @@
 @model dynamic
 <link rel="stylesheet" href="~/css/stars-position.css" />
-<div id="front-page-books">
 <script src="~/js/site.js"></script>
 
+<div id="front-page-books">
     <div class="dropdown pull-right" id="dropdown-sort">
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort
             <span class="caret"></span></button>
@@ -13,8 +13,6 @@
             <li><a asp-controller="Book" asp-action="PriceHighToLow">Price: high to low</a></li>
         </ul>
     </div>
-
-
 
     @foreach(var book in @Model.Book)
     {
@@ -80,7 +78,15 @@
                     
                 }
             }
-            <button class="btn btn-primary addcart">Add to cart</button>
+            @{
+                    string strengur = "isadded" + @book.Id;
+                }
+                <div onclick="itemadded(@book.Id)" id="div-onclick">
+                    @Html.ActionLink("Add to cart", "AddToCart",
+                    "ShoppingCart", 
+                    new { bookId = @book.Id }, 
+                    new { @class = "addToCart btn btn-primary addcart", id = @strengur})
+                </div>
         </div>
     }
 </div>
