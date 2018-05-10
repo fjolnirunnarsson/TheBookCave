@@ -7,60 +7,83 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="~/css/styles.css">
 
-<form method="POST">
-    <div class="form-group">
-        <label for="Title" class="control-label">Title</label>
-        <input type="text" asp-for="Title" class="form-control">
-        <div asp-validation-for="Title"></div>
-
-        <label for="Author" class="control-label">Author</label>
-        <input type="text" asp-for="Author" class="form-control">
-        <div asp-validation-for="Author"></div>
-
-        <label for="Genre" class="control-label">Genre</label>
-        <select name="Genre" id="genre" class="form-control">
-            <option value="@Model.Genre" selected>@Model.Genre</option>
-            <option value="Art & Photography">Art & Photography</option>
-            <option value="Biography">Biography</option>
-            <option value="Children">Children</option>
-            <option value="Crime">Crime</option>
-            <option value="Education">Education</option>
-            <option value="Fantasy">Fantasy</option>
-            <option value="Fiction">Fiction</option>
-            <option value="Food">Food</option>
-            <option value="Historical Fiction">Historical Fiction</option>
-            <option value="History">History</option>
-            <option value="Nature">Nature</option>
-            <option value="Self Help">Self Help</option>
-            <option value="Philosophy">Philosophy</option>
-            <option value="Romance">Romance</option>
-            <option value="Science Fiction">Science Fiction</option>
-            <option value="Thriller">Thriller</option>
-        </select>
-        <div asp-validation-for="Discount"></div>
-
-
-        <label for="Image" class="control-label">Image</label>
-        <input type="text" asp-for="Image" class="form-control">
-        <div asp-validation-for="Image"></div>
-
-        <label for="Price" class="control-label">Price</label>
-        <input type="text" asp-for="Price" class="form-control">
-        <div asp-validation-for="Price"></div>
-
-        <label for="Discount" class="control-label">Discount</label>
-        <input type="text" asp-for="Discount" class="form-control">
-        <div asp-validation-for="Discount"></div>
-
-        <label for="Quantity" class="control-label">Quantity</label>
-        <input type="text" asp-for="Quantity" class="form-control">
-        <div asp-validation-for="Quantity"></div>
-
-        <label for="Description" class="control-label">Description</label>
-        <textarea cols="100" rows="10" asp-for="Description" class="form-control" placeholder="Brief description about the book" ></textarea>
-        <div asp-validation-for="Description"></div></br>
-    </div>
+<form class="form-horizontal" method="POST">
+    <div class="pull-left">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Title">Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Title" placeholder="Title of the book">
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Author">Author</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Author" placeholder="Name of author">
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Genre">Genre</label>
+            <div class="col-sm-10">
+                <select name="Genre" id="genre" class="form-control">
+                    <option value="@Model.Genre" selected>@Model.Genre</option>
+                    <option value="Art & Photography">Art & Photography</option>
+                    <option value="Biography">Biography</option>
+                    <option value="Children">Children</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Education">Education</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Food">Food</option>
+                    <option value="Historical Fiction">Historical Fiction</option>
+                    <option value="History">History</option>
+                    <option value="Nature">Nature</option>
+                    <option value="Self Help">Self Help</option>
+                    <option value="Philosophy">Philosophy</option>
+                    <option value="Romance">Romance</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Thriller">Thriller</option>
+                </select>
+                    <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Image">Image</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Image" placeholder="URL to cover photo">
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Price">Price $</label>
+            <div id="price-div">
+                <input id="price-input" type="text" class="form-control" asp-for="Price" placeholder="Price of the book in $">
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Discount">Discount</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Author" placeholder="(Optional)">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Quantity">Quantity</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" asp-for="Quantity" placeholder="Number of books in inventory">
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="Description">Description</label>
+            <div class="col-sm-10">
+                <textarea cols="100" rows="10" asp-for="Description" class="form-control" placeholder="Brief description about the book" ></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
     
-    <input type="submit" value="Save changes" class="btn btn-success">
-    <a asp-controller="EmployeeSite" asp-action="Index"><input type="button" value="Cancel" class="btn btn-danger"></a>
+        <input type="submit" value="Save changes" class="btn btn-success">
+        <a asp-controller="EmployeeSite" asp-action="Index"><input type="button" value="Cancel" class="btn btn-danger"></a>
+    </div>
 </form>

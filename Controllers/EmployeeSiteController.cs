@@ -112,6 +112,11 @@ namespace TheBookCave.Controllers
         [HttpPost]
         public IActionResult Create(BookInputModel book)
         {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
             SeedDataCreate(book);
 
             return RedirectToAction("Index");
@@ -192,8 +197,10 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Index");
         }
 
-        public static void SeedDataCreate(BookInputModel book)
+        public void SeedDataCreate(BookInputModel book)
         {
+            _bookService.ProcessBook(book);
+
             var db = new DataContext();
                 var Books = new List<Book>
                 {
@@ -210,7 +217,7 @@ namespace TheBookCave.Controllers
                     }
                 };
                 db.AddRange(Books);
-                db.SaveChanges();    
+                db.SaveChanges();
         }
 
     }

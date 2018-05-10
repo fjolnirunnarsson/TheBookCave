@@ -315,8 +315,13 @@ a:hover, a:active, a:visited, a:focus {
 
 /* Employee sites */
 
-textarea {
-    vertical-align: top;
+#price-div {
+    float: left;
+    padding-left: 15px;
+}
+
+#price-input {
+    width: 300px;
 }
 
 #dropdown-sort {
