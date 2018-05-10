@@ -23,6 +23,7 @@ namespace TheBookCave.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IBookService _IBookService;
     
         public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
@@ -31,6 +32,7 @@ namespace TheBookCave.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _accountService = new AccountService();
+
         }
         [HttpGet]
         public IActionResult Register()
@@ -41,17 +43,19 @@ namespace TheBookCave.Controllers
 
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if(!ModelState.IsValid)
-            {
-                return View(); //Sagði í fyrirlestri að hér ætti að hafa client side validation
-            }
-
             var accounts = _accountService.GetAllAccounts();
 
             var tempaccount = (from a in accounts
                         where a.Email == model.Email
                         select a).SingleOrDefault();
-            if(model.Email == tempaccount.Email){
+                        
+            if(!ModelState.IsValid)
+            {
+                ViewData["ErrorMessage"] = "You have to fill in every field!";
+                return View(); 
+            }
+            if(tempaccount != null &&  model.Email == tempaccount.Email){
+                ViewData["ErrorMessage"] = "This user already has an account!";
                 return View(); 
             }
             
