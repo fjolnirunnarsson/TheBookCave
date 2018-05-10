@@ -36,9 +36,10 @@ namespace TheBookCave
             } 
             //Assign Admin role to the main User here we have given our newly registered  
             //login id for Admin management 
-            ApplicationUser user = await UserManager.FindByEmailAsync("stefansdottir8@gmail.com"); 
+
+            ApplicationUser user = await UserManager.FindByEmailAsync("joip@gmail.com"); 
             var User = new ApplicationUser();  
-            await UserManager.AddToRoleAsync(user, "Admin"); 
+            await UserManager.AddToRoleAsync(user, "Admin");
         }
         
         public IConfiguration Configuration { get; }

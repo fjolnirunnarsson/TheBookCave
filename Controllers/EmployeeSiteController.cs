@@ -19,14 +19,18 @@ namespace TheBookCave.Controllers
     {
          private BookService _bookService;
         private AccountService _accountService;
+        
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+
+        private readonly RoleManager<IdentityRole> _roleManager;
     
-        public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _bookService = new BookService();
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
             _accountService = new AccountService();
         }
         [HttpGet]
@@ -36,8 +40,6 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if(!ModelState.IsValid)
@@ -47,6 +49,8 @@ namespace TheBookCave.Controllers
             
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
             var result = await _userManager.CreateAsync(user, model.Password);
+
+            //var adminRole = await _roleManager.FindByNameAsync("Admin");
     
             if(result.Succeeded)
             {
@@ -56,14 +60,15 @@ namespace TheBookCave.Controllers
                 await _userManager.AddClaimAsync(user, new Claim("FirstName", $"{model.FirstName}"));
                 await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
                 await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
-                await _signInManager.SignInAsync(user, false);
+                //await _signInManager.SignInAsync(user, false);
 
-                await this._userManager.AddToRoleAsync(user, "Admin");
-
-                return RedirectToAction("Index", "Home");
+                ApplicationUser newAdmin = await _userManager.FindByEmailAsync(model.Email);
+                await _userManager.AddToRoleAsync(newAdmin, "Admin");
             }
-            return View();
+            return View("Created");
         }
+
+
 
         public static void SeedDataCreateAccount(RegisterViewModel model)
         {

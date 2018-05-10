@@ -113,8 +113,11 @@ namespace TheBookCave.Controllers
         }
 
         public IActionResult Index(){
-
+            
             var user = HttpContext.User.Identity.Name;
+
+            /*ApplicationUser getUser = await _userManager.FindByEmailAsync(user);
+            await _userManager.AddToRoleAsync(getUser, "Admin");*/
 
             var accounts = _accountService.GetAllAccounts();
 
