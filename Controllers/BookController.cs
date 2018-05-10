@@ -85,6 +85,15 @@ namespace TheBookCave.Controllers
        [HttpGet]
         public IActionResult Details(string title, string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -100,6 +109,7 @@ namespace TheBookCave.Controllers
 
             myModel.Book = _bookService.GetBookByTitle(title);
             myModel.Reviews = _bookService.GetBookReviews(title);
+            myModel.Account = listModel;
 
             return View(myModel);
         }
