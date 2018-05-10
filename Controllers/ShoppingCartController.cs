@@ -205,7 +205,15 @@ namespace TheBookCave.Controllers
             }
 
             foreach (var item in cartItems)
-            {
+            {   
+                var books = _bookService.GetAllBooks();
+
+                var thebook = (from b in books
+                         where b.Id == item.BookId
+                         select b).SingleOrDefault();
+
+                thebook.Quantity--;
+                thebook.BoughtCopies++;
 
                 RemoveFromCart(item.BookId);
             }
