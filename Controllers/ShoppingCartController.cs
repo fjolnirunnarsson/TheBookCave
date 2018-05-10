@@ -78,7 +78,6 @@ namespace TheBookCave.Controllers
                             Price = items.DiscountPrice,
                             Genre = items.Genre,
                             BoughtCopies = items.BoughtCopies,
-                            Year = items.Year,
                             Description = items.Description,
                             Quantity = citems.Quantity,
                         }).ToList();
@@ -176,7 +175,6 @@ namespace TheBookCave.Controllers
                 account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
                 }
                 
-
                 db.SaveChanges();
             }
             return RedirectToAction("ReviewStep");

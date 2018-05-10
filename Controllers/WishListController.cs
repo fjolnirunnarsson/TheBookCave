@@ -68,7 +68,6 @@ namespace TheBookCave.Controllers
                             Price = items.DiscountPrice,
                             Genre = items.Genre,
                             BoughtCopies = items.BoughtCopies,
-                            Year = items.Year,
                             Description = items.Description,
                         }).ToList();
 
