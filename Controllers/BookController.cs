@@ -110,6 +110,12 @@ namespace TheBookCave.Controllers
         public IActionResult Details(ReviewInputModel review){
 
             var user = HttpContext.User.Identity.Name;
+
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
             SeedDataCreate(review, user);
 
             using (var db = new DataContext())
