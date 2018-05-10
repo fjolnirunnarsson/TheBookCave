@@ -1,16 +1,49 @@
-@model List<TheBookCave.Models.ViewModels.BookListViewModel>
+@model dynamic
 <link rel="stylesheet" href="~/css/details.css" />
+<script src="~/js/site.js"></script>
 
 @{
     int i = 0;
 }
 
-    @foreach(var book in Model)
+    @foreach(var book in Model.Book)
     {
         i++;
         <div class="detailsContainer">
-             <div class="heart-img">
-                @Html.ActionLink(" ", "AddToWishList", "WishList", new { bookId = @book.Id }, new { @class ="glyphicon glyphicon-heart heart-icon addToWishList" })
+            <div class="heart-img" onclick="wishadded(@book.Id)">
+                    @{
+                    string strengur1 = "wishadded" + @book.Id;
+                    bool onList = false;
+                    }
+                    @foreach(var tala in @Model.Account.ListItems)
+                    {
+                        if(@tala.BookId == @book.Id)
+                        {
+                            onList = true;
+                            @Html.ActionLink(" ", 
+                                    "RemoveFromWishList", 
+                                    "WishList", 
+                                    new { bookId = @book.Id, breyta = onList }, 
+                                    new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
+                        }
+                    }
+                    @if(onList == false)
+                    {
+                    @Html.ActionLink(" ", 
+                                    "AddToWishList", 
+                                    "WishList", 
+                                    new { bookId = @book.Id, breyta = onList }, 
+                                    new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
+                    }
+                    @foreach(var tala in @Model.Account.ListItems)
+                    {
+                        if(@tala.BookId == @book.Id)
+                        {
+                            <script>
+                            addclass(@book.Id)
+                            </script>
+                        }
+                    }
             </div>
             <div class="detailsImage">
                 <div id="badge">
@@ -25,7 +58,10 @@
                 <h4>@book.Author</h4>
                 <a asp-controller="Book" asp-action="Genre" asp-route-genre="@book.Genre"><h4>@book.Genre</h4></a>
                 
-                @await Html.PartialAsync("_StarsPartial", @book.Rating)
+                @{
+                    double rating = @book.Rating;
+                }
+                @await Html.PartialAsync("_StarsPartial", rating)
 
                 @{
                     if(@book.Price != @book.DiscountPrice)

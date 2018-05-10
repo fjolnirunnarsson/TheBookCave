@@ -87,7 +87,9 @@ namespace TheBookCave.Controllers
 
             _wishListService.AddToWishList(bookAdded, this.HttpContext);
 
-            return RedirectToAction("Index", "Home");
+            string referer = Request.Headers["Referer"].ToString();
+
+            return Redirect(referer);
         }
 
         public IActionResult RemoveFromWishList(int bookId, bool breyta)
@@ -104,7 +106,9 @@ namespace TheBookCave.Controllers
 
             _wishListService.RemoveFromWishList(bookAdded, this.HttpContext);
 
-            return RedirectToAction("Index");
+            string referer = Request.Headers["Referer"].ToString();
+
+            return Redirect(referer);
             }
             else
             {
@@ -118,7 +122,9 @@ namespace TheBookCave.Controllers
 
                 _wishListService.RemoveFromWishList(bookAdded, this.HttpContext);
 
-                return RedirectToAction("Index", "Home");
+            string referer = Request.Headers["Referer"].ToString();
+
+            return Redirect(referer);
             }
         }
     }

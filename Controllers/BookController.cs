@@ -7,24 +7,41 @@ using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Services;
 using System.Dynamic;
+using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
 {
     public class BookController : Controller
     {
         private BookService _bookService;
+        private WishListService _wishListService;
+        private dynamic mymodel = new ExpandoObject();
         
         public BookController()
         {
             _bookService = new BookService();
+            _wishListService = new WishListService();
         }
         public IActionResult Index(string searchString)
         {
+
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+            
             var books = _bookService.GetAllBooks();
 
             if(String.IsNullOrEmpty(searchString))
             {
-                return View(books);
+                mymodel.Book = books;
+                mymodel.Account = listModel;
+
+                return View(mymodel);
             }
 
             var booklist = (from b in books
@@ -33,16 +50,25 @@ namespace TheBookCave.Controllers
                         select b).ToList();
 
 
-            if(booklist.Count == 0)
+            if(mymodel.Book.Count == 0)
             {
                 return View("NoResults");
             }
 
-            return View(booklist);
+            return View(mymodel.Book);
         }
 
         public IActionResult Top10(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -56,7 +82,11 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+
+                mymodel.Book = booklist;
+                mymodel.Account = listModel;
+
+                return View("Index", mymodel);
             }
             
             var top10 = (from book in books
@@ -68,7 +98,10 @@ namespace TheBookCave.Controllers
                 return View("NotFound");
             }
 
-            return View(top10);
+            mymodel.Book = top10;
+            mymodel.Account = listModel;
+
+            return View(mymodel);
         }
 
         [HttpGet]
