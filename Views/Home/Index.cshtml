@@ -1,4 +1,5 @@
-﻿@model List<TheBookCave.Models.ViewModels.BookListViewModel>
+﻿@model dynamic
+
 <link rel="stylesheet" href="~/css/for-stars-position.css" />
 <script src="~/js/site.js"></script>
 <div id="front-page-books">
@@ -30,7 +31,10 @@
                 <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img id="book-img" src="@book.Image" alt="No Images"></a>
                 <h2 id="book-title"><a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title">@book.Title</a></h2>
                 <h3 class="book-important">@book.Author</h3>
-                @await Html.PartialAsync("_StarsPartial", @book.Rating)
+                @{
+                    double rating = @book.Rating;
+                }
+                @await Html.PartialAsync("_StarsPartial", rating)
                 @{
                     if(@book.Price != @book.DiscountPrice)
                     {

@@ -11,6 +11,7 @@ using TheBookCave.Models.InputModels;
 using TheBookCave.Repositories;
 using TheBookCave.Services;
 using TheBookCave.Models.ViewModels;
+using System.Dynamic;
 
 namespace TheBookCave.Controllers
 {
@@ -46,7 +47,10 @@ namespace TheBookCave.Controllers
                 return View("NotFound");
             }
 
-            return View(booklist);
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Book = booklist;  
+            
+            return View(mymodel);
         }
     }
 }
