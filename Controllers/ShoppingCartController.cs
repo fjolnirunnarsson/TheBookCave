@@ -22,7 +22,6 @@ namespace TheBookCave.Controllers
     {
         private AccountService _accountService;
         private CartService _cartService;
-
         private BookService _bookService;
         private DataContext _db = new DataContext();
 
@@ -33,9 +32,24 @@ namespace TheBookCave.Controllers
             _accountService = new AccountService();
             
         }
-
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
+            var allBooks = _bookService.GetAllBooks();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in allBooks
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NotFound");
+                }
+                return View("../Home/Index", booklist);
+            }
+            
             var cart = CartService.GetCart(this.HttpContext);
 
             var cartId = cart.ShoppingCartId;
