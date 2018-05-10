@@ -10,6 +10,7 @@ using TheBookCave.Models;
 using Microsoft.AspNetCore.Http;
 using TheBookCave.Repositories;
 using TheBookCave.Models.ViewModels;
+using System.Threading.Tasks;
 
 namespace TheBookCave
 {
@@ -20,6 +21,27 @@ namespace TheBookCave
             Configuration = configuration;
         }
 
+        private async Task CreateUserRoles(IServiceProvider serviceProvider) 
+        { 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>(); 
+            var UserManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>(); 
+ 
+            IdentityResult roleResult; 
+            //Adding Admin Role 
+            var roleCheck = await RoleManager.RoleExistsAsync("Admin"); 
+            if (!roleCheck) 
+            { 
+                //create the roles and seed them to the database 
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin")); 
+            } 
+            //Assign Admin role to the main User here we have given our newly registered  
+            //login id for Admin management 
+
+            ApplicationUser user = await UserManager.FindByEmailAsync("joip@gmail.com"); 
+            var User = new ApplicationUser();  
+            await UserManager.AddToRoleAsync(user, "Admin");
+        }
+        
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -61,7 +83,7 @@ namespace TheBookCave
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
         {
 
             if (env.IsDevelopment())
@@ -83,6 +105,8 @@ namespace TheBookCave
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            CreateUserRoles(services).Wait();
         }
     }
 }
