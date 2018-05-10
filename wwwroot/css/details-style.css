@@ -43,9 +43,6 @@
     size: 15px;
     margin-bottom: 20px;
 }
-.price {
-    display: inline;
-}
 
 #detail-oldprice {
     text-decoration: line-through;
@@ -118,7 +115,5 @@
 }
 
 .addcart {
-    width: 150px;
-    margin-left: 35px;
-    margin-right: 35px;
+    margin-left: 0;
 }
