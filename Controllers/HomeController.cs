@@ -16,15 +16,15 @@ namespace TheBookCave.Controllers
 {
     public class HomeController : Controller
     {
-  private BookService _BookService;
+  private BookService _bookService;
         
         public HomeController()
         {
-            _BookService = new BookService();
+            _bookService = new BookService();
         }
         public IActionResult Index(string searchString)
         {
-            var books = _BookService.GetAllBooks();
+            var books = _bookService.GetAllBooks();
 
             if(String.IsNullOrEmpty(searchString))
             {
@@ -43,10 +43,72 @@ namespace TheBookCave.Controllers
 
             if(booklist.Count == 0)
             {
-                return View("NotFound");
+                return View("NoResults");
             }
 
             return View(booklist);
+        }
+        public IActionResult AboutUs(string searchString)
+        {
+            var books = _bookService.GetAllBooks();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            return View();
+        }
+
+        public IActionResult TermsAndConditions(string searchString)
+        {
+            var books = _bookService.GetAllBooks();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            return View();
+        }
+
+        public IActionResult Help(string searchString)
+        {
+            var books = _bookService.GetAllBooks();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            return View();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 using TheBookCave.Repositories;

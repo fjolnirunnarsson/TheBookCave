@@ -41,41 +41,63 @@ namespace TheBookCave.Controllers
 
             if(booklist.Count == 0)
             {
-                return View("NotFound");
+                return View("NoResults");
             }
 
             return View(booklist);
         }
 
-        public IActionResult Top10()
+        public IActionResult Top10(string searchString)
         {
-
             var books = _bookService.GetAllBooks();
 
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+            
             var top10 = (from book in books
                         orderby book.Rating descending
                         select book).Take(10).ToList();
 
+            if(top10.Count == 0)
+            {
+                return View("NotFound");
+            }
+
             return View(top10);
         }
 
-        public IActionResult BestSellers()
-        {
-            var books = _bookService.GetAllBooks();
-            
-            var bestsellers = (from book in books
-                        orderby book.BoughtCopies descending
-                        select book).ToList();
-
-            return View(bestsellers);
-        }
         [HttpGet]
-        public IActionResult Details(string title)
+        public IActionResult Details(string title, string searchString)
         {
             var books = _bookService.GetAllBooks();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
 
             var onebook = (from newbook in books
-                        where ((newbook.Title).ToLower() == title.ToLower())
+                        where newbook.Title.ToLower() == title.ToLower()
                         select newbook).First();
 
             var reviews = _bookService.GetAllReviews();
@@ -88,9 +110,7 @@ namespace TheBookCave.Controllers
             mymodel.Book = onebook;
             mymodel.Reviews = thisbookreviews;
 
-                
-
-                return View(mymodel);
+            return View(mymodel);
         }
         [HttpPost]
         public IActionResult Details(ReviewInputModel review){
@@ -100,31 +120,30 @@ namespace TheBookCave.Controllers
 
             using (var db = new DataContext())
             {
-                var books = _bookService.GetAllBooks();
                 var reviews = _bookService.GetAllReviews();
 
-
                 var onebook = (from newbook in db.Books
-                            where ((newbook.Id) == review.BookId)
+                            where newbook.Id == review.BookId
                             select newbook).First();
                             
                 var allreviews = (from newreview in db.Reviews
-                            where ((newreview.BookId) == onebook.Id)
+                            where newreview.BookId == onebook.Id
                             select newreview).ToList();
 
-                onebook.Rating = Math.Round(getRating(allreviews),2);
+                onebook.Rating = Math.Round(GetRating(allreviews),2);
                 db.SaveChanges();
             }
-            var books2 = _bookService.GetAllBooks();
 
-            var onebook2 = (from newbook in books2
-                            where ((newbook.Id) == review.BookId)
-                            select newbook).First();
+            var books = _bookService.GetAllBooks();
 
-            return RedirectToAction("Details", onebook2);
+            var book = (from b in books
+                        where b.Id == review.BookId
+                        select b).First();
+
+            return RedirectToAction("Details", book);
         }
 
-        public double getRating(List<Review> reviews)
+        public double GetRating(List<Review> reviews)
         {
             double rating = 0;
             foreach(var review in reviews){
@@ -152,124 +171,271 @@ namespace TheBookCave.Controllers
             db.SaveChanges();
         }
 
-        public IActionResult Genre(string genre)
+        public IActionResult Genre(string genre, string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            if(genre.Count() == 0){
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            if(String.IsNullOrEmpty(genre))
+            {
                 return View(books);
             }
-            else{
 
+            else
+            {
                 var genrelist = (from item in books
-                                where ((item.Genre).ToLower() == genre.ToLower())
+                                where item.Genre.ToLower() == genre.ToLower()
                                 select item).ToList();
+
+                if(genrelist.Count == 0)
+                {
+                    return View("NotFound");
+                }
 
                 return View(genrelist);
             }
         }
 
-        public IActionResult OrderAlphabetical()
+        public IActionResult OrderAlphabetical(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var orderedBooks = (from b in books
                             orderby b.Title ascending
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", orderedBooks);
         }
 
-        public IActionResult PriceLowToHigh()
+        public IActionResult PriceLowToHigh(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var orderedBooks = (from b in books
                             orderby b.Price ascending
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", orderedBooks);
         }
 
-        public IActionResult PriceHighToLow()
+        public IActionResult PriceHighToLow(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var orderedBooks = (from b in books
                             orderby b.Price descending
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", orderedBooks);
         }
 
-        public IActionResult Newest()
+        public IActionResult Newest(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var orderedBooks = (from b in books
                             orderby b.Id descending
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", orderedBooks);
         }
 
-        public IActionResult Sale()
+        public IActionResult Sale(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var saleBooks = (from b in books
                             where b.Price != b.DiscountPrice
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", saleBooks);
         }
 
-        public IActionResult SaleOrderAlphabetical()
+        public IActionResult SaleOrderAlphabetical(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var orderedBooks = (from b in books
                             where b.Price != b.DiscountPrice
                             orderby b.Title ascending
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", orderedBooks);
         }
 
-        public IActionResult SalePriceLowToHigh()
+        public IActionResult SalePriceLowToHigh(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var orderedBooks = (from b in books
                             where b.Price != b.DiscountPrice
                             orderby b.Price ascending
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", orderedBooks);
         }
 
-        public IActionResult SalePriceHighToLow()
+        public IActionResult SalePriceHighToLow(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var orderedBooks = (from b in books
                             where b.Price != b.DiscountPrice
                             orderby b.Price descending
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", orderedBooks);
         }
 
-        public IActionResult SaleNewest()
+        public IActionResult SaleNewest(string searchString)
         {
             var books = _bookService.GetAllBooks();
 
-            var booklist = (from b in books
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in books
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("Index", booklist);
+            }
+
+            var orderedBooks = (from b in books
                             where b.Price != b.DiscountPrice
                             orderby b.Id descending
                             select b).ToList();
 
-            return View("Index", booklist);
+            return View("Index", orderedBooks);
         }
 
     }

@@ -5,32 +5,28 @@ namespace TheBookCave.Models.InputModels
     public class BookInputModel
     {
         public int Id { get; set; }
-        [Required(ErrorMessage="Field required")]
+        [Required(ErrorMessage="Title is required")]
         public string Title { get; set; }
         
-        [Required(ErrorMessage="Field required")]
+        [Required(ErrorMessage="Author is required")]
         public string Author { get; set; }
-
-        [Required(ErrorMessage="Field required")]
         public int Year { get; set; }
 
-        [Required(ErrorMessage="Field required")]
+        [Required(ErrorMessage="Price is required")]
         public double Price { get; set; }
 
-        [Required(ErrorMessage="Field required")]
+        [Required(ErrorMessage="Image is required")]
         public string Image { get; set; }
 
-        [Required(ErrorMessage="Field required")]
+        [Required(ErrorMessage="Genre is required")]
         public string Genre { get; set; }
         public double Discount { get; set; }
-
-        [RegularExpression(@"^\d+\.\d{1.2}")]
         public double DiscountPrice { get; set; }
 
-        [Required(ErrorMessage="Field required")]
+        [Required(ErrorMessage="Quantity is required")]
         public int Quantity { get; set; }
 
-        [Required(ErrorMessage="Field required")]
+        [Required(ErrorMessage="Description is required")]
         public string Description { get; set; }
     }
 }

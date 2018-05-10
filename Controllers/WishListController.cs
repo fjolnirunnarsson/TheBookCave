@@ -10,6 +10,7 @@ using TheBookCave.Repositories;
 using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Services;
+using System;
 
 namespace TheBookCave.Controllers
 {
@@ -17,18 +18,31 @@ namespace TheBookCave.Controllers
     public class WishListController : Controller
     {
         private WishListService _wishListService;
-
         private BookService _bookService;
         private DataContext _db = new DataContext();
-
         public WishListController()
         {
             _wishListService = new WishListService();
             _bookService = new BookService();
         }
-
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
+            var allBooks = _bookService.GetAllBooks();
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                var booklist = (from b in allBooks
+                                where b.Title.ToLower().Contains(searchString.ToLower())
+                                || b.Author.ToLower().Contains(searchString.ToLower())
+                                select b).ToList();
+                
+                if(booklist.Count == 0)
+                {
+                    return View("NoResults");
+                }
+                return View("../Home/Index", booklist);
+            }
+
             var user = WishListService.GetUser(this.HttpContext);
 
             var userId = user.UserId;

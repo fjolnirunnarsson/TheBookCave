@@ -121,7 +121,7 @@ namespace TheBookCave.Controllers
 
             var account = (from a in accounts
                         where a.Email == user
-                        select a).SingleOrDefault();
+                        select a).First();
 
             return View(account);
         }
@@ -134,7 +134,7 @@ namespace TheBookCave.Controllers
 
             var account = (from a in accounts
                          where a.Email == email
-                         select a).SingleOrDefault();
+                         select a).First();
 
             return View(account);
         }
@@ -148,12 +148,11 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
-
             using (var db = new DataContext())
             {
                 var account = (from a in db.Accounts
                             where a.Email == updatedAccount.Email
-                            select a).FirstOrDefault();
+                            select a).First();
 
                 account.FirstName = updatedAccount.FirstName;
                 account.LastName = updatedAccount.LastName;
@@ -187,7 +186,6 @@ namespace TheBookCave.Controllers
             dynamic myModel = new ExpandoObject();
 
             myModel.books = books;
-            
 
             return View(books);
         }

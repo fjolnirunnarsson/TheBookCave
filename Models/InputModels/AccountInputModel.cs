@@ -11,6 +11,7 @@ namespace TheBookCave.Models.InputModels
         [Required(ErrorMessage="Last name is required")]
         public string LastName { get; set; }
 
+        [EmailAddress]
         [Required(ErrorMessage="Email is required")]
         public string Email { get; set; }
         public string ProfilePicture {get; set;}
