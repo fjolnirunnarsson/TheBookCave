@@ -78,10 +78,6 @@ namespace TheBookCave.Controllers
             }
             return View("Created");
         }
-
-        
-
-        
         
         public IActionResult Login()
         {

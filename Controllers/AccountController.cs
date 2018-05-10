@@ -34,14 +34,13 @@ namespace TheBookCave.Controllers
             return View(account);
         }
 
-                public IActionResult Login()
+        public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if(!ModelState.IsValid)
@@ -51,16 +50,13 @@ namespace TheBookCave.Controllers
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
             if(result.Succeeded)
             {
-                //return RedirectToAction("Index", "Home");
-                
-
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();

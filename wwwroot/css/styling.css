@@ -15,7 +15,7 @@ body {
     border-bottom: solid 0.1px #ddd;
     height: 13%;
     padding-top: 0.5%;
-    background-color: #934c37;
+    background-color: #b3a7a5;
 }
 
 #logo {
@@ -105,7 +105,7 @@ a .search {
 }
 
 .dropdown-window a:hover {
-    background-color: lightblue;
+    background-color: #949ca1;
 }
 
 .dropdown:hover .dropdown-window {
@@ -123,7 +123,7 @@ a .search {
     /*overflow-x: hidden;*/
     padding-top: 150px;
     /*border: solid 0.5px black;*/
-    background-color: #934c37;
+    background-color: #b3a7a5;
 }
 
 .sidebar-nav {
@@ -150,7 +150,7 @@ a .search {
 
 #default-book {
     margin: 0px 20px 0px 20px;
-    background-color: rgb(231, 222, 222);
+    background-color: #f4f2f2;
     border-color: rgb(0, 0, 0);
     width: 220px;
     overflow: hidden;
@@ -197,7 +197,6 @@ a:hover, a:active, a:visited, a:focus {
     text-align: center;
     margin-right: 5px;
     font-size: 18px;
-
 }
 
 .book-important{
@@ -303,7 +302,7 @@ a:hover, a:active, a:visited, a:focus {
 
 #footer {
     width:100%;
-    background:lightblue;
+    background: #b3a7a5;
     margin:0;
     padding-bottom: 30px;
 }
