@@ -47,6 +47,16 @@ namespace TheBookCave.Controllers
             {
                 return View(); //Sagði í fyrirlestri að hér ætti að hafa client side validation
             }
+
+            var accounts = _accountService.GetAllAccounts();
+
+            var tempaccount = (from a in accounts
+                        where a.Email == model.Email
+                        select a).SingleOrDefault();
+            if(model.Email == tempaccount.Email){
+                return View(); 
+            }
+            
             
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
             var result = await _userManager.CreateAsync(user, model.Password);
