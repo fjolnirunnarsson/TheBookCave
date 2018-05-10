@@ -1,80 +1,37 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Dynamic;
 using System.Linq;
+using System.Dynamic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Data;
-using TheBookCave.Data.EntityModels;
 using TheBookCave.Models;
-using TheBookCave.Models.InputModels;
-using TheBookCave.Models.ViewModels;
 using TheBookCave.Services;
+using TheBookCave.Data.EntityModels;
+using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
 {
     public class AccountController : Controller
     {
-        private AccountService _accountService;
+        private AccountService _accountService = new AccountService();
+        private DataContext _db = new DataContext();
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _accountService = new AccountService();
-        }
-        [HttpGet]
-        public IActionResult Register()
-        {
-
-            return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public IActionResult Index()
         {
-            if(!ModelState.IsValid)
-            {
-                return View(); //Sagði í fyrirlestri að hér ætti að hafa client side validation
-            }
+            var user = HttpContext.User.Identity.Name;
+            var account = _accountService.GetLoggedInAccount(user);
 
-            var user = new ApplicationUser{UserName = model.Email, Email = model.Email};
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if(result.Succeeded)
-            {
-                SeedDataCreateAccount(model);
-                // The User is successfully registered
-                // Add the concatenated first and last name as fullname in claims
-                await _userManager.AddClaimAsync(user, new Claim("FirstName", $"{model.FirstName}"));
-                await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
-                await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
-                await _signInManager.SignInAsync(user, false);
-                
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
-        }
-
-        public static void SeedDataCreateAccount(RegisterViewModel model)
-        {
-             var db = new DataContext();
-                var Accounts = new List<Account>
-                {
-                    new Account{
-                        FirstName = model.FirstName, 
-                        LastName = model.LastName,
-                        Email = model.Email
-                    }
-                };
-                db.AddRange(Accounts);
-                db.SaveChanges();
+            return View(account);
         }
 
         public IActionResult Login()
@@ -87,12 +44,12 @@ namespace TheBookCave.Controllers
 
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View();
             }
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -108,90 +65,90 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public IActionResult AccessDenied(){
+        public IActionResult AccessDenied()
+        {
             return View();
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Register()
         {
+            return View();
+        }
 
-            var user = HttpContext.User.Identity.Name;
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
-            var accounts = _accountService.GetAllAccounts();
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var result = await _userManager.CreateAsync(user, model.Password);
 
-            var account = (from a in accounts
-                        where a.Email == user
-                        select a).First();
+            if (result.Succeeded)
+            {
+                SeedDataCreateAccount(model);
 
-            return View(account);
+                await _userManager.AddClaimAsync(user, new Claim("FirstName", $"{model.FirstName}"));
+                await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
+                await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
+                await _signInManager.SignInAsync(user, false);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        public void SeedDataCreateAccount(RegisterViewModel model)
+        {
+            var Accounts = new List<Account>
+            {
+                new Account{
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email
+                }
+            };
+            _db.AddRange(Accounts);
+            _db.SaveChanges();
         }
 
         [HttpGet]
         public IActionResult Edit(string email)
         {
-        
+
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
-                         where a.Email == email
-                         select a).First();
+                           where a.Email == email
+                           select a).First();
 
             return View(account);
         }
-        
+
         [HttpPost]
-        public IActionResult Edit(AccountListViewModel updatedAccount)
+        public IActionResult Edit(AccountListViewModel model)
         {
-            
-            if(!ModelState.IsValid)
+            var user = HttpContext.User.Identity.Name;
+            if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            using (var db = new DataContext())
-            {
-                var account = (from a in db.Accounts
-                            where a.Email == updatedAccount.Email
-                            select a).First();
-
-                account.FirstName = updatedAccount.FirstName;
-                account.LastName = updatedAccount.LastName;
-                account.Email = updatedAccount.Email;
-                account.ProfilePicture = updatedAccount.ProfilePicture;
-                account.FavoriteBook = updatedAccount.FavoriteBook;
-                account.BillingAddressStreet = updatedAccount.BillingAddressStreet;
-                account.BillingAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
-                account.BillingAddressLine2 = updatedAccount.BillingAddressLine2;
-                account.BillingAddressCity = updatedAccount.BillingAddressCity;
-                account.BillingAddressCountry = updatedAccount.BillingAddressCountry;
-                account.BillingAddressZipCode = updatedAccount.BillingAddressZipCode;
-
-                if(updatedAccount.SameAddresses == 1){
-                    account.DeliveryAddressStreet = updatedAccount.BillingAddressStreet;
-                    account.DeliveryAddressHouseNumber = updatedAccount.BillingAddressHouseNumber;
-                    account.DeliveryAddressLine2 = updatedAccount.BillingAddressLine2;
-                    account.DeliveryAddressCity = updatedAccount.BillingAddressCity;
-                    account.DeliveryAddressCountry = updatedAccount.BillingAddressCountry;
-                    account.DeliveryAddressZipCode = updatedAccount.BillingAddressZipCode;
-                }
-                else {
-                    account.DeliveryAddressStreet = updatedAccount.DeliveryAddressStreet;
-                    account.DeliveryAddressHouseNumber = updatedAccount.DeliveryAddressHouseNumber;
-                    account.DeliveryAddressLine2 = updatedAccount.DeliveryAddressLine2;
-                    account.DeliveryAddressCity = updatedAccount.DeliveryAddressCity;
-                    account.DeliveryAddressCountry = updatedAccount.DeliveryAddressCountry;
-                    account.DeliveryAddressZipCode = updatedAccount.DeliveryAddressZipCode;
-                }
-
-                db.SaveChanges();
-            }
+            _accountService.UpdateAccount(user, model);
 
             return RedirectToAction("Index");
         }
 
-        public IActionResult Purchases() 
+        public IActionResult Purchases()
         {
-            var books = _accountService.GetAllPurchases(this.HttpContext);
+
+            var user = HttpContext.User.Identity.Name;
+            var books = _accountService.GetAllPurchases(user);
 
             dynamic myModel = new ExpandoObject();
 
