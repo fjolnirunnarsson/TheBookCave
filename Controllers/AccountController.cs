@@ -112,7 +112,8 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public IActionResult Index(){
+        public IActionResult Index()
+        {
 
             var user = HttpContext.User.Identity.Name;
 
@@ -139,7 +140,7 @@ namespace TheBookCave.Controllers
         }
         
         [HttpPost]
-        public IActionResult Edit(AccountInputModel updatedAccount)
+        public IActionResult Edit(AccountListViewModel updatedAccount)
         {
             
             if(!ModelState.IsValid)
@@ -147,7 +148,6 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
-            _accountService.ProcessAccount(updatedAccount);
 
             using (var db = new DataContext())
             {

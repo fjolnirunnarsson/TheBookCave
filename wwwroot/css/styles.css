@@ -321,3 +321,7 @@ textarea {
 #dropdown-sort {
     display: inline;
 }
+
+.red{
+    color: red;
+}

@@ -38,8 +38,15 @@
                         <h4 class="price">$@book.Price</h4>
                     }
                 }
-
-                <button class="btn btn-default btn-primary">Add to cart</button>
+                @{
+                    string strengur = "isadded" + @book.Id;
+                }
+                <div onclick="itemadded(@book.Id)"  id="div-onclick">
+                    @Html.ActionLink("Add to cart", "AddToCart",
+                    "ShoppingCart", 
+                    new { bookId = @book.Id }, 
+                    new { @class = "addToCart btn btn-primary addcart", id = @strengur})
+                </div>
                 <p class="description">@book.Description</p>
                 <hr>
             </div>
