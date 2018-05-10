@@ -30,3 +30,9 @@ function wishadded(tala){
         elem.classList.add("red");
 
 }
+
+$(document).ready(function() {
+    $('#mycheckbox').change(function() {
+        $('#mycheckboxdiv').toggle();
+    });
+});
