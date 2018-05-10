@@ -100,7 +100,7 @@ namespace TheBookCave.Controllers
             return View(booklist);
         }
 
-                public IActionResult OrderbyAuthor()
+        public IActionResult OrderbyAuthor()
         {
             var books = _bookService.GetAllBooks();
             var booklist = (from b in books
@@ -109,7 +109,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", booklist);
         }
-                public IActionResult OrderbyGenre()
+        public IActionResult OrderbyGenre()
         {
             var books = _bookService.GetAllBooks();
             var booklist = (from b in books
@@ -118,7 +118,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", booklist);
         }
-                public IActionResult OrderbyPrice()
+        public IActionResult OrderbyPrice()
         {
             var books = _bookService.GetAllBooks();
             var booklist = (from b in books
@@ -127,11 +127,11 @@ namespace TheBookCave.Controllers
 
             return View("Index", booklist);
         }
-                public IActionResult OrderbyDiscount()
+        public IActionResult OrderbyDiscount()
         {
             var books = _bookService.GetAllBooks();
             var booklist = (from b in books
-                orderby b.Discount ascending
+                orderby b.Discount descending
                 select b).ToList();
 
             return View("Index", booklist);
@@ -142,6 +142,16 @@ namespace TheBookCave.Controllers
             var books = _bookService.GetAllBooks();
             var booklist = (from b in books
                 orderby b.Quantity ascending
+                select b).ToList();
+
+            return View("Index", booklist);
+        }
+
+        public IActionResult OrderbySold()
+        {
+            var books = _bookService.GetAllBooks();
+            var booklist = (from b in books
+                orderby b.BoughtCopies descending
                 select b).ToList();
 
             return View("Index", booklist);
