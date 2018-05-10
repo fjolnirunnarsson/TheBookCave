@@ -27,5 +27,10 @@ function wishadded(tala){
         var strengur = "wishadded" + tala;
         var elem = document.getElementById(strengur);
         elem.classList.add("red");
+}
 
+function addclass(tala){
+    var strengur = "wishadded" + tala;
+    var elem = document.getElementById(strengur);
+    elem.classList.add("red");
 }
