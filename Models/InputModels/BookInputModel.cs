@@ -10,7 +10,7 @@ namespace TheBookCave.Models.InputModels
         
         [Required(ErrorMessage="Author is required")]
         public string Author { get; set; }
-
+        
         [Required(ErrorMessage="Price is required")]
         public double Price { get; set; }
 

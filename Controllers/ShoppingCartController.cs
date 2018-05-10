@@ -20,12 +20,14 @@ namespace TheBookCave.Controllers
         private CartService _cartService;
         private BookService _bookService;
         private DataContext _db = new DataContext();
+        private readonly IAccountService _IAccountService;
 
-        public ShoppingCartController()
+        public ShoppingCartController(IAccountService IAccountService)
         {
             _cartService = new CartService();
             _bookService = new BookService();
             _accountService = new AccountService();
+            _IAccountService = IAccountService;
             
         }
         public IActionResult Index(string searchString)
@@ -99,7 +101,9 @@ namespace TheBookCave.Controllers
 
             _cartService.AddToCart(bookAdded, this.HttpContext);
 
-            return RedirectToAction("Index", "Home");
+            string referer = Request.Headers["Referer"].ToString();
+
+            return Redirect(referer);
         }
 
         public IActionResult RemoveFromCart(int bookId)

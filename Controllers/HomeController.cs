@@ -9,8 +9,8 @@ namespace TheBookCave.Controllers
 {
     public class HomeController : Controller
     {
-  private BookService _bookService;
-  private WishListService _wishListService;
+        private BookService _bookService;
+        private WishListService _wishListService;
         
         public HomeController()
         {

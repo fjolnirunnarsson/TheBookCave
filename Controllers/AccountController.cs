@@ -20,13 +20,13 @@ namespace TheBookCave.Controllers
         private DataContext _db = new DataContext();
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IAccountService IAccountService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
         }
 
-        public IActionResult Index()
+                public IActionResult Index()
         {
             var user = HttpContext.User.Identity.Name;
             var account = _accountService.GetLoggedInAccount(user);
@@ -34,7 +34,7 @@ namespace TheBookCave.Controllers
             return View(account);
         }
 
-        public IActionResult Login()
+                public IActionResult Login()
         {
             return View();
         }
@@ -44,19 +44,23 @@ namespace TheBookCave.Controllers
 
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View();
             }
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-            if (result.Succeeded)
+            if(result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                //return RedirectToAction("Index", "Home");
+                
+
             }
             return View();
         }
 
-        [HttpPost]
+
+
+                [HttpPost]
         [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> LogOut()
@@ -65,8 +69,7 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        public IActionResult AccessDenied()
-        {
+               public IActionResult AccessDenied(){
             return View();
         }
 
@@ -80,15 +83,15 @@ namespace TheBookCave.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View();
             }
 
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser{UserName = model.Email, Email = model.Email};
             var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (result.Succeeded)
+            if(result.Succeeded)
             {
                 SeedDataCreateAccount(model);
 
@@ -96,7 +99,7 @@ namespace TheBookCave.Controllers
                 await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
                 await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
                 await _signInManager.SignInAsync(user, false);
-
+                
                 return RedirectToAction("Index", "Home");
             }
 
@@ -108,7 +111,7 @@ namespace TheBookCave.Controllers
             var Accounts = new List<Account>
             {
                 new Account{
-                    FirstName = model.FirstName,
+                    FirstName = model.FirstName, 
                     LastName = model.LastName,
                     Email = model.Email
                 }
@@ -120,21 +123,21 @@ namespace TheBookCave.Controllers
         [HttpGet]
         public IActionResult Edit(string email)
         {
-
+        
             var accounts = _accountService.GetAllAccounts();
 
             var account = (from a in accounts
-                           where a.Email == email
-                           select a).First();
+                         where a.Email == email
+                         select a).First();
 
             return View(account);
         }
-
+        
         [HttpPost]
         public IActionResult Edit(AccountListViewModel model)
         {
             var user = HttpContext.User.Identity.Name;
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View();
             }
@@ -144,9 +147,9 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Purchases()
+        public IActionResult Purchases() 
         {
-
+            
             var user = HttpContext.User.Identity.Name;
             var books = _accountService.GetAllPurchases(user);
 

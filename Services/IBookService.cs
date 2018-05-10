@@ -5,8 +5,8 @@ using TheBookCave.Repositories;
 
 namespace TheBookCave.Services
 {
-    public interface IAccountService
+    public interface IBookService
     {
-        void ProcessAccount(AccountInputModel account);
+        void ProcessBook(BookInputModel book);
     }
 }
