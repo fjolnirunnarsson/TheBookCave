@@ -99,7 +99,9 @@ namespace TheBookCave.Controllers
 
             _cartService.AddToCart(bookAdded, this.HttpContext);
 
-            return RedirectToAction("Index", "Home");
+            string referer = Request.Headers["Referer"].ToString();
+
+            return Redirect(referer);
         }
 
         public IActionResult RemoveFromCart(int bookId)
