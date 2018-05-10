@@ -1,14 +1,4 @@
 @model TheBookCave.Models.ViewModels.AccountListViewModel
-@using Microsoft.AspNetCore.Identity
-@using System.Security.Claims
-@using TheBookCave.Models
-
-@inject SignInManager<ApplicationUser> SignInManager
-
-@{
-    var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Email")?.Value;
-}
-
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="~/css/styles.css"><h2>Checkout</h2>
@@ -73,7 +63,21 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="BillingAddressCountry"></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="BillingAddressCountry" placeholder="Country">
+            <select class="form-control" id="country" name="BillingAddressCountry">
+                <option value="">Select a country</option>
+                <option value="Canada">Canada</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="Germany">Germany</option>
+                <option value="Iceland">Iceland</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Italy">Italy</option>
+                <option value="Norway">Norway</option>
+                <option value="Sweden">Sweden</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+            </select>
             <span asp-validation-for="BillingAddressCountry" class="text-danger"></span>
         </div>
     </div>
@@ -120,7 +124,21 @@
     <div class="form-group">
         <label class="control-label col-sm-2" for="DeliveryAddressCountry"></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="DeliveryAddressCountry" placeholder="Country">
+            <select class="form-control" id="country" name="DeliveryAddressCountry">
+                <option value="">Select a country</option>
+                <option value="Canada">Canada</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="Germany">Germany</option>
+                <option value="Iceland">Iceland</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Italy">Italy</option>
+                <option value="Norway">Norway</option>
+                <option value="Sweden">Sweden</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+            </select>
             <span asp-validation-for="DeliveryAddressCountry" class="text-danger"></span>
         </div>
     </div>

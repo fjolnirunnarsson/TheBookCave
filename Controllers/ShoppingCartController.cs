@@ -122,6 +122,13 @@ namespace TheBookCave.Controllers
         [HttpPost]
         public IActionResult Checkout(AccountInputModel updatedAccount)
         {
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _accountService.ProcessAccount(updatedAccount);
+            
             using (var db = new DataContext())
             {
                 var account = (from a in db.Accounts
