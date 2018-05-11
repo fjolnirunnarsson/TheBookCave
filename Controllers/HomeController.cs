@@ -11,6 +11,7 @@ namespace TheBookCave.Controllers
     {
         private BookService _bookService;
         private WishListService _wishListService;
+        private dynamic myModel = new ExpandoObject();
         
         public HomeController()
         {
@@ -19,7 +20,6 @@ namespace TheBookCave.Controllers
         }
         public IActionResult Index(string searchString)
         {
-            dynamic mymodel = new ExpandoObject();
 
             var user = WishListService.GetUser(this.HttpContext);
 
@@ -40,10 +40,10 @@ namespace TheBookCave.Controllers
                                 select b).Take(8).ToList();
                 
 
-            mymodel.Book = newestBooks;  
-            mymodel.Account = listModel;
+            myModel.Book = newestBooks;  
+            myModel.Account = listModel;
             
-                return View(mymodel);
+                return View(myModel);
 
             }
 
@@ -57,13 +57,22 @@ namespace TheBookCave.Controllers
                 return View("NoResults");
             }
 
-            mymodel.Book = booklist;  
-            mymodel.Account = listModel;
+            myModel.Book = booklist;  
+            myModel.Account = listModel;
             
-            return View(mymodel);
+            return View(myModel);
         }
         public IActionResult AboutUs(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -77,7 +86,11 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             return View();
@@ -85,6 +98,15 @@ namespace TheBookCave.Controllers
 
         public IActionResult TermsAndConditions(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -98,7 +120,9 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+                return View("Index", myModel);
             }
 
             return View();
@@ -106,6 +130,15 @@ namespace TheBookCave.Controllers
 
         public IActionResult Help(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -119,7 +152,10 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             return View();

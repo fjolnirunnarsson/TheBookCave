@@ -1,3 +1,7 @@
+.btn {
+    background-color: #f99d31;
+}
+
 .detailsContainer {
     height: 400px;
     width: 90%;
@@ -6,7 +10,6 @@
     margin-bottom: 10px;
     color: #2d2d2d;
 }
-
 
 #Stars {
     margin-bottom: 20px;
