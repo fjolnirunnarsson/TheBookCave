@@ -16,6 +16,7 @@ namespace TheBookCave.Controllers
         private WishListService _wishListService;
         private BookService _bookService;
         private DataContext _db = new DataContext();
+        private dynamic myModel = new ExpandoObject();
         public WishListController()
         {
             _wishListService = new WishListService();
@@ -23,6 +24,15 @@ namespace TheBookCave.Controllers
         }
         public IActionResult Index(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var allBooks = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -36,19 +46,11 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("../Home/Index", booklist);
+                        myModel.Book = booklist;
+                        myModel.Account = listModel;
+
+                return View("../Home/Index", myModel);
             }
-
-            var user = WishListService.GetUser(this.HttpContext);
-
-            var userId = user.UserId;
-
-            dynamic myModel = new ExpandoObject();
-            
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
 
             var books = (from items in _db.Books
                         join citems in _db.Lists on items.Id equals citems.BookId

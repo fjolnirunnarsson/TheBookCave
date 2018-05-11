@@ -19,19 +19,31 @@ namespace TheBookCave.Controllers
         private AccountService _accountService;
         private CartService _cartService;
         private BookService _bookService;
+        private WishListService _wishListService;
         private DataContext _db = new DataContext();
         private readonly IAccountService _IAccountService;
+        private dynamic myModel = new ExpandoObject();
 
         public ShoppingCartController(IAccountService IAccountService)
         {
             _cartService = new CartService();
             _bookService = new BookService();
             _accountService = new AccountService();
+            _wishListService = new WishListService();
             _IAccountService = IAccountService;
             
         }
         public IActionResult Index(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var allBooks = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -45,14 +57,15 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("../Home/Index", booklist);
+                        myModel.Book = booklist;
+                        myModel.Account = listModel;
+
+                return View("../Home/Index", myModel);
             }
             
             var cart = CartService.GetCart(this.HttpContext);
 
             var cartId = cart.ShoppingCartId;
-
-            dynamic myModel = new ExpandoObject();
             
             var cartModel = new ShoppingCartViewModel
             {
