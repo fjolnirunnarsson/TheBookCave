@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using TheBookCave.Data.EntityModels;
-
 namespace TheBookCave.Models.ViewModels
 {
     public class BookListViewModel

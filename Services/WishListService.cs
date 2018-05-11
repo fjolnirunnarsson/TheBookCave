@@ -4,7 +4,6 @@ using TheBookCave.Repositories;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.ViewModels;
 
-
 namespace TheBookCave.Services
 {
     public class WishListService

@@ -9,12 +9,15 @@ using TheBookCave.Models;
 using TheBookCave.Services;
 using TheBookCave.Models.ViewModels;
 using TheBookCave.Models.InputModels;
+using System;
 
 namespace TheBookCave.Controllers
 {
     public class AccountController : Controller
     {
         private AccountService _accountService;
+        private BookService _bookService;
+        private dynamic _myModel;
         private DataContext _db;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -24,10 +27,12 @@ namespace TheBookCave.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
             _accountService = new AccountService();
+            _bookService = new BookService();
+            _myModel = new ExpandoObject();
             _db = new DataContext();
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
             var user = HttpContext.User.Identity.Name;
             var account = _accountService.GetLoggedInAccount(user);
@@ -35,6 +40,19 @@ namespace TheBookCave.Controllers
             if (user == null)
             {
                 return RedirectToAction("Login", "Account");
+            }
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
+                {
+                    return View("NoResults");
+                }
+
+                _myModel.Book = bookList;
+
+                return View("../Home/Index", _myModel);
             }
 
             return View(account);

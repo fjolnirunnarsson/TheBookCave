@@ -4,7 +4,6 @@ namespace TheBookCave.Models.InputModels
 {
     public class AccountInputModel
     {
-
         [Required(ErrorMessage = "First name is required")]
         public string FirstName { get; set; }
 
@@ -49,6 +48,5 @@ namespace TheBookCave.Models.InputModels
         [Required(ErrorMessage = "Postal code required")]
         public string DeliveryAddressZipCode { get; set; }
         public int SameAddresses { get; set; }
-
     }
 }

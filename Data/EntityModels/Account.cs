@@ -23,6 +23,5 @@ namespace TheBookCave.Data.EntityModels
         public string DeliveryAddressCountry { get; set; }
         public string DeliveryAddressZipCode { get; set; }
         public int SameAddresses { get; set; }
-
     }
 }
