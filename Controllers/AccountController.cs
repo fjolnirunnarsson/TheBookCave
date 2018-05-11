@@ -135,7 +135,7 @@ namespace TheBookCave.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(AccountInputModel model)
+        public IActionResult Edit(AccountListViewModel model)
         {
             var user = HttpContext.User.Identity.Name;
             if (!ModelState.IsValid)
@@ -143,8 +143,7 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
-            _accountService.ProcessAccount(model);
-            _accountService.UpdateAccount(user, model);
+            _accountService.UpdateAccountEdit(user, model);
 
             return RedirectToAction("Index");
         }

@@ -89,7 +89,48 @@ namespace TheBookCave.Repositories
             return purchased;
         }
 
-        public void UpdateAccount(string userId, AccountInputModel model)
+        public void UpdateAccountCheckout(string userId, AccountInputModel model)
+        {
+            var accounts = GetAllAccounts();
+            var account = (from a in _db.Accounts
+                           where a.Email == model.Email
+                           select a).FirstOrDefault();
+
+            account.FirstName = model.FirstName;
+            account.LastName = model.LastName;
+            account.Email = model.Email;
+            account.ProfilePicture = model.ProfilePicture;
+            account.FavoriteBook = model.FavoriteBook;
+            account.BillingAddressStreet = model.BillingAddressStreet;
+            account.BillingAddressHouseNumber = model.BillingAddressHouseNumber;
+            account.BillingAddressLine2 = model.BillingAddressLine2;
+            account.BillingAddressCity = model.BillingAddressCity;
+            account.BillingAddressCountry = model.BillingAddressCountry;
+            account.BillingAddressZipCode = model.BillingAddressZipCode;
+
+            if (model.SameAddresses == 1)
+            {
+                account.DeliveryAddressStreet = model.BillingAddressStreet;
+                account.DeliveryAddressHouseNumber = model.BillingAddressHouseNumber;
+                account.DeliveryAddressLine2 = model.BillingAddressLine2;
+                account.DeliveryAddressCity = model.BillingAddressCity;
+                account.DeliveryAddressCountry = model.BillingAddressCountry;
+                account.DeliveryAddressZipCode = model.BillingAddressZipCode;
+            }
+            else
+            {
+                account.DeliveryAddressStreet = model.DeliveryAddressStreet;
+                account.DeliveryAddressHouseNumber = model.DeliveryAddressHouseNumber;
+                account.DeliveryAddressLine2 = model.DeliveryAddressLine2;
+                account.DeliveryAddressCity = model.DeliveryAddressCity;
+                account.DeliveryAddressCountry = model.DeliveryAddressCountry;
+                account.DeliveryAddressZipCode = model.DeliveryAddressZipCode;
+            }
+
+            _db.SaveChanges();
+        }
+
+        public void UpdateAccountEdit(string userId, AccountListViewModel model)
         {
             var accounts = GetAllAccounts();
             var account = (from a in _db.Accounts

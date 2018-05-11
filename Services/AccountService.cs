@@ -29,7 +29,7 @@ namespace TheBookCave.Services
         {
             return _accountRepo.GetLoggedInAccount(userId);
         }
-        public void ProcessAccount(AccountInputModel account)
+        public void ProcessAccountCheckout(AccountInputModel account)
         {
             if (string.IsNullOrEmpty(account.FirstName))
             {
@@ -84,6 +84,7 @@ namespace TheBookCave.Services
                 throw new Exception("Postal code is missing");
             }
         }
+        
         public List<PurchasesViewModel> GetAllPurchases(string userId)
         {
             return _accountRepo.GetAllPurchases(userId);
@@ -98,9 +99,13 @@ namespace TheBookCave.Services
             return _accountRepo.GetEditAccount(email);
         }
 
-        public void UpdateAccount(string userId, AccountInputModel model)
+        public void UpdateAccountCheckout(string userId, AccountInputModel model)
         {
-            _accountRepo.UpdateAccount(userId, model);
+            _accountRepo.UpdateAccountCheckout(userId, model);
+        }
+        public void UpdateAccountEdit(string userId, AccountListViewModel model)
+        {
+            _accountRepo.UpdateAccountEdit(userId, model);
         }
         public AccountListViewModel GetTempAccount(RegisterViewModel model)
         {

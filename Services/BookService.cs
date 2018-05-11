@@ -148,7 +148,7 @@ namespace TheBookCave.Services
             _bookRepo.UpdateBookRating(review);
         }
 
-        public void ProcessBook(BookInputModel book)
+        public void ProcessBookCheckout(BookInputModel book)
         {
             if (string.IsNullOrEmpty(book.Title))
             {

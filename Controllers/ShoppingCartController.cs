@@ -113,8 +113,8 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
-            _accountService.ProcessAccount(updatedAccount);
-            _accountService.UpdateAccount(user, updatedAccount);
+            _accountService.ProcessAccountCheckout(updatedAccount);
+            _accountService.UpdateAccountCheckout(user, updatedAccount);
 
             return RedirectToAction("ReviewStep");
         }

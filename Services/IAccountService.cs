@@ -4,6 +4,6 @@ namespace TheBookCave.Services
 {
     public interface IAccountService
     {
-        void ProcessAccount(AccountInputModel account);
+        void ProcessAccountCheckout(AccountInputModel account);
     }
 }

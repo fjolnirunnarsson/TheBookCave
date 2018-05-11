@@ -147,7 +147,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-
+        
         public List<BookListViewModel> GetBooksOnSaleHL()
         {
             var books = GetAllBooks();

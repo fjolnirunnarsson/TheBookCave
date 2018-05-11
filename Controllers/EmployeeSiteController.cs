@@ -87,7 +87,7 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
-            _bookService.ProcessBook(book);
+            _bookService.ProcessBookCheckout(book);
             _bookService.SeedDataCreateBook(book);
 
             return RedirectToAction("Index");
@@ -108,7 +108,7 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
-            _bookService.ProcessBook(updatedBook);
+            _bookService.ProcessBookCheckout(updatedBook);
             _bookService.SeedDataChangeBook(updatedBook);
 
             return RedirectToAction("Index");

@@ -4,6 +4,6 @@ namespace TheBookCave.Services
 {
     public interface IBookService
     {
-        void ProcessBook(BookInputModel book);
+        void ProcessBookCheckout(BookInputModel book);
     }
 }
