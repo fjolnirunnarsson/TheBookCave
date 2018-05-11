@@ -1,3 +1,6 @@
+*{
+    font-family: 'Titillium Web', sans-serif;
+}
 body {
     padding-top: 150px;
     
@@ -365,4 +368,8 @@ a:hover, a:active, a:visited, a:focus {
     border-width: 1px;
     border-radius: 5px;
     width: 98px; 
+}
+.position-me{
+    margin-left: 60px;
+    margin-right: 60px;
 }
