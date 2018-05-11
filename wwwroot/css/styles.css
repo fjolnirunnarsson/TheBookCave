@@ -7,6 +7,7 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    min-height: 600px;
 }
 
 /* all buttons with the class btn */
@@ -52,11 +53,11 @@ a {
 a .search {
     width: 8%;
     padding-left: 20px;
-    color: black;
+    color: #2d2d2d;
     background-color: #f99d31;
-
 }
 
+/* Search icon in search bar */
 .inner-addon {
     position: relative;
 }
@@ -66,6 +67,7 @@ a .search {
     padding-left: 15px;
 }
 
+/* Account, heart and cart icons */
 .icons {
     float: right;
     position: relative;
@@ -79,27 +81,31 @@ a .search {
     color:#2d2d2d;
 }
 
+/* -- Dropdown from account icon in navigation bar -- */
 .dropdown {
     display: inline-block;
 }
 
+/* The dropdown window */
 .dropdown-window {
     display: none;
     position: absolute;
     z-index: 1;
-    background-color: #f1f1f1;
+    background-color: #f4f2f2;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border-radius: 5px;
 }
 
+/* The login, logout and register links inside the dropdown window */
 .dropdown-window .login a {
-    color: black;
+    color: #2d2d2d;
     text-decoration: none;
     font-size: 12px;
     display: inline;
 }
 
+/* User's first name */ 
 #username {
     font-size: 12px;
     margin-left: 20px;
@@ -107,6 +113,7 @@ a .search {
     font-weight: bolder;
 }
 
+/* The other links (My orders and My account) inside the dropdown window */
 .dropdown-window .dropdown-list a {
     text-align: left;
     color: black;
@@ -116,6 +123,7 @@ a .search {
     position: relative;
 }
 
+/* When hovering over links in dropdown list */
 .dropdown-window a:hover {
     background-color: #949ca1;
 }
@@ -124,7 +132,7 @@ a .search {
     display: block;
 }
 
-/* Side bar */
+/* -- Side bar -- */
 #sidebar-wrap {
     position: fixed;
     height: 100%;
@@ -135,27 +143,25 @@ a .search {
     background-color: #b3a7a5;
 }
 
-.sidebar-nav {
-    top: 0;
-    list-style: none;
-}
-
+/* All list items in sidebar */
 .sidebar-nav li {
     text-indent: -10px;
     line-height: 25px;
+    list-style: none;
 }
 
+/* All genre links in sidebar */
 .sidebar-nav li a {
-    color: black;
+    color: #2d2d2d;
 }
 
+/* Bigger links in side bar (On sale, Top rated, Genres) */
 .sidebar-nav > .sidebar-brand {
     font-size: 20px;
     height: 35px;
 }
 
-/* Books */
-
+/* -- Books -- */
 #default-book {
     margin: 0px 20px 0px 20px;
     background-color: #f4f2f2;
@@ -174,7 +180,7 @@ a .search {
 }
 
 .addToCart:hover {
-    color: white;
+    color: #2d2d2d;
     text-decoration: none;
 }
 
@@ -193,6 +199,16 @@ a:hover, a:active, a:visited, a:focus {
     width: 150px;
 }
 
+#price-div {
+    float: left;
+    padding-left: 15px;
+}
+
+#price-input {
+    width: 300px;
+}
+
+/* Book cover photo */
 #book-img {
     width: 150px;
     height: 220px;
@@ -200,6 +216,7 @@ a:hover, a:active, a:visited, a:focus {
     margin-right: 35px;
 }
 
+/* The title of the book */
 #book-title {
     height: 40px;
     text-align: center;
@@ -214,6 +231,7 @@ a:hover, a:active, a:visited, a:focus {
     text-align: center;
 }
 
+/* Visible when books are on sale */
 #old-price {
     text-decoration: line-through;
     display: inline;
@@ -221,6 +239,15 @@ a:hover, a:active, a:visited, a:focus {
     margin-left: 15px;
 }
 
+#oldprice-div {
+    float: left;
+    width: 50px;
+    height: 18px;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
+
+/* Visible when books are on sale */
 #new-price {
     color: red;
     display: inline;
@@ -229,14 +256,6 @@ a:hover, a:active, a:visited, a:focus {
 }
 
 #newprice-div {
-    float: left;
-    width: 50px;
-    height: 18px;
-    margin-top: 9px;
-    margin-bottom: 9px;
-}
-
-#oldprice-div {
     float: left;
     width: 50px;
     height: 18px;
@@ -322,15 +341,6 @@ a:hover, a:active, a:visited, a:focus {
 #lock-icon {
     float: right;
     padding-right: 10px;
-}
-
-#price-div {
-    float: left;
-    padding-left: 15px;
-}
-
-#price-input {
-    width: 300px;
 }
 
 #dropdown-sort {
