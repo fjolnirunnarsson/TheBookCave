@@ -31,6 +31,11 @@ namespace TheBookCave.Controllers
             var user = HttpContext.User.Identity.Name;
             var account = _accountService.GetLoggedInAccount(user);
 
+            if(user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View(account);
         }
 
