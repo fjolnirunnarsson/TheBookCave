@@ -5,6 +5,7 @@
 }
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="~/css/styles.css" />
 
 <div>
     <h2 class="text-center">Are you sure you want to delete this book?</h2>
@@ -12,6 +13,9 @@
 
 
     <form method="post">
-        <p class="text-center"><input type="submit" value="Delete" class="btn"></p>
+        <p class=" text-center"><input type="submit" value="Delete" class="btn"></p>
+
     </form>
+       <p class="text-center"><a asp-controller="EmployeeSite" asp-action="Index"><input type="button" value="Cancel" class="btn"></a></p> 
 </div>
+        

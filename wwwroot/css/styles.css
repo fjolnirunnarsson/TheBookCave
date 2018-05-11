@@ -358,8 +358,6 @@ a:hover, a:active, a:visited, a:focus {
     border-width: 1px;
     border-radius: 5px;
     width: 150px; 
-<<<<<<< HEAD
-=======
     margin-left: auto;
     margin-right: auto;
 }
@@ -367,5 +365,4 @@ a:hover, a:active, a:visited, a:focus {
     border-width: 1px;
     border-radius: 5px;
     width: 98px; 
->>>>>>> 56db9808c864a11e848d527e9b0485c9bb8d80a7
 }
