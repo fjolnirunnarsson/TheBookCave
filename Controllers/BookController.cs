@@ -155,7 +155,7 @@ namespace TheBookCave.Controllers
             var book = _bookService.GetBookByReview(review);
 
 
-            _bookService.SeedDataCreate(review, user);
+            _bookService.SeedDataCreateReview(review, user);
 
             _bookService.UpdateBookRating(review);
 

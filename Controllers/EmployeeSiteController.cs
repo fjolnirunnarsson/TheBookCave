@@ -25,10 +25,10 @@ namespace TheBookCave.Controllers
     
         public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            _bookService = new BookService();
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
+            _bookService = new BookService();
             _accountService = new AccountService();
         }
 
@@ -58,7 +58,7 @@ namespace TheBookCave.Controllers
     
             if(result.Succeeded)
             {
-                SeedDataCreateAccount(model);
+                _bookService.SeedDataCreateAccount(model);
 
                 await _userManager.AddClaimAsync(user, new Claim("FirstName", $"{model.FirstName}"));
                 await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
@@ -96,56 +96,26 @@ namespace TheBookCave.Controllers
 
         public IActionResult OrderbyPrice()
         {
-            var books = _bookService.GetAllBooks();
-            var booklist = (from b in books
-                orderby b.Price ascending
-                select b).ToList();
-
+            var booklist = _bookService.GetBooksPriceOrderLH();
             return View("Index", booklist);
         }
 
         public IActionResult OrderbyDiscount()
         {
-            var books = _bookService.GetAllBooks();
-            var booklist = (from b in books
-                orderby b.Discount descending
-                select b).ToList();
-
+            var booklist = _bookService.GetBooksByDiscount();
             return View("Index", booklist);
         }
 
         public IActionResult OrderbyQuantity()
         {
-            var books = _bookService.GetAllBooks();
-            var booklist = (from b in books
-                orderby b.Quantity ascending
-                select b).ToList();
-
+            var booklist = _bookService.GetBooksByQuantity();
             return View("Index", booklist);
         }
 
         public IActionResult OrderbySold()
         {
-            var books = _bookService.GetAllBooks();
-            var booklist = (from b in books
-                orderby b.BoughtCopies descending
-                select b).ToList();
-
+            var booklist = _bookService.GetBooksOrderSold();
             return View("Index", booklist);
-        }
-        public static void SeedDataCreateAccount(RegisterViewModel model)
-        {
-             var db = new DataContext();
-                var Accounts = new List<Account>
-                {
-                    new Account{
-                        FirstName = model.FirstName, 
-                        LastName = model.LastName,
-                        Email = model.Email
-                    }
-                };
-                db.AddRange(Accounts);
-                db.SaveChanges();
         }
 
         [HttpGet]
@@ -161,8 +131,8 @@ namespace TheBookCave.Controllers
             {
                 return View();
             }
-
-            SeedDataCreate(book);
+            _bookService.ProcessBook(book);
+            _bookService.SeedDataCreateBook(book);
 
             return RedirectToAction("Index");
         }
@@ -170,14 +140,8 @@ namespace TheBookCave.Controllers
         [HttpGet]
         public IActionResult Change(int id)
         {
-
-            var books = _bookService.GetAllBooks();
-
-            var onebook = (from b in books
-                         where b.Id == id
-                         select b).SingleOrDefault();
-
-            return View(onebook);
+            var book = _bookService.GetBookById(id); 
+            return View(book);
         }
 
         [HttpPost]
@@ -189,25 +153,8 @@ namespace TheBookCave.Controllers
             }
 
             _bookService.ProcessBook(updatedBook);
-
-            using (var db = new DataContext())
-            {
-                var onebook = (from b in db.Books
-                            where b.Id == updatedBook.Id
-                            select b).FirstOrDefault();
-
-                onebook.Title = updatedBook.Title;
-                onebook.Image = updatedBook.Image;
-                onebook.Author = updatedBook.Author;
-                onebook.Genre = updatedBook.Genre;
-                onebook.Quantity = updatedBook.Quantity;
-                onebook.Price = updatedBook.Price;
-                onebook.Description = updatedBook.Description;
-                onebook.Discount = updatedBook.Discount;
-                onebook.DiscountPrice = System.Math.Round((1 - updatedBook.Discount/100) * updatedBook.Price,2);
-                db.SaveChanges();
-            }
-
+            _bookService.SeedDataChangeBook(updatedBook);
+            
             return RedirectToAction("Index");
         }
 
@@ -220,11 +167,11 @@ namespace TheBookCave.Controllers
                 return View("NotFound");
             }
 
-            var books = _bookService.GetAllBooks();
+                var books = _bookService.GetAllBooks();
 
-            var book = (from b in books
-                        where b.Id == id
-                        select b).First();
+                var book = (from b in books
+                            where b.Id == id
+                            select b).First();
 
             if(book == null)
             {
@@ -248,27 +195,7 @@ namespace TheBookCave.Controllers
             return RedirectToAction("Index");
         }
 
-        public void SeedDataCreate(BookInputModel book)
-        {
-            _bookService.ProcessBook(book);
 
-            var db = new DataContext();
-                var Books = new List<Book>
-                {
-                    new Book{
-                        Title = book.Title, 
-                        Author = book.Author, 
-                        Description = book.Description,
-                        Image = book.Image, 
-                        Genre = book.Genre,  
-                        Price = book.Price, 
-                        Discount = book.Discount, 
-                        Quantity = book.Quantity, 
-                    }
-                };
-                db.AddRange(Books);
-                db.SaveChanges();
-        }
 
     }
 }

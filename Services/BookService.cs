@@ -60,9 +60,9 @@ namespace TheBookCave.Services
         {
             return _bookRepo.GetBookReviews(title);
         }
-        public void SeedDataCreate(ReviewInputModel review, string user)
+        public void SeedDataCreateReview(ReviewInputModel review, string user)
         {
-            _bookRepo.SeedDataCreate(review, user);
+            _bookRepo.SeedDataCreateReview(review, user);
         }
         public void UpdateBookRating(ReviewInputModel review)
         {
@@ -71,6 +71,10 @@ namespace TheBookCave.Services
         public BookListViewModel GetBookByReview(ReviewInputModel review)
         {
             return _bookRepo.GetBookByReview(review);
+        }
+        public BookListViewModel GetBookById(int id)
+        {
+            return _bookRepo.GetBookById(id);
         }
         public List<BookListViewModel> GetBooksByGenre(string genre)
         {
@@ -103,6 +107,30 @@ namespace TheBookCave.Services
         public List<BookListViewModel> GetBooksGenreOrderAZ()
         {
             return _bookRepo.GetBooksGenreOrderAZ();
+        }
+        public List<BookListViewModel> GetBooksByDiscount()
+        {
+            return _bookRepo.GetBooksByDiscount();
+        }
+        public List<BookListViewModel> GetBooksByQuantity()
+        {
+            return _bookRepo.GetBooksByQuantity();
+        }
+        public List<BookListViewModel> GetBooksOrderSold()
+        {    
+            return _bookRepo.GetBooksOrderSold();
+        }
+        public void SeedDataCreateAccount(RegisterViewModel model)
+        {
+            _bookRepo.SeedDataCreateAccount(model);
+        }
+        public void SeedDataCreateBook(BookInputModel model)
+        {
+            _bookRepo.SeedDataCreateBook(model);
+        }
+        public void SeedDataChangeBook(BookInputModel updatedBook)
+        {
+            _bookRepo.SeedDataChangeBook(updatedBook);
         }
         
         public void ProcessBook(BookInputModel book)

@@ -16,7 +16,7 @@ namespace TheBookCave.Controllers
 {
     public class AccountController : Controller
     {
-        private AccountService _accountService = new AccountService();
+        private AccountService _accountService;
         private DataContext _db = new DataContext();
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -24,6 +24,7 @@ namespace TheBookCave.Controllers
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _accountService = new AccountService();
         }
 
         public IActionResult Index()
@@ -62,8 +63,7 @@ namespace TheBookCave.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
-
-               public IActionResult AccessDenied(){
+        public IActionResult AccessDenied(){
             return View();
         }
 
@@ -87,7 +87,7 @@ namespace TheBookCave.Controllers
 
             if(result.Succeeded)
             {
-                SeedDataCreateAccount(model);
+                _accountService.SeedDataCreateAccount(model);
 
                 await _userManager.AddClaimAsync(user, new Claim("FirstName", $"{model.FirstName}"));
                 await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
@@ -100,30 +100,11 @@ namespace TheBookCave.Controllers
             return View();
         }
 
-        public void SeedDataCreateAccount(RegisterViewModel model)
-        {
-            var Accounts = new List<Account>
-            {
-                new Account{
-                    FirstName = model.FirstName, 
-                    LastName = model.LastName,
-                    Email = model.Email
-                }
-            };
-            _db.AddRange(Accounts);
-            _db.SaveChanges();
-        }
-
         [HttpGet]
         public IActionResult Edit(string email)
         {
         
-            var accounts = _accountService.GetAllAccounts();
-
-            var account = (from a in accounts
-                         where a.Email == email
-                         select a).First();
-
+            var account = _accountService.GetEditAccount(email);
             return View(account);
         }
         

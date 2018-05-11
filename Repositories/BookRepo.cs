@@ -5,6 +5,7 @@ using TheBookCave.Data;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
+using TheBookCave.Services;
 
 namespace TheBookCave.Repositories
 {
@@ -17,7 +18,6 @@ namespace TheBookCave.Repositories
         {
             _db = new DataContext();
         }
-
         public List<BookListViewModel> GetAllBooks()
         {
             var books = (from a in _db.Books
@@ -71,6 +71,15 @@ namespace TheBookCave.Repositories
             return book;
         }
 
+        public BookListViewModel GetBookById(int id)
+        {
+            var books = GetAllBooks();
+
+            var book = (from b in books
+                         where b.Id == id
+                         select b).SingleOrDefault();
+            return book;
+        }
         public List<ReviewViewModel> GetAllReviews()
         {
             var reviews = _reviewRepo.GetAllReviews();
@@ -196,7 +205,7 @@ namespace TheBookCave.Repositories
         }
 
 
-        public void SeedDataCreate(ReviewInputModel review, string user)
+        public void SeedDataCreateReview(ReviewInputModel review, string user)
         {   
             var Reviews = new List<Review>{
 
@@ -241,8 +250,82 @@ namespace TheBookCave.Repositories
                         select b).FirstOrDefault();
             return book;
         }
+        public List<BookListViewModel> GetBooksByDiscount()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                orderby b.Discount descending
+                select b).ToList();
+            return orderedBooks;
+        }
+        public List<BookListViewModel> GetBooksByQuantity()
+        {
+            var books = GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Quantity ascending
+                select b).ToList();
+            return booklist;
+        }
+        public List<BookListViewModel> GetBooksOrderSold()
+        {
+            var books = GetAllBooks();
+            var booklist = (from b in books
+                orderby b.BoughtCopies descending
+                select b).ToList();
+            return booklist;
+        }
 
-        
+        public void SeedDataCreateAccount(RegisterViewModel model)
+        {
+            var Accounts = new List<Account>
+            {
+                new Account
+                {
+                    FirstName = model.FirstName, 
+                    LastName = model.LastName,
+                    Email = model.Email
+                }
+            };
+            
+            _db.AddRange(Accounts);
+            _db.SaveChanges();
+        }
 
+        public void SeedDataCreateBook(BookInputModel book)
+        {
+                var newBook = new Book()
+                {
+                    Title = book.Title, 
+                    Author = book.Author, 
+                    Description = book.Description,
+                    Image = book.Image, 
+                    Genre = book.Genre,  
+                    Price = book.Price, 
+                    Discount = book.Discount, 
+                    Quantity = book.Quantity, 
+                };
+                
+            _db.Add(newBook);
+            _db.SaveChanges();
+        }
+        public void SeedDataChangeBook(BookInputModel updatedBook)
+        {
+
+            var book = (from b in _db.Books
+                where b.Id == updatedBook.Id
+                select b).FirstOrDefault();
+
+            book.Title = updatedBook.Title;
+            book.Image = updatedBook.Image;
+            book.Author = updatedBook.Author;
+            book.Genre = updatedBook.Genre;
+            book.Quantity = updatedBook.Quantity;
+            book.Price = updatedBook.Price;
+            book.Description = updatedBook.Description;
+            book.Discount = updatedBook.Discount;
+            book.DiscountPrice = System.Math.Round((1 - updatedBook.Discount/100) * updatedBook.Price,2);
+            
+            _db.SaveChanges();
+        }
     }
 }

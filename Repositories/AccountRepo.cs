@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheBookCave.Data;
+using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 
@@ -108,6 +109,17 @@ namespace TheBookCave.Repositories
             return purchased;
         }
 
+        public AccountListViewModel GetEditAccount(string email)
+        {
+            var accounts = GetAllAccounts();
+
+            var account = (from a in accounts
+                         where a.Email == email
+                         select a).First();
+
+            return account;
+        }
+
         public AccountListViewModel GetTempAccount(RegisterViewModel model) 
         {
             var accounts = GetAllAccounts();
@@ -115,6 +127,19 @@ namespace TheBookCave.Repositories
                         where a.Email == model.Email
                         select a).SingleOrDefault();
             return tempaccount;
+        }
+        public void SeedDataCreateAccount(RegisterViewModel model)
+        {
+            var Accounts = new List<Account>
+            {
+                new Account{
+                    FirstName = model.FirstName, 
+                    LastName = model.LastName,
+                    Email = model.Email
+                }
+            };
+            _db.AddRange(Accounts);
+            _db.SaveChanges();
         }
         
     }

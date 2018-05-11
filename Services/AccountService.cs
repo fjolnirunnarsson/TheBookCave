@@ -84,16 +84,18 @@ namespace TheBookCave.Services
                 throw new Exception("Postal code is missing");
             }
         }
-
         public List<PurchasesViewModel> GetAllPurchases(string userId)
         {
             return _accountRepo.GetAllPurchases(userId);
         }
-
         public static string GetUser(HttpContext context)
         {
             var user = context.User.Identity.Name;
             return user;
+        }
+        public AccountListViewModel GetEditAccount(string email)
+        {
+            return _accountRepo.GetEditAccount(email);
         }
 
         public void UpdateAccount(string userId, AccountListViewModel model)
@@ -103,6 +105,10 @@ namespace TheBookCave.Services
         public AccountListViewModel GetTempAccount(RegisterViewModel model) 
         {
             return _accountRepo.GetTempAccount(model);
+        }
+        public void SeedDataCreateAccount(RegisterViewModel model)
+        {
+            _accountRepo.SeedDataCreateAccount(model);
         }
     }
 }
