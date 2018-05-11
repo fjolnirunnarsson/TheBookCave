@@ -1,17 +1,12 @@
-using Microsoft.AspNetCore.Mvc;
-using TheBookCave.Data;
-using TheBookCave.Data.EntityModels;
-using TheBookCave.Models.InputModels;
-using TheBookCave.Models.ViewModels;
-using TheBookCave.Services;
-using System.Linq;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using TheBookCave.Models;
 using System.Threading.Tasks;
 using System.Security.Claims;
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using TheBookCave.Models;
+using TheBookCave.Services;
+using TheBookCave.Models.ViewModels;
+using TheBookCave.Models.InputModels;
+
 
 namespace TheBookCave.Controllers
 {
@@ -22,7 +17,7 @@ namespace TheBookCave.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-    
+
         public EmployeeSiteController(SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
@@ -30,6 +25,19 @@ namespace TheBookCave.Controllers
             _roleManager = roleManager;
             _bookService = new BookService();
             _accountService = new AccountService();
+        }
+        
+        [HttpGet]
+        public IActionResult Index()
+        {
+            var bookList = _bookService.GetBooksTitleOrder();
+            return View(bookList);
+        }
+        
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -41,22 +49,21 @@ namespace TheBookCave.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             var accounts = _accountService.GetAllAccounts();
-
             var tempaccount = _accountService.GetTempAccount(model);
-                        
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View(); 
+                return View();
             }
-            if(tempaccount != null &&  model.Email == tempaccount.Email){
+
+            if (tempaccount != null && model.Email == tempaccount.Email)
+            {
                 ViewData["ErrorMessage"] = "This user already has an account!";
-                return View(); 
+                return View();
             }
-    
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
-    
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 _bookService.SeedDataCreateAccount(model);
 
@@ -65,17 +72,70 @@ namespace TheBookCave.Controllers
                 await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
 
                 ApplicationUser newAdmin = await _userManager.FindByEmailAsync(model.Email);
+                
                 await _userManager.AddToRoleAsync(newAdmin, "Admin");
             }
+
             return View("Created");
         }
-        
-        [HttpGet]
-        public IActionResult Index()
+
+        [HttpPost]
+        public IActionResult Create(BookInputModel book)
         {
-            var bookList = _bookService.GetBooksTitleOrder();
-                        
-            return View(bookList);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _bookService.ProcessBook(book);
+            _bookService.SeedDataCreateBook(book);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Change(int id)
+        {
+            var book = _bookService.GetBookById(id);
+            return View(book);
+        }
+
+        [HttpPost]
+        public IActionResult Change(BookInputModel updatedBook)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            _bookService.ProcessBook(updatedBook);
+            _bookService.SeedDataChangeBook(updatedBook);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return View("NotFound");
+            }
+
+            var book = _bookService.GetBookById(id);
+            if (book == null)
+            {
+                return View("NotFound");
+            }
+
+            return View(book);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(BookInputModel deleteBook)
+        {
+            _bookService.SeedDataDeleteBook(deleteBook);
+            return RedirectToAction("Index");
         }
 
         public IActionResult OrderbyAuthor()
@@ -117,85 +177,6 @@ namespace TheBookCave.Controllers
             var booklist = _bookService.GetBooksOrderSold();
             return View("Index", booklist);
         }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Create(BookInputModel book)
-        {
-            if(!ModelState.IsValid)
-            {
-                return View();
-            }
-            _bookService.ProcessBook(book);
-            _bookService.SeedDataCreateBook(book);
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public IActionResult Change(int id)
-        {
-            var book = _bookService.GetBookById(id); 
-            return View(book);
-        }
-
-        [HttpPost]
-        public IActionResult Change(BookInputModel updatedBook)
-        {
-            if(!ModelState.IsValid)
-            {
-                return View();
-            }
-
-            _bookService.ProcessBook(updatedBook);
-            _bookService.SeedDataChangeBook(updatedBook);
-            
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public IActionResult Delete(int? id)
-        {
-
-            if(id == null)
-            {
-                return View("NotFound");
-            }
-
-                var books = _bookService.GetAllBooks();
-
-                var book = (from b in books
-                            where b.Id == id
-                            select b).First();
-
-            if(book == null)
-            {
-                return View("NotFound");
-            }
-
-            return View(book);
-        }
-        
-        [HttpPost]
-        public IActionResult Delete(BookInputModel deleteBook)
-        {
-            using (var db = new DataContext())
-            {
-                var onebook = (from b in db.Books
-                    where b.Id == deleteBook.Id
-                    select b).FirstOrDefault();
-                db.Books.Remove(onebook);
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
-
-
 
     }
 }

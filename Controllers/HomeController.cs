@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Dynamic;
 using Microsoft.AspNetCore.Mvc;
 using TheBookCave.Services;
 using TheBookCave.Models.ViewModels;
-using System.Dynamic;
 
 namespace TheBookCave.Controllers
 {
@@ -11,86 +11,69 @@ namespace TheBookCave.Controllers
     {
         private BookService _bookService;
         private WishListService _wishListService;
-        private dynamic myModel = new ExpandoObject();
+        private dynamic _myModel;
         
         public HomeController()
         {
             _bookService = new BookService();
             _wishListService = new WishListService();
+            _myModel = new ExpandoObject();
         }
+
         public IActionResult Index(string searchString)
         {
 
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
-            var books = _bookService.GetAllBooks();
-
             if(String.IsNullOrEmpty(searchString))
             {
-                
-                var newestBooks = (from b in books
-                                orderby b.BoughtCopies descending
-                                select b).Take(8).ToList();
-                
+                var newestBooks = _bookService.GetBooksBoughtOrder();
 
-            myModel.Book = newestBooks;  
-            myModel.Account = listModel;
+                _myModel.Book = newestBooks;  
+                _myModel.Account = listModel;
             
-                return View(myModel);
-
+                return View(_myModel);
             }
 
-            var booklist = (from b in books
-                        where b.Title.ToLower().Contains(searchString.ToLower())
-                        || b.Author.ToLower().Contains(searchString.ToLower())
-                        select b).ToList();
-
+            var booklist = _bookService.GetSearchBooks(searchString);
             if(booklist.Count == 0)
             {
                 return View("NoResults");
             }
 
-            myModel.Book = booklist;  
-            myModel.Account = listModel;
+            _myModel.Book = booklist;  
+            _myModel.Account = listModel;
             
-            return View(myModel);
+            return View(_myModel);
         }
+
         public IActionResult AboutUs(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
-                
+                var booklist = _bookService.GetSearchBooks(searchString);
                 if(booklist.Count == 0)
                 {
                     return View("NoResults");
                 }
 
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
+                _myModel.Book = booklist;
+                _myModel.Account = listModel;
 
-                return View("Index", myModel);
+                return View("Index", _myModel);
             }
 
             return View();
@@ -99,30 +82,25 @@ namespace TheBookCave.Controllers
         public IActionResult TermsAndConditions(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
-                
+                var booklist = _bookService.GetSearchBooks(searchString);
                 if(booklist.Count == 0)
                 {
                     return View("NoResults");
                 }
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
-                return View("Index", myModel);
+
+                _myModel.Book = booklist;
+                _myModel.Account = listModel;
+
+                return View("Index", _myModel);
             }
 
             return View();
@@ -131,31 +109,25 @@ namespace TheBookCave.Controllers
         public IActionResult Help(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
-                
+                var booklist = _bookService.GetSearchBooks(searchString);
                 if(booklist.Count == 0)
                 {
                     return View("NoResults");
                 }
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
 
-                return View("Index", myModel);
+                _myModel.Book = booklist;
+                _myModel.Account = listModel;
+
+                return View("Index", _myModel);
             }
 
             return View();

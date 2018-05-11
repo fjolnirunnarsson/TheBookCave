@@ -98,7 +98,7 @@ namespace TheBookCave.Services
             return _accountRepo.GetEditAccount(email);
         }
 
-        public void UpdateAccount(string userId, AccountListViewModel model)
+        public void UpdateAccount(string userId, AccountInputModel model)
         {
             _accountRepo.UpdateAccount(userId, model);
         }

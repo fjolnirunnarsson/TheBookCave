@@ -62,25 +62,18 @@ namespace TheBookCave.Repositories
             _db.SaveChanges();
         }
 
-        public int RemoveFromCart(BookListViewModel book, HttpContext context)
+        public void RemoveFromCart(BookListViewModel book, ShoppingCart cart)
         {
-        var cart = GetCart(context);
-
-        var cartItem = (from item in _db.Carts
-                    where item.Book.Id == book.Id && item.CartId == cart.ShoppingCartId
-                    select item).SingleOrDefault();
-        
-        var localQuantity = 0;
-        
+            var cartItem = (from item in _db.Carts
+                        where item.Book.Id == book.Id && item.CartId == cart.ShoppingCartId
+                        select item).SingleOrDefault();
+            
             if (cartItem != null)
-            {
-
-                _db.Carts.Remove(cartItem);
-    
-            }
+                {
+                    _db.Carts.Remove(cartItem);
+                }
+                
             _db.SaveChanges();
-
-            return localQuantity;
         }
 
         public List<Cart> GetCartItems(string shoppingCartId)
@@ -99,6 +92,40 @@ namespace TheBookCave.Repositories
                         select items.Quantity * items.Book.DiscountPrice).Sum();
             
             return total;
+        }
+
+        public void MoveToPurchased(string user, ShoppingCart cart) 
+        {
+            var cartId = cart.ShoppingCartId;
+            
+            var cartItems = GetCartItems(cartId);
+            
+            foreach (var item in cartItems)
+            {
+                var cartItem = new Purchased()
+                {
+                    CartId = item.CartId,
+                    BookId = item.BookId,
+                    Quantity = item.Quantity,
+                    DateCreated = item.DateCreated,
+                    Book = item.Book
+                };
+
+                _db.Purchased.Add(cartItem);
+            }
+        }
+
+        public void ClearShoppingCart(string user, ShoppingCart cart)
+        {
+            var cartId = cart.ShoppingCartId;
+            
+            var cartItems = GetCartItems(cartId);
+            foreach (var item in cartItems)
+            {   
+                _db.Remove(item);
+            }
+
+            _db.SaveChanges();
         }
     }
 }

@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using TheBookCave.Data;
+using TheBookCave.Repositories;
+using TheBookCave.Models.ViewModels;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.EntityModels;
-using TheBookCave.Models.ViewModels;
-using TheBookCave.Repositories;
+
+
 
 namespace TheBookCave.Services
 {
@@ -30,9 +32,9 @@ namespace TheBookCave.Services
             _cartRepo.AddToCart(book, context);
         }
 
-        public int RemoveFromCart(BookListViewModel book, HttpContext context)
+        public void RemoveFromCart(BookListViewModel book, ShoppingCart cart)
         {
-            return _cartRepo.RemoveFromCart(book, context);
+            _cartRepo.RemoveFromCart(book, cart);
         }
 
         public List<Cart> GetCartItems(string shoppingCartId)
@@ -43,6 +45,16 @@ namespace TheBookCave.Services
         public double GetTotal(string shoppingCartId)
         {
             return _cartRepo.GetTotal(shoppingCartId);
+        }
+
+        public void MoveToPurchased(string user, ShoppingCart cart)
+        {
+            _cartRepo.MoveToPurchased(user, cart);
+        }
+
+        public void ClearShoppingCart(string user, ShoppingCart cart)
+        {
+            _cartRepo.ClearShoppingCart(user, cart);
         }
     }
 }

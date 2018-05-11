@@ -35,11 +35,10 @@ namespace TheBookCave.Repositories
                                 DeliveryAddressCountry = a.DeliveryAddressCountry,
                                 DeliveryAddressZipCode = a.DeliveryAddressZipCode,
                             }).ToList();
+
             return accounts;
         }
-
-
-
+        
         public AccountListViewModel GetLoggedInAccount(string userId)
         {
             var accounts = GetAllAccounts();
@@ -50,7 +49,48 @@ namespace TheBookCave.Repositories
             return account;
         }
 
-        public void UpdateAccount(string userId, AccountListViewModel model)
+        public AccountListViewModel GetEditAccount(string email)
+        {
+            var accounts = GetAllAccounts();
+
+            var account = (from a in accounts
+                         where a.Email == email
+                         select a).First();
+
+            return account;
+        }
+
+        public AccountListViewModel GetTempAccount(RegisterViewModel model) 
+        {
+            var accounts = GetAllAccounts();
+            var tempaccount = (from a in accounts
+                        where a.Email == model.Email
+                        select a).SingleOrDefault();
+
+            return tempaccount;
+        }
+        
+        public List<PurchasesViewModel> GetAllPurchases(string userId)
+        {
+            var purchased = (from item in _db.Books
+                             join citems in _db.Purchased on item.Id equals citems.BookId
+                             where citems.CartId == userId
+                             select new PurchasesViewModel
+                             {
+                                 Id = item.Id,
+                                 Image = item.Image,
+                                 Title = item.Title,
+                                 Author = item.Author,
+                                 Rating = item.Rating,
+                                 Price = item.DiscountPrice,
+                                 Quantity = citems.Quantity,
+                                 DateCreated = citems.DateCreated
+                             }).ToList();
+
+            return purchased;
+        }
+
+        public void UpdateAccount(string userId, AccountInputModel model)
         {
             var accounts = GetAllAccounts();
             var account = (from a in _db.Accounts
@@ -91,44 +131,6 @@ namespace TheBookCave.Repositories
             _db.SaveChanges();
         }
 
-        public List<PurchasesViewModel> GetAllPurchases(string userId)
-        {
-            var purchased = (from item in _db.Books
-                             join citems in _db.Purchased on item.Id equals citems.BookId
-                             where citems.CartId == userId
-                             select new PurchasesViewModel
-                             {
-                                 Id = item.Id,
-                                 Image = item.Image,
-                                 Title = item.Title,
-                                 Author = item.Author,
-                                 Rating = item.Rating,
-                                 Price = item.DiscountPrice,
-                                 Quantity = citems.Quantity,
-                                 DateCreated = citems.DateCreated
-                             }).ToList();
-            return purchased;
-        }
-
-        public AccountListViewModel GetEditAccount(string email)
-        {
-            var accounts = GetAllAccounts();
-
-            var account = (from a in accounts
-                         where a.Email == email
-                         select a).First();
-
-            return account;
-        }
-
-        public AccountListViewModel GetTempAccount(RegisterViewModel model) 
-        {
-            var accounts = GetAllAccounts();
-            var tempaccount = (from a in accounts
-                        where a.Email == model.Email
-                        select a).SingleOrDefault();
-            return tempaccount;
-        }
         public void SeedDataCreateAccount(RegisterViewModel model)
         {
             var Accounts = new List<Account>
@@ -139,9 +141,9 @@ namespace TheBookCave.Repositories
                     Email = model.Email
                 }
             };
+
             _db.AddRange(Accounts);
             _db.SaveChanges();
         }
-        
     }
 }

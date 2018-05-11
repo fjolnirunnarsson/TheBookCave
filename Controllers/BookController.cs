@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using TheBookCave.Data;
-using TheBookCave.Data.EntityModels;
-using TheBookCave.Models.InputModels;
-using TheBookCave.Services;
 using System.Dynamic;
+using Microsoft.AspNetCore.Mvc;
+using TheBookCave.Services;
+using TheBookCave.Models.InputModels;
 using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Controllers
@@ -15,525 +11,473 @@ namespace TheBookCave.Controllers
     {
         private BookService _bookService;
         private WishListService _wishListService;
-        private dynamic myModel = new ExpandoObject();
-        
+        private dynamic _myModel;
+
         public BookController()
         {
             _bookService = new BookService();
             _wishListService = new WishListService();
+            _myModel = new ExpandoObject();
         }
+        
         public IActionResult Index(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId)
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(String.IsNullOrEmpty(searchString))
+            if (String.IsNullOrEmpty(searchString))
             {
-                myModel.Book = books;
-                myModel.Account = listModel;
+                _myModel.Book = books;
+                _myModel.Account = listModel;
 
-                return View(myModel);
+                return View(_myModel);
             }
 
             var bookList = _bookService.GetSearchBooks(searchString);
-
-
-            if(bookList.Count == 0)
+            if (bookList.Count == 0)
             {
                 return View("NoResults");
             }
 
-            myModel.Book = bookList;
-            myModel.Account = listModel;
-            return View(myModel);
+            _myModel.Book = bookList;
+            _myModel.Account = listModel;
+
+            return View(_myModel);
         }
-
-        public IActionResult Top10(string searchString)
-        {
-            var user = WishListService.GetUser(this.HttpContext);
-
-            var userId = user.UserId;
-
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId)
-            };
-
-            var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
-            {
-                var bookList = _bookService.GetSearchBooks(searchString);
-                
-                if(bookList.Count == 0)
-                {
-                    return View("NoResults");
-                }
-
-                myModel.Book = bookList;
-                myModel.Account = listModel;
-
-                return View("Index", myModel);
-            }
-            
-            var top10 = _bookService.GetTop10();
-
-            if(top10.Count == 0)
-            {
-                return View("NotFound");
-            }
-
-            myModel.Book = top10;
-            myModel.Account = listModel;
-            
-            return View(myModel);
-        }
-
-       [HttpGet]
+        
+        [HttpGet]
         public IActionResult Details(string title, string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 var bookList = _bookService.GetSearchBooks(searchString);
-                
-                if(bookList.Count == 0)
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
 
-                myModel.Book = bookList;
-                myModel.Account = listModel;
-                return View("Index", myModel);
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
+
+                return View("Index", _myModel);
             }
 
-            myModel.Book = _bookService.GetBookByTitle(title);
-            myModel.Reviews = _bookService.GetBookReviews(title);
-            myModel.Account = listModel;
+            _myModel.Book = _bookService.GetBookByTitle(title);
+            _myModel.Reviews = _bookService.GetBookReviews(title);
+            _myModel.Account = listModel;
 
-            return View(myModel);
+            return View(_myModel);
+        
         }
         
         [HttpPost]
         public IActionResult Details(ReviewInputModel review)
         {
-
             var user1 = WishListService.GetUser(this.HttpContext);
-
             var userId = user1.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var user = HttpContext.User.Identity.Name;
-
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View();
             }
 
             var book = _bookService.GetBookByReview(review);
 
-
             _bookService.SeedDataCreateReview(review, user);
-
             _bookService.UpdateBookRating(review);
 
             string referer = Request.Headers["Referer"].ToString();
 
             return Redirect(referer);
         }
-        public IActionResult Genre(string genre, string searchString)
+        
+        public IActionResult Top10(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId)
+            };
+
+            var books = _bookService.GetAllBooks();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
+                {
+                    return View("NoResults");
+                }
+
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
+
+                return View("Index", _myModel);
+            }
+
+            var top10 = _bookService.GetTop10();
+            if (top10.Count == 0)
+            {
+                return View("NotFound");
+            }
+
+            _myModel.Book = top10;
+            _myModel.Account = listModel;
+
+            return View(_myModel);
+        }
+
+        public IActionResult Newest(string searchString)
+        {
+            var user = WishListService.GetUser(this.HttpContext);
+            var userId = user.UserId;
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 var bookList = _bookService.GetSearchBooks(searchString);
-                
-                if(bookList.Count == 0)
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
 
-                myModel.Book = bookList;
-                myModel.Account = listModel;
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
 
-                return View("Index", myModel);
+                return View("Index", _myModel);
             }
 
-            if(String.IsNullOrEmpty(genre))
-            {
-                myModel.Book = books;
-                myModel.Account = listModel;
+            var orderedBooks = _bookService.GetBooksByNewest();
 
-                return View(myModel);
+            _myModel.Book = orderedBooks;
+            _myModel.Account = listModel;
+
+            return View("Index", _myModel);
+        }
+        
+        public IActionResult Sale(string searchString)
+        {
+            var user = WishListService.GetUser(this.HttpContext);
+            var userId = user.UserId;
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
+            var books = _bookService.GetAllBooks();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
+                {
+                    return View("NoResults");
+                }
+
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
+
+                return View("Index", _myModel);
+            }
+
+            var saleBooks = _bookService.GetBooksOnSale();
+
+            _myModel.Book = saleBooks;
+            _myModel.Account = listModel;
+
+            return View(_myModel);
+        }
+        
+        public IActionResult Genre(string genre, string searchString)
+        {
+            var user = WishListService.GetUser(this.HttpContext);
+            var userId = user.UserId;
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
+            var books = _bookService.GetAllBooks();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
+                {
+                    return View("NoResults");
+                }
+
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
+
+                return View("Index", _myModel);
+            }
+
+            if (String.IsNullOrEmpty(genre))
+            {
+                _myModel.Book = books;
+                _myModel.Account = listModel;
+
+                return View(_myModel);
             }
 
             else
             {
                 var genrelist = _bookService.GetBooksByGenre(genre);
 
-                if(genrelist.Count == 0)
+                if (genrelist.Count == 0)
                 {
                     return View("NotFound");
                 }
 
-                myModel.Book = genrelist;
-                myModel.Account = listModel;
+                _myModel.Book = genrelist;
+                _myModel.Account = listModel;
 
-                return View(myModel);
+                return View(_myModel);
             }
         }
-
+        
         public IActionResult OrderAlphabetical(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
 
-                myModel.Book = booklist;
-                myModel.Account = listModel;
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
 
-                return View("Index", myModel);
+                return View("Index", _myModel);
             }
 
             var orderedBooks = _bookService.GetBooksTitleOrder();
 
-            myModel.Book = orderedBooks;
-            myModel.Account = listModel;
+            _myModel.Book = orderedBooks;
+            _myModel.Account = listModel;
 
-            return View("Index", myModel);
+            return View("Index", _myModel);
         }
-
+        
         public IActionResult PriceLowToHigh(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
 
-                myModel.Book = booklist;
-                myModel.Account = listModel;
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
 
-                return View("Index", myModel);
+                return View("Index", _myModel);
             }
 
             var orderedBooks = _bookService.GetBooksPriceOrderLH();
 
-                myModel.Book = orderedBooks;
-                myModel.Account = listModel;
+            _myModel.Book = orderedBooks;
+            _myModel.Account = listModel;
 
-            return View("Index", myModel);
+            return View("Index", _myModel);
         }
-
+        
         public IActionResult PriceHighToLow(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
 
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
 
-                return View("Index", myModel);
+                return View("Index", _myModel);
             }
 
             var orderedBooks = _bookService.GetBooksPriceOrderHL();
 
-                    myModel.Book = orderedBooks;
-                    myModel.Account = listModel;
+            _myModel.Book = orderedBooks;
+            _myModel.Account = listModel;
 
-            return View("Index", myModel);
+            return View("Index", _myModel);
         }
-
-        public IActionResult Newest(string searchString)
-        {
-            var user = WishListService.GetUser(this.HttpContext);
-
-            var userId = user.UserId;
-            
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
-
-            var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
-            {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
-                {
-                    return View("NoResults");
-                }
-
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
-
-                return View("Index", myModel);
-            }
-
-            var orderedBooks = _bookService.GetBooksByNewest();
-
-                    myModel.Book = orderedBooks;
-                    myModel.Account = listModel;
-
-            return View("Index", myModel);
-        }
-
-        public IActionResult Sale(string searchString)
-        {
-            var user = WishListService.GetUser(this.HttpContext);
-
-            var userId = user.UserId;
-            
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
-
-            var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
-            {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
-                {
-                    return View("NoResults");
-                }
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
-
-                return View("Index", myModel);
-            }
-
-            var saleBooks = _bookService.GetBooksOnSale();
-
-                    myModel.Book = saleBooks;
-                    myModel.Account = listModel;
-
-            return View(myModel);
-        }
-
+        
         public IActionResult SaleOrderAlphabetical(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
 
-                return View("Index", myModel);
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
+
+                return View("Index", _myModel);
             }
 
             var orderedBooks = _bookService.GetBooksOnSaleAZ();
 
-                    myModel.Book = orderedBooks;
-                    myModel.Account = listModel;
+            _myModel.Book = orderedBooks;
+            _myModel.Account = listModel;
 
-            return View("Sale", myModel);
+            return View("Sale", _myModel);
         }
-
+        
         public IActionResult SalePriceLowToHigh(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
 
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
 
-                return View("Index", myModel);
+                return View("Index", _myModel);
             }
 
             var orderedBooks = _bookService.GetBooksOnSaleLH();
 
-                    myModel.Book = orderedBooks;
-                    myModel.Account = listModel;
+            _myModel.Book = orderedBooks;
+            _myModel.Account = listModel;
 
-            return View("Sale", myModel);
+            return View("Sale", _myModel);
         }
-
+        
         public IActionResult SalePriceHighToLow(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
-
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
 
-                return View("Index", myModel);
+                return View("Index", _myModel);
             }
 
             var orderedBooks = _bookService.GetBooksOnSaleHL();
 
-                    myModel.Book = orderedBooks;
-                    myModel.Account = listModel;
+            _myModel.Book = orderedBooks;
+            _myModel.Account = listModel;
 
-            return View("Sale", myModel);
+            return View("Sale", _myModel);
         }
-
+        
         public IActionResult SaleNewest(string searchString)
         {
-             var user = WishListService.GetUser(this.HttpContext);
-
+            var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            
             var listModel = new WishListViewModel
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
             var books = _bookService.GetAllBooks();
-
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                var booklist = _bookService.GetSearchBooks(searchString);
-                
-                if(booklist.Count == 0)
+                var bookList = _bookService.GetSearchBooks(searchString);
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
-                    myModel.Book = booklist;
-                    myModel.Account = listModel;
 
-                return View("Index", myModel);
+                _myModel.Book = bookList;
+                _myModel.Account = listModel;
+
+                return View("Index", _myModel);
             }
 
             var orderedBooks = _bookService.GetBooksOnSaleNewest();
 
-                    myModel.Book = orderedBooks;
-                    myModel.Account = listModel;
+            _myModel.Book = orderedBooks;
+            _myModel.Account = listModel;
 
-            return View("Sale", myModel);
+            return View("Sale", _myModel);
         }
-
     }
 }
