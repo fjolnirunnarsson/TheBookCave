@@ -55,6 +55,12 @@ namespace TheBookCave
             .AddEntityFrameworkStores<AuthenticationDbContext>()
             .AddDefaultTokenProviders();
 
+            /*services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AtLeast21", policy =>
+                policy.Requirements.Add(new isLoggedIn(21)));
+            });*/
+
             services.Configure<IdentityOptions>(config => {
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 8;

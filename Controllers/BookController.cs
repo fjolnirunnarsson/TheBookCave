@@ -53,7 +53,6 @@ namespace TheBookCave.Controllers
 
             myModel.Book = bookList;
             myModel.Account = listModel;
-
             return View(myModel);
         }
 
