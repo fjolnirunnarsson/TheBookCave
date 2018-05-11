@@ -30,7 +30,7 @@
                 <th>$@Model.cartItems.CartTotal</th>
             </tr>
         </table>
-        <a class="btn btn-default" asp-controller="ShoppingCart" asp-action="ConfirmationStep">Confirm</a>
-        <a class="btn btn-default" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@Model.account.Email">Edit</a>
-        <a class="btn btn-danger" asp-controller="ShoppingCart" asp-action="Index">Cancel</a>
+        <a class="btn" asp-controller="ShoppingCart" asp-action="ConfirmationStep">Confirm</a>
+        <a class="btn" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@Model.account.Email">Edit</a>
+        <a class="btn" asp-controller="ShoppingCart" asp-action="Index">Cancel</a>
 </div>

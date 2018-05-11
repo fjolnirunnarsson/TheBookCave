@@ -7,10 +7,10 @@
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li><a asp-controller="Book" asp-action="OrderAlphabetical">A-Z</a></li>
-            <li><a asp-controller="Book" asp-action="Newest">What's new</a></li>
-            <li><a asp-controller="Book" asp-action="PriceLowToHigh">Price: low to high</a></li>
-            <li><a asp-controller="Book" asp-action="PriceHighToLow">Price: high to low</a></li>
+            <li><a asp-controller="Book" asp-action="SaleOrderAlphabetical">A-Z</a></li>
+            <li><a asp-controller="Book" asp-action="SaleNewest">What's new</a></li>
+            <li><a asp-controller="Book" asp-action="SalePriceLowToHigh">Price: low to high</a></li>
+            <li><a asp-controller="Book" asp-action="SalePriceHighToLow">Price: high to low</a></li>
         </ul>
     </div>
 
@@ -85,9 +85,8 @@
                     @Html.ActionLink("Add to cart", "AddToCart",
                     "ShoppingCart", 
                     new { bookId = @book.Id }, 
-                    new { @class = "addToCart btn addcart", id = @strengur})
+                    new { @class = "addToCart btn btn-primary addcart", id = @strengur})
                 </div>
         </div>
     }
 </div>
-
