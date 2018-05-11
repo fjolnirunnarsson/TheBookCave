@@ -77,11 +77,11 @@
         @{
             string strengur = "isadded" + @Model.Book.Id;
         }
-        <div onclick="itemadded(@Model.Book.Id)"  id="div-onclick">
+        <div onclick="itemadded(@Model.Book.Id)"  id="div-click">
             @Html.ActionLink("Add to cart", "AddToCart",
              "ShoppingCart", 
              new { bookId = @Model.Book.Id }, 
-             new { @class = "addToCart btn addcart", id = @strengur})
+             new { @class = "addToCart btn addcart fixpos", id = @strengur})
         </div>
         <p class="description">@Model.Book.Description</p>
     </div>
