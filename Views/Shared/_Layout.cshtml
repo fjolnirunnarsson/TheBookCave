@@ -23,16 +23,21 @@
 </head>
 <body>
 <nav class="navbar navbar-fixed-top navbar-inverse" id="navbar">
-    <div>
+    <div >
         <a asp-controller="Home" asp-action="Index"><img id="logo" src="~/images/logo.png" alt=""></a>
 
-        <form method="GET" class="search-bar inner-addon left-addon">
-                <i class="glyphicon glyphicon-search"></i>
-                <input type="text" class="search" name="searchString" placeholder="Search for books by title / author ..." />
-            <a asp-action="Index">
-                <input type="submit" class="search" value="Search">
-            </a>
-        </form>
+                <form method="GET" class="search-bar inner-addon left-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input type="text" class="search" name="searchString" placeholder="Search for books by title / author ..." />
+                    <a asp-action="Index">
+                        <input type="submit" class="search" value="Search">
+                    </a>
+                </form>
+
+
+
+
+
 
         <div class="icons navbar-collapse collapse">
                 <span class="dropdown">
@@ -64,7 +69,7 @@
     </div>
 </nav>
 
-<div id="sidebar-wrap">
+<div id="sidebar-wrap" >
     <ul class="sidebar-nav">
         <li class="sidebar-brand"><a asp-controller="Book" asp-action="Sale">ON SALE</a></li>
     </ul>
