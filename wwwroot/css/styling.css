@@ -4,41 +4,43 @@ body {
     padding-left: 120px;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
     min-height: 600px;
 }
+
+/* all buttons with the class btn */
 .btn {
     background-color: #f99d31;
 }
 
+/* all links */
 a {
     color: #2d2d2d;
 }
 
-/* Navigation bar*/
+/* -- Navigation bar -- */
 #navbar {
     border: 1px solid #b3a7a5;
     height: 95px;
     padding-top: 2px;
     background-color: #b3a7a5;
 }
-
+/* The Book Cave logo */
 #logo {
     height: 85px;
     margin-left: 1.5%;
     margin-right: 5%;
 }
 
-
+/* Search bar */
 .search-bar {
     display: inline;
     padding-left: 70px;
 }
 
+/* Search input */
 .search {
     width: 40%;
     border-radius: 10px;
@@ -47,6 +49,7 @@ a {
     border: none;
 }
 
+/* Search button */
 a .search {
     width: 8%;
     padding-left: 20px;
@@ -62,7 +65,6 @@ a .search {
 .inner-addon .glyphicon {
     position: absolute;
     padding-left: 15px;
-    
 }
 
 .icons {
@@ -128,16 +130,13 @@ a .search {
     position: fixed;
     height: 100%;
     width: 14%;
-    /*z-index: 1;*/
     top: 0;
     left: 0;
-    /*overflow-x: hidden;*/
     padding-top: 150px;
     background-color: #b3a7a5;
 }
 
 .sidebar-nav {
-    /*position: absolute;*/
     top: 0;
     list-style: none;
 }
@@ -331,8 +330,6 @@ a:hover, a:active, a:visited, a:focus {
     float: right;
     padding-right: 10px;
 }
-
-/* Employee sites */
 
 #price-div {
     float: left;
