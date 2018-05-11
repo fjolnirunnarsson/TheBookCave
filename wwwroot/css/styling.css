@@ -11,9 +11,17 @@ body {
     padding-right: 15px;
     min-height: 600px;
 }
+.btn {
+    background-color: #f99d31;
+}
+
+a {
+    color: #2d2d2d;
+}
+
 /* Navigation bar*/
 #navbar {
-    border-bottom: solid 0.1px #ddd;
+    border: 1px solid #b3a7a5;
     height: 95px;
     padding-top: 2px;
     background-color: #b3a7a5;
@@ -125,7 +133,6 @@ a .search {
     left: 0;
     /*overflow-x: hidden;*/
     padding-top: 150px;
-    /*border: solid 0.5px black;*/
     background-color: #b3a7a5;
 }
 
@@ -312,8 +319,12 @@ a:hover, a:active, a:visited, a:focus {
 #footer {
     width:100%;
     background: #b3a7a5;
-    margin:0;
+    margin: 0;
     padding-bottom: 30px;
+}
+
+#footer ul li a {
+    color: #2d2d2d;
 }
 
 #lock-icon {
