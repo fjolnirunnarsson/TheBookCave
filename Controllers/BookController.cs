@@ -10,12 +10,14 @@ namespace TheBookCave.Controllers
     public class BookController : Controller
     {
         private BookService _bookService;
+        private WishListViewModel _wishModel;
         private WishListService _wishListService;
         private dynamic _myModel;
 
         public BookController()
         {
             _bookService = new BookService();
+            _wishModel = new WishListViewModel();
             _wishListService = new WishListService();
             _myModel = new ExpandoObject();
         }
@@ -24,16 +26,14 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId)
-            };
 
+            var _wishModel = _wishListService.GetWishListItems(userId);
+            
             var books = _bookService.GetAllBooks();
             if (String.IsNullOrEmpty(searchString))
             {
                 _myModel.Book = books;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View(_myModel);
             }
@@ -45,7 +45,7 @@ namespace TheBookCave.Controllers
             }
 
             _myModel.Book = bookList;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View(_myModel);
         }
@@ -55,10 +55,7 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
             var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
@@ -70,14 +67,14 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
 
             _myModel.Book = _bookService.GetBookByTitle(title);
             _myModel.Reviews = _bookService.GetBookReviews(title);
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View(_myModel);
 
@@ -88,10 +85,7 @@ namespace TheBookCave.Controllers
         {
             var user1 = WishListService.GetUser(this.HttpContext);
             var userId = user1.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
             var user = HttpContext.User.Identity.Name;
             if (!ModelState.IsValid)
@@ -113,12 +107,8 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId)
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
-            var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
             {
                 var bookList = _bookService.GetSearchBooks(searchString);
@@ -128,7 +118,7 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
@@ -140,7 +130,7 @@ namespace TheBookCave.Controllers
             }
 
             _myModel.Book = top10;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View(_myModel);
         }
@@ -149,10 +139,7 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
             var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
@@ -164,7 +151,7 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
@@ -172,7 +159,7 @@ namespace TheBookCave.Controllers
             var orderedBooks = _bookService.GetBooksByNewest();
 
             _myModel.Book = orderedBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View("Index", _myModel);
         }
@@ -181,12 +168,8 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
-            var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
             {
                 var bookList = _bookService.GetSearchBooks(searchString);
@@ -196,7 +179,7 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
@@ -204,7 +187,7 @@ namespace TheBookCave.Controllers
             var saleBooks = _bookService.GetBooksOnSale();
 
             _myModel.Book = saleBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View(_myModel);
         }
@@ -213,12 +196,8 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
-            var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
             {
                 var bookList = _bookService.GetSearchBooks(searchString);
@@ -228,15 +207,16 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
 
+            var books = _bookService.GetAllBooks();
             if (String.IsNullOrEmpty(genre))
             {
                 _myModel.Book = books;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View(_myModel);
             }
@@ -251,7 +231,7 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = genrelist;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View(_myModel);
             }
@@ -261,12 +241,9 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
-            var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
             {
                 var bookList = _bookService.GetSearchBooks(searchString);
@@ -276,7 +253,7 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
@@ -284,7 +261,7 @@ namespace TheBookCave.Controllers
             var orderedBooks = _bookService.GetBooksTitleOrder();
 
             _myModel.Book = orderedBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View("Index", _myModel);
         }
@@ -293,10 +270,7 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
             var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
@@ -308,15 +282,15 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
-                return View("Index", _myModel);
+                return View("Index", _wishModel);
             }
 
             var orderedBooks = _bookService.GetBooksPriceOrderLH();
 
             _myModel.Book = orderedBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View("Index", _myModel);
         }
@@ -325,10 +299,7 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
             var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
@@ -340,7 +311,7 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
@@ -348,7 +319,7 @@ namespace TheBookCave.Controllers
             var orderedBooks = _bookService.GetBooksPriceOrderHL();
 
             _myModel.Book = orderedBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View("Index", _myModel);
         }
@@ -357,10 +328,7 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
             var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
@@ -372,7 +340,7 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
@@ -380,7 +348,7 @@ namespace TheBookCave.Controllers
             var orderedBooks = _bookService.GetBooksOnSaleAZ();
 
             _myModel.Book = orderedBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View("Sale", _myModel);
         }
@@ -389,10 +357,7 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId); 
 
             var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
@@ -404,15 +369,15 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
-                return View("Index", _myModel);
+                return View("Index", _wishModel);
             }
 
             var orderedBooks = _bookService.GetBooksOnSaleLH();
 
             _myModel.Book = orderedBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View("Sale", _myModel);
         }
@@ -421,10 +386,7 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
             var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
@@ -435,7 +397,7 @@ namespace TheBookCave.Controllers
                     return View("NoResults");
                 }
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
@@ -443,7 +405,7 @@ namespace TheBookCave.Controllers
             var orderedBooks = _bookService.GetBooksOnSaleHL();
 
             _myModel.Book = orderedBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View("Sale", _myModel);
         }
@@ -452,10 +414,7 @@ namespace TheBookCave.Controllers
         {
             var user = WishListService.GetUser(this.HttpContext);
             var userId = user.UserId;
-            var listModel = new WishListViewModel
-            {
-                ListItems = _wishListService.GetWishListItems(userId),
-            };
+            var _wishModel = _wishListService.GetWishListItems(userId);
 
             var books = _bookService.GetAllBooks();
             if (!String.IsNullOrEmpty(searchString))
@@ -467,7 +426,7 @@ namespace TheBookCave.Controllers
                 }
 
                 _myModel.Book = bookList;
-                _myModel.Account = listModel;
+                _myModel.Account = _wishModel;
 
                 return View("Index", _myModel);
             }
@@ -475,7 +434,7 @@ namespace TheBookCave.Controllers
             var orderedBooks = _bookService.GetBooksOnSaleNewest();
 
             _myModel.Book = orderedBooks;
-            _myModel.Account = listModel;
+            _myModel.Account = _wishModel;
 
             return View("Sale", _myModel);
         }

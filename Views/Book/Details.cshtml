@@ -20,7 +20,7 @@
                     string strengur1 = "wishadded" + @Model.Book.Id;
                     bool onList = false;
                     }
-                    @foreach(var tala in @Model.Account.ListItems)
+                    @foreach(var tala in @Model.Account)
                     {
                         if(@tala.BookId == @Model.Book.Id)
                         {
@@ -40,7 +40,7 @@
                                     new { bookId = @Model.Book.Id, breyta = onList }, 
                                     new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
                     }
-                    @foreach(var tala in @Model.Account.ListItems)
+                    @foreach(var tala in @Model.Account)
                     {
                         if(@tala.BookId == @Model.Book.Id){
                             <script>
