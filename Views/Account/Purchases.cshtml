@@ -4,7 +4,7 @@
 @using System.Security.Claims
 @using TheBookCave.Models
 
-<link rel="stylesheet" href="~/css/styles.cart.css" />
+<link rel="stylesheet" href="~/css/cart.css" />
 
 @{
     if (Model.Count > 0) 
@@ -35,9 +35,9 @@
     else
     {
         <div>
-            <h2>You have no purchase history</h2>
-            <p>You can find loads of great selections on our home page...</p>
-            <a asp-controller="Home" asp-action="Index"> <span><button class="btn btn-primary">Go back</button></span></a>
+            <h2 class="text-center">You have no purchase history</h2>
+            <p class="text-center">You can find loads of great selections on our home page...</p>
+            <p class="text-center"><a asp-controller="Home" asp-action="Index" class="btn btn-default">Go back</a></p>
         </div>
     }
 }

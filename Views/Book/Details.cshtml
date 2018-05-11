@@ -11,12 +11,15 @@
     double number = @Model.Book.Rating;
 }
 
-<link rel="stylesheet" href="~/css/for-details.css" />
+<link rel="stylesheet" href="~/css/details.css" />
 
 
 <div class="detailsContainer">
     <div class="heart-img">
-        @Html.ActionLink(" ", "AddToWishList", "WishList", new { bookId = @Model.Book.Id }, new { @class ="glyphicon glyphicon-heart heart-icon addToWishList" })
+        @Html.ActionLink("",
+        "AddToWishList", "WishList",
+        new { bookId = @Model.Book.Id },
+        new { @class ="glyphicon glyphicon-heart heart-icon addToWishList" })
     </div>
 
     <div class="detailsImage">
@@ -50,7 +53,7 @@
             @Html.ActionLink("Add to cart", "AddToCart",
              "ShoppingCart", 
              new { bookId = @Model.Book.Id }, 
-             new { @class = "addToCart btn btn-primary addcart", id = @strengur})
+             new { @class = "addToCart btn addcart", id = @strengur})
         </div>
         <p class="description">@Model.Book.Description</p>
     </div>
@@ -74,7 +77,7 @@
             </div>
                 <input type="text" class="form-control" id="book-id" name="BookId" value="@Model.Book.Id">
             <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-default btn-primary"/>
+                <input type="submit" value="Submit" class="btn"/>
             </div>
         </form>
     </div>
@@ -85,12 +88,12 @@
 @foreach(var item in @Model.Reviews)
 {
     if(variable == true){
-        <h3>Reviews by users</h3>
+        <h3 class="text-center">Reviews by users</h3>
         variable = false;
     }
     <div class="onereview">
-        <p>Review by: @item.UserName</p>
+        <p><strong>Review by:</strong> @item.UserName</p>
         <p>@item.Rating stars out of 5</p>
-        <p>@item.Comment</p>
+        <i>@item.Comment</i>
     </div>
 }

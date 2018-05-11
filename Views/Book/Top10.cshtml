@@ -1,5 +1,5 @@
 @model dynamic
-<link rel="stylesheet" href="~/css/for-details.css" />
+<link rel="stylesheet" href="~/css/details.css" />
 <script src="~/js/site.js"></script>
 
 @{
@@ -81,7 +81,7 @@
                     @Html.ActionLink("Add to cart", "AddToCart",
                     "ShoppingCart", 
                     new { bookId = @book.Id }, 
-                    new { @class = "addToCart btn btn-primary addcart", id = @strengur})
+                    new { @class = "addToCart btn addcart", id = @strengur})
                 </div>
                 <p class="description">@book.Description</p>
                 <hr>

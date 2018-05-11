@@ -7,13 +7,13 @@
 @{
     var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type == "Email")?.Value;
 }
-<link rel="stylesheet" href="~/css/styles.cart.css" />
+<link rel="stylesheet" href="~/css/cart.css" />
 
 @{
     if (Model.bookItems.Count > 0) 
     {
         <div class="cart">
-            <h1 id="cart-title">Your Items</h1>
+            <h1 class="text-center" id="cart-title">Your Items</h1>
             <div class="cart-items">
                     @foreach(var item in @Model.bookItems)
                     {
@@ -29,9 +29,9 @@
                             <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title"><img class="cart-img" src="@item.Image" alt="No Image"></a>
                             <div class="book-info"> 
                                 <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title">
-                                    <h2 class="item-title">@item.Title</h2>
+                                    <h3 class="item-title">@item.Title</h3>
                                 </a>
-                                <h3>@item.Author</h3>
+                                <h4>@item.Author</h4>
                                 @await Html.PartialAsync("_StarsPartial", rating)
                                 <h4>$ @item.Price</h4>
                                 <h4>Quantity: @item.Quantity</h4>  
@@ -48,10 +48,10 @@
                     }
             </div>
             <div class="checkout-window">
-                <div class="total-price">
+                <div class="total-price text-center">
                     <h4>Total price:</h4>
                     <h5>US$ @Model.cartItems.CartTotal</h5>
-                    <a id="btn" class="btn btn-default btn-primary" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@email">Checkout</a>
+                    <a id="btn" class="btn checkout-btn" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@email">Checkout</a>
                 </div>
             </div>
         </div>

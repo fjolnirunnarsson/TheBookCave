@@ -9,6 +9,7 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    min-height: 600px;
 }
 /* Navigation bar*/
 #navbar {
@@ -41,7 +42,7 @@ body {
 a .search {
     width: 8%;
     padding-left: 20px;
-    color: black;
+    color: #2d2d2d;
     background-color: #f99d31;
 
 }
@@ -77,14 +78,14 @@ a .search {
     display: none;
     position: absolute;
     z-index: 1;
-    background-color: #f1f1f1;
+    background-color: #f4f2f2;
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     border-radius: 5px;
 }
 
 .dropdown-window .login a {
-    color: black;
+    color: #2d2d2d;
     text-decoration: none;
     font-size: 12px;
     display: inline;
@@ -99,7 +100,7 @@ a .search {
 
 .dropdown-window .dropdown-list a {
     text-align: left;
-    color: black;
+    color: #2d2d2d;
     text-decoration: none;
     display: block;
     font-size: 12px;
@@ -140,7 +141,7 @@ a .search {
 }
 
 .sidebar-nav li a {
-    color: black;
+    color: #2d2d2d;
 }
 
 .sidebar-nav > .sidebar-brand {
@@ -185,6 +186,7 @@ a:hover, a:active, a:visited, a:focus {
 
 .addcart {
     width: 150px;
+    background-color: #f99d31;
 }
 
 #book-img {
@@ -201,11 +203,16 @@ a:hover, a:active, a:visited, a:focus {
     font-size: 18px;
 }
 
+#book-title a {
+    color: #2d2d2d;
+}
+
 .book-important{
     font-size: 15px;
     margin-left: 35px;
     margin-right: 35px;
     text-align: center;
+    color: #2d2d2d;
 }
 
 #old-price {

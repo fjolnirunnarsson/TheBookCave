@@ -4,7 +4,10 @@
     margin-left: 30px;
     background-color: #f7f7f7;
     margin-bottom: 10px;
+    color: #2d2d2d;
 }
+
+
 #Stars {
     margin-bottom: 20px;
 }
@@ -20,6 +23,7 @@
     overflow: hidden;
     float: left;
 }
+
 .cover {
     width: 70%;
     height: 80%;
@@ -51,9 +55,11 @@
 #detail-newprice {
     color: red;
 }
+
 .btn {
     margin-left: 10px;
     display: inline;
+    background-color: #f99d31;
 }
 .description {
     margin-bottom: 20px;
@@ -108,6 +114,8 @@
     margin-bottom: 10px;
     margin-right: auto;
     margin-left: auto;
+    padding-left: 20px;
+    padding-top: 10px;
     height: 100px;
     width: 90%;
     border-radius: 7px;
