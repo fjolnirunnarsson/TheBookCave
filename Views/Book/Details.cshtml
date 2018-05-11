@@ -12,12 +12,43 @@
 }
 
 <link rel="stylesheet" href="~/css/for-details.css" />
-
+<script src="~/js/site.js"></script>
 
 <div class="detailsContainer">
-    <div class="heart-img">
-        @Html.ActionLink(" ", "AddToWishList", "WishList", new { bookId = @Model.Book.Id }, new { @class ="glyphicon glyphicon-heart heart-icon addToWishList" })
-    </div>
+    <div class="heart-img" onclick="wishadded(@Model.Book.Id)">
+                    @{
+                    string strengur1 = "wishadded" + @Model.Book.Id;
+                    bool onList = false;
+                    }
+                    @foreach(var tala in @Model.Account.ListItems)
+                    {
+                        if(@tala.BookId == @Model.Book.Id)
+                        {
+                            onList = true;
+                            @Html.ActionLink(" ", 
+                                    "RemoveFromWishList", 
+                                    "WishList", 
+                                    new { bookId = @Model.Book.Id, breyta = onList }, 
+                                    new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
+                        }
+                    }
+                    @if(onList == false)
+                    {
+                    @Html.ActionLink(" ", 
+                                    "AddToWishList", 
+                                    "WishList", 
+                                    new { bookId = @Model.Book.Id, breyta = onList }, 
+                                    new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
+                    }
+                    @foreach(var tala in @Model.Account.ListItems)
+                    {
+                        if(@tala.BookId == @Model.Book.Id){
+                            <script>
+                            addclass(@Model.Book.Id)
+                            </script>
+                        }
+                    }
+            </div>
 
     <div class="detailsImage">
         <img src="@Model.Book.Image" alt="No Images" class="cover">
