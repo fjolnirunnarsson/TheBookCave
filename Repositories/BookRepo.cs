@@ -70,6 +70,7 @@ namespace TheBookCave.Repositories
                         select item).FirstOrDefault();
             return book;
         }
+
         public List<ReviewViewModel> GetAllReviews()
         {
             var reviews = _reviewRepo.GetAllReviews();
@@ -85,6 +86,97 @@ namespace TheBookCave.Repositories
                             select rev).ToList();
             
             return bookReviews;
+        }
+
+        public List<BookListViewModel> GetBooksByGenre(string genre)
+        {
+            var books = GetAllBooks();
+            var genreList = (from item in books
+                                where item.Genre.ToLower() == genre.ToLower()
+                                select item).ToList();
+            return genreList;
+        }
+        public List<BookListViewModel> GetBooksByNewest()
+        {
+            var books = GetAllBooks();
+            var newest = (from b in books
+                            orderby b.Id descending
+                            select b).ToList();
+            return newest;
+        }
+
+        public List<BookListViewModel> GetBooksTitleOrder()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                            orderby b.Title ascending
+                            select b).ToList();
+            return orderedBooks;
+        }
+        public List<BookListViewModel> GetBooksOnSale()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                            where b.Price != b.DiscountPrice
+                            select b).ToList();
+            return orderedBooks;
+        }
+
+        public List<BookListViewModel> GetBooksOnSaleAZ()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                            where b.Price != b.DiscountPrice
+                            orderby b.Title ascending
+                            select b).ToList();
+            return orderedBooks;
+        }
+        public List<BookListViewModel> GetBooksOnSaleLH()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                            where b.Price != b.DiscountPrice
+                            orderby b.Price ascending
+                            select b).ToList();
+            return orderedBooks;
+        }
+        public List<BookListViewModel> GetBooksOnSaleHL()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                            where b.Price != b.DiscountPrice
+                            orderby b.Price descending
+                            select b).ToList();
+            return orderedBooks;
+        }
+        public List<BookListViewModel> GetBooksOnSaleNewest()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                            where b.Price != b.DiscountPrice
+                            orderby b.Id descending
+                            select b).ToList();
+            return orderedBooks;
+        }
+
+
+
+        public List<BookListViewModel> GetBooksPriceOrderLH()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                            orderby b.Price ascending
+                            select b).ToList();
+            return orderedBooks;
+        }
+
+        public List<BookListViewModel> GetBooksPriceOrderHL()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                            orderby b.Price descending
+                            select b).ToList();
+            return orderedBooks;
         }
 
         public void SeedDataCreate(ReviewInputModel review, string user)

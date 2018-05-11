@@ -1,0 +1,92 @@
+@model dynamic
+<link rel="stylesheet" href="~/css/stars-position.css" />
+<script src="~/js/site.js"></script>
+
+<div id="front-page-books">
+    <div class="dropdown pull-right" id="dropdown-sort">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sort
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a asp-controller="Book" asp-action="SaleOrderAlphabetical">A-Z</a></li>
+            <li><a asp-controller="Book" asp-action="SaleNewest">What's new</a></li>
+            <li><a asp-controller="Book" asp-action="SalePriceLowToHigh">Price: low to high</a></li>
+            <li><a asp-controller="Book" asp-action="SalePriceHighToLow">Price: high to low</a></li>
+        </ul>
+    </div>
+
+    @foreach(var book in @Model.Book)
+    {
+        <div id="default-book">
+            <div class="heart-img" onclick="wishadded(@book.Id)">
+                    @{
+                    string strengur1 = "wishadded" + @book.Id;
+                    bool onList = false;
+                    }
+                    @foreach(var tala in @Model.Account.ListItems)
+                    {
+                        if(@tala.BookId == @book.Id)
+                        {
+                            onList = true;
+                            @Html.ActionLink(" ", 
+                                    "RemoveFromWishList", 
+                                    "WishList", 
+                                    new { bookId = @book.Id, breyta = onList }, 
+                                    new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
+                        }
+                    }
+                    @if(onList == false)
+                    {
+                    @Html.ActionLink(" ", 
+                                    "AddToWishList", 
+                                    "WishList", 
+                                    new { bookId = @book.Id, breyta = onList }, 
+                                    new { @class ="glyphicon glyphicon-heart heart-icon addToWishList", id = @strengur1})
+                    }
+                    @foreach(var tala in @Model.Account.ListItems)
+                    {
+                        if(@tala.BookId == @book.Id){
+                            <script>
+                            addclass(@book.Id)
+                            </script>
+                        }
+                    }
+            </div>
+            <a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title"><img id="book-img" src="@book.Image" alt="No Images"></a>
+            <h2 id="book-title"><a asp-controller="Book" asp-action="Details" asp-route-title="@book.Title">@book.Title</a></h2>
+            <h3 class="book-important">@book.Author</h3>
+            @{
+                double rating = @book.Rating;
+            }
+            @await Html.PartialAsync("_StarsPartial", rating)
+
+            @{
+                if(@book.Price != @book.DiscountPrice)
+                {
+                    <div id="price">
+                        <div id="oldprice-div">
+                            <h4  id="old-price">$@book.Price</h4>
+                        </div>
+                        <div id="newprice-div">
+                            <h4  id="new-price">$@book.DiscountPrice</h4>
+                        </div>
+                        
+                    </div>
+                }
+                else
+                {
+                    <h4 class="book-important">$ @book.Price</h4>
+                    
+                }
+            }
+            @{
+                string strengur = "isadded" + @book.Id;
+            }
+                <div onclick="itemadded(@book.Id)" id="div-onclick">
+                    @Html.ActionLink("Add to cart", "AddToCart",
+                    "ShoppingCart", 
+                    new { bookId = @book.Id }, 
+                    new { @class = "addToCart btn btn-primary addcart", id = @strengur})
+                </div>
+        </div>
+    }
+</div>

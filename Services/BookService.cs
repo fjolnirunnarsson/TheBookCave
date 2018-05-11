@@ -11,40 +11,50 @@ namespace TheBookCave.Services
     {
         private BookRepo _bookRepo;
         private ReviewRepo _reviewRepo;
-
         public BookService() 
         {
             _bookRepo = new BookRepo();
             _reviewRepo = new ReviewRepo();
         }
-
         public List<BookListViewModel> GetAllBooks()
         {
             var books = _bookRepo.GetAllBooks();
             
             return books;
         }
-
         public List<ReviewViewModel> GetAllReviews(){
             
             var reviews = _reviewRepo.GetAllReviews();
 
             return reviews;
         }
-
         public List<BookListViewModel> GetSearchBooks(string searchString)
         {
             return _bookRepo.GetSearchBooks(searchString);
         }
-
+        public List<BookListViewModel> GetBooksByNewest()
+        {
+            return _bookRepo.GetBooksByNewest();
+        }
         public List<BookListViewModel> GetTop10()
         {
             return _bookRepo.GetTop10();
         }
-
         public BookListViewModel GetBookByTitle(string title)
         {
             return _bookRepo.GetBookByTitle(title);
+        }
+        public List<BookListViewModel> GetBooksTitleOrder()
+        {
+            return _bookRepo.GetBooksTitleOrder();
+        }
+        public List<BookListViewModel> GetBooksPriceOrderLH()
+        {
+            return _bookRepo.GetBooksPriceOrderLH();
+        }
+        public List<BookListViewModel> GetBooksPriceOrderHL()
+        {
+            return _bookRepo.GetBooksPriceOrderHL();
         }
         public List<ReviewViewModel> GetBookReviews(string title)
         {
@@ -62,7 +72,31 @@ namespace TheBookCave.Services
         {
             return _bookRepo.GetBookByReview(review);
         }
-
+        public List<BookListViewModel> GetBooksByGenre(string genre)
+        {
+            return _bookRepo.GetBooksByGenre(genre);
+        }
+        public List<BookListViewModel> GetBooksOnSale()
+        {
+            return _bookRepo.GetBooksOnSale();
+        }
+        public List<BookListViewModel> GetBooksOnSaleAZ()
+        {
+            return _bookRepo.GetBooksOnSaleAZ();
+        }
+        public List<BookListViewModel> GetBooksOnSaleLH()
+        {
+            return _bookRepo.GetBooksOnSaleLH();
+        }
+        public List<BookListViewModel> GetBooksOnSaleHL()
+        {
+            return _bookRepo.GetBooksOnSaleHL();
+        }
+        public List<BookListViewModel> GetBooksOnSaleNewest()
+        {
+            return _bookRepo.GetBooksOnSaleNewest();
+        }
+        
         public void ProcessBook(BookInputModel book)
         {
             if(string.IsNullOrEmpty(book.Title))
