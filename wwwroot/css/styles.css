@@ -352,3 +352,11 @@ a:hover, a:active, a:visited, a:focus {
 .red{
     color: red;
 }
+
+#div-onclick{
+    border-width: 1px;
+    border-radius: 5px;
+    width: 150px; 
+    margin-left: auto; 
+    margin-right: auto;
+}

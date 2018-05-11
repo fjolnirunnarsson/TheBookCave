@@ -107,6 +107,15 @@ namespace TheBookCave.Repositories
                              }).ToList();
             return purchased;
         }
+
+        public AccountListViewModel GetTempAccount(RegisterViewModel model) 
+        {
+            var accounts = GetAllAccounts();
+            var tempaccount = (from a in accounts
+                        where a.Email == model.Email
+                        select a).SingleOrDefault();
+            return tempaccount;
+        }
         
     }
 }
