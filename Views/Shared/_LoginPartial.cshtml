@@ -11,8 +11,6 @@ var claim = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault( c => c.Type =
 @{
     if (SignInManager.IsSignedIn(User))
     {
-
-
         <form asp-controller="Account" asp-action="LogOut" method="POST" id="yourFormId">
             <p id="username">Hi @claim!</p>
             <a href="#" id="yourLinkId">Log out</a>
