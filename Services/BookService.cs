@@ -42,7 +42,7 @@ namespace TheBookCave.Services
             return _bookRepo.GetTop10();
         }
 
-        public dynamic GetBookByTitle(string title)
+        public BookListViewModel GetBookByTitle(string title)
         {
             return _bookRepo.GetBookByTitle(title);
         }

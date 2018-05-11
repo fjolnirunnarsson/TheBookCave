@@ -11,15 +11,14 @@ using Microsoft.AspNetCore.Identity;
 using TheBookCave.Models;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System;
 
 namespace TheBookCave.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class EmployeeSiteController : Controller
     {
-         private BookService _bookService;
+        private BookService _bookService;
         private AccountService _accountService;
-        
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -31,12 +30,11 @@ namespace TheBookCave.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _accountService = new AccountService();
-
         }
+
         [HttpGet]
         public IActionResult Register()
         {
-
             return View();
         }
 
@@ -79,20 +77,16 @@ namespace TheBookCave.Controllers
             return View("Created");
         }
         
-        public IActionResult Login()
-        {
-            return View();
-        }
-        
         [HttpGet]
         public IActionResult Index()
         {
+
             var books = _bookService.GetAllBooks();
 
             var booklist = (from book in books
                         orderby book.Title ascending
                         select book).ToList();
-
+                        
             return View(booklist);
         }
 
@@ -105,6 +99,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", booklist);
         }
+
         public IActionResult OrderbyGenre()
         {
             var books = _bookService.GetAllBooks();
@@ -114,6 +109,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", booklist);
         }
+
         public IActionResult OrderbyPrice()
         {
             var books = _bookService.GetAllBooks();
@@ -123,6 +119,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", booklist);
         }
+
         public IActionResult OrderbyDiscount()
         {
             var books = _bookService.GetAllBooks();
@@ -152,7 +149,6 @@ namespace TheBookCave.Controllers
 
             return View("Index", booklist);
         }
-
         public static void SeedDataCreateAccount(RegisterViewModel model)
         {
              var db = new DataContext();
@@ -253,7 +249,7 @@ namespace TheBookCave.Controllers
 
             return View(book);
         }
-
+        
         [HttpPost]
         public IActionResult Delete(BookInputModel deleteBook)
         {

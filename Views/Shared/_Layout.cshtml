@@ -107,7 +107,11 @@
         <a href="https://twitter.com/totystefans"><img src="~/Images/Twitter.png" alt="No Images" class="social"></a>
         <a href="https://www.instagram.com/halldorlogi/?hl=en"><img src="~/Images/Instagram.png" alt="No Images" class="social"> </a>
     </div>
-    <a id="lock-icon" asp-action="Index" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
+    @if (User.IsInRole("Admin"))
+    {
+        <a id="lock-icon" asp-action="Index" asp-controller="EmployeeSite"><span class="glyphicon glyphicon-lock"></span></a>
+    }
+    
 </div>
 
     <environment include="Development">
