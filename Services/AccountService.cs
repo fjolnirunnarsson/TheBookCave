@@ -100,5 +100,9 @@ namespace TheBookCave.Services
         {
             _accountRepo.UpdateAccount(userId, model);
         }
+        public AccountListViewModel GetTempAccount(RegisterViewModel model) 
+        {
+            return _accountRepo.GetTempAccount(model);
+        }
     }
 }

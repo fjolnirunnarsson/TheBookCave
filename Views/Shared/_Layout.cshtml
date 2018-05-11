@@ -25,7 +25,6 @@
 <nav class="navbar navbar-fixed-top navbar-inverse" id="navbar">
     <div >
         <a asp-controller="Home" asp-action="Index"><img id="logo" src="~/images/logo.png" alt=""></a>
-
                 <form method="GET" class="search-bar inner-addon left-addon">
                     <i class="glyphicon glyphicon-search"></i>
                     <input type="text" class="search" name="searchString" placeholder="Search for books by title / author ..." />
@@ -105,8 +104,9 @@
         <li class="item-social"><a asp-action="TermsAndConditions" asp-controller="Home">Terms&Conditions</a></li>
     </ul>
     <div>
+        <a href="https://www.pinterest.com/totystefans"><img src="~/images/Pinterest.jpg" alt="No Images" class="social" ></a>
         <a href="https://www.facebook.com/AbbaBara"><img src="~/images/Facebook.png" alt="No Images" class="social" ></a>
-        <a href="https://twitter.com/totystefans"><img src="~/images/Twitter.png" alt="No Images" class="social"></a>
+        <a href="https://twitter.com/fjlnir"><img src="~/images/Twitter.png" alt="No Images" class="social"></a>
         <a href="https://www.instagram.com/halldorlogi/?hl=en"><img src="~/images/Instagram.png" alt="No Images" class="social"> </a>
     </div>
     @if (User.IsInRole("Admin"))
