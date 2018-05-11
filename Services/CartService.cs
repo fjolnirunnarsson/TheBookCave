@@ -7,8 +7,6 @@ using TheBookCave.Models.ViewModels;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.EntityModels;
 
-
-
 namespace TheBookCave.Services
 {
     public class CartService

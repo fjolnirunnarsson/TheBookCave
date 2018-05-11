@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using TheBookCave.Repositories;
 using TheBookCave.Data.EntityModels;
 using TheBookCave.Models.ViewModels;
-using TheBookCave.Repositories;
+
 
 namespace TheBookCave.Services
 {
@@ -22,19 +23,24 @@ namespace TheBookCave.Services
             return wishList;
         }
 
-        public void AddToWishList(BookListViewModel book, HttpContext context)
+        public void AddToWishList(BookListViewModel book, WishList user)
         {
-            _wishListRepo.AddToWishList(book, context);
+            _wishListRepo.AddToWishList(book, user);
         }
 
-        public void RemoveFromWishList(BookListViewModel book, HttpContext context)
+        public void RemoveFromWishList(BookListViewModel book, WishList user)
         {
-            _wishListRepo.RemoveFromWishList(book, context);
+            _wishListRepo.RemoveFromWishList(book, user);
         }
 
         public List<List> GetWishListItems(string userId)
         {
             return _wishListRepo.GetWishListItems(userId);
+        }
+
+        public List<BookListViewModel> GetWishListBooks(string userId)
+        {
+            return _wishListRepo.GetWishListBooks(userId);
         }
     }
 }

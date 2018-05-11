@@ -8,7 +8,7 @@ namespace TheBookCave.Models.ViewModels
         public string LastName { get; set; }
         [Key]
         public string Email { get; set; }
-        public string ProfilePicture {get; set;}
+        public string ProfilePicture { get; set; }
         public string FavoriteBook { get; set; }
         public string BillingAddressStreet { get; set; }
         public string BillingAddressHouseNumber { get; set; }
@@ -22,6 +22,6 @@ namespace TheBookCave.Models.ViewModels
         public string DeliveryAddressCity { get; set; }
         public string DeliveryAddressCountry { get; set; }
         public string DeliveryAddressZipCode { get; set; }
-        public int  SameAddresses { get; set; }
+        public int SameAddresses { get; set; }
     }
 }

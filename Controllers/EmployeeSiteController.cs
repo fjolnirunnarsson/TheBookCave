@@ -26,14 +26,14 @@ namespace TheBookCave.Controllers
             _bookService = new BookService();
             _accountService = new AccountService();
         }
-        
+
         [HttpGet]
         public IActionResult Index()
         {
             var bookList = _bookService.GetBooksTitleOrder();
             return View(bookList);
         }
-        
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -72,7 +72,7 @@ namespace TheBookCave.Controllers
                 await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
 
                 ApplicationUser newAdmin = await _userManager.FindByEmailAsync(model.Email);
-                
+
                 await _userManager.AddToRoleAsync(newAdmin, "Admin");
             }
 

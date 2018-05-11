@@ -55,15 +55,11 @@ namespace TheBookCave
             .AddEntityFrameworkStores<AuthenticationDbContext>()
             .AddDefaultTokenProviders();
 
-            /*services.AddAuthorization(options =>
-            {
-                options.AddPolicy("AtLeast21", policy =>
-                policy.Requirements.Add(new isLoggedIn(21)));
-            });*/
-
             services.Configure<IdentityOptions>(config => {
                 config.User.RequireUniqueEmail = true;
+                config.Password.RequireDigit = true;
                 config.Password.RequiredLength = 8;
+                config.Password.RequireNonAlphanumeric = false;
             });
 
             services.ConfigureApplicationCookie(options => {
@@ -77,7 +73,6 @@ namespace TheBookCave
 
             services.AddDistributedMemoryCache();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddScoped(s => ShoppingCart.GetCart(s));
 
             services.AddTransient<IAccountService, AccountService>();
             services.AddMvc();

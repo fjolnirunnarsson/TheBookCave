@@ -19,7 +19,7 @@ namespace TheBookCave.Controllers
             _wishListService = new WishListService();
             _myModel = new ExpandoObject();
         }
-        
+
         public IActionResult Index(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -49,7 +49,7 @@ namespace TheBookCave.Controllers
 
             return View(_myModel);
         }
-        
+
         [HttpGet]
         public IActionResult Details(string title, string searchString)
         {
@@ -80,9 +80,9 @@ namespace TheBookCave.Controllers
             _myModel.Account = listModel;
 
             return View(_myModel);
-        
+
         }
-        
+
         [HttpPost]
         public IActionResult Details(ReviewInputModel review)
         {
@@ -108,7 +108,7 @@ namespace TheBookCave.Controllers
 
             return Redirect(referer);
         }
-        
+
         public IActionResult Top10(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -176,7 +176,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", _myModel);
         }
-        
+
         public IActionResult Sale(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -208,7 +208,7 @@ namespace TheBookCave.Controllers
 
             return View(_myModel);
         }
-        
+
         public IActionResult Genre(string genre, string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -256,7 +256,7 @@ namespace TheBookCave.Controllers
                 return View(_myModel);
             }
         }
-        
+
         public IActionResult OrderAlphabetical(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -288,7 +288,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", _myModel);
         }
-        
+
         public IActionResult PriceLowToHigh(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -320,7 +320,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", _myModel);
         }
-        
+
         public IActionResult PriceHighToLow(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -352,7 +352,7 @@ namespace TheBookCave.Controllers
 
             return View("Index", _myModel);
         }
-        
+
         public IActionResult SaleOrderAlphabetical(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -384,7 +384,7 @@ namespace TheBookCave.Controllers
 
             return View("Sale", _myModel);
         }
-        
+
         public IActionResult SalePriceLowToHigh(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -416,7 +416,7 @@ namespace TheBookCave.Controllers
 
             return View("Sale", _myModel);
         }
-        
+
         public IActionResult SalePriceHighToLow(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -447,7 +447,7 @@ namespace TheBookCave.Controllers
 
             return View("Sale", _myModel);
         }
-        
+
         public IActionResult SaleNewest(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);

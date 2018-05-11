@@ -38,14 +38,14 @@ namespace TheBookCave.Repositories
 
             return accounts;
         }
-        
+
         public AccountListViewModel GetLoggedInAccount(string userId)
         {
             var accounts = GetAllAccounts();
             var account = (from a in accounts
                            where a.Email == userId
                            select a).FirstOrDefault();
-        
+
             return account;
         }
 
@@ -54,22 +54,22 @@ namespace TheBookCave.Repositories
             var accounts = GetAllAccounts();
 
             var account = (from a in accounts
-                         where a.Email == email
-                         select a).First();
+                           where a.Email == email
+                           select a).First();
 
             return account;
         }
 
-        public AccountListViewModel GetTempAccount(RegisterViewModel model) 
+        public AccountListViewModel GetTempAccount(RegisterViewModel model)
         {
             var accounts = GetAllAccounts();
             var tempaccount = (from a in accounts
-                        where a.Email == model.Email
-                        select a).SingleOrDefault();
+                               where a.Email == model.Email
+                               select a).SingleOrDefault();
 
             return tempaccount;
         }
-        
+
         public List<PurchasesViewModel> GetAllPurchases(string userId)
         {
             var purchased = (from item in _db.Books
@@ -136,7 +136,7 @@ namespace TheBookCave.Repositories
             var Accounts = new List<Account>
             {
                 new Account{
-                    FirstName = model.FirstName, 
+                    FirstName = model.FirstName,
                     LastName = model.LastName,
                     Email = model.Email
                 }

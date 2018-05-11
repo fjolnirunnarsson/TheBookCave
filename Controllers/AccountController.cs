@@ -18,7 +18,7 @@ namespace TheBookCave.Controllers
         private DataContext _db;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        
+
         public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IAccountService IAccountService)
         {
             _signInManager = signInManager;
@@ -26,7 +26,7 @@ namespace TheBookCave.Controllers
             _accountService = new AccountService();
             _db = new DataContext();
         }
-        
+
         public IActionResult Index()
         {
             var user = HttpContext.User.Identity.Name;
@@ -39,12 +39,12 @@ namespace TheBookCave.Controllers
 
             return View(account);
         }
-        
+
         public IActionResult Login()
         {
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -62,7 +62,7 @@ namespace TheBookCave.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOut()
@@ -70,18 +70,18 @@ namespace TheBookCave.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
-        
+
         public IActionResult AccessDenied()
         {
             return View();
         }
-        
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -108,14 +108,14 @@ namespace TheBookCave.Controllers
 
             return View();
         }
-        
+
         [HttpGet]
         public IActionResult Edit(string email)
         {
             var account = _accountService.GetEditAccount(email);
             return View(account);
         }
-        
+
         [HttpPost]
         public IActionResult Edit(AccountInputModel model)
         {
@@ -124,7 +124,7 @@ namespace TheBookCave.Controllers
             {
                 return View();
             }
-            
+
             _accountService.ProcessAccount(model);
             _accountService.UpdateAccount(user, model);
 

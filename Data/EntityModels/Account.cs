@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using TheBookCave.Models.ViewModels;
 
 namespace TheBookCave.Data.EntityModels
 {
@@ -9,7 +8,7 @@ namespace TheBookCave.Data.EntityModels
         public string LastName { get; set; }
         [Key]
         public string Email { get; set; }
-        public string ProfilePicture {get; set;}
+        public string ProfilePicture { get; set; }
         public string FavoriteBook { get; set; }
         public string BillingAddressStreet { get; set; }
         public string BillingAddressHouseNumber { get; set; }
@@ -23,7 +22,7 @@ namespace TheBookCave.Data.EntityModels
         public string DeliveryAddressCity { get; set; }
         public string DeliveryAddressCountry { get; set; }
         public string DeliveryAddressZipCode { get; set; }
-        public int  SameAddresses { get; set; }
+        public int SameAddresses { get; set; }
 
     }
 }

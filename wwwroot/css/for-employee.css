@@ -1,6 +1,5 @@
 body{
 margin: 20px 100px;
-
 }
 
 .loginform{
@@ -8,25 +7,24 @@ margin: 20px 100px;
     margin-left: auto;
     margin-right: auto;
 }
+
 #top{
     text-align: center;
     width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
+
 a button{
     margin-left: 35%;
     margin-right: 35%;
     width: 30%;
-
 }
 
 .btn {
     background-color: #f99d31;
     color: #2d2d2d;
 }
-
-
 
 table {
     border-collapse: collapse;

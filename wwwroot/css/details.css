@@ -10,12 +10,14 @@
 #Stars {
     margin-bottom: 20px;
 }
+
 .detailsImage {
     height: 400px;
     width: 30%;
     float: left;
     
 }
+
 .detailsDescription {
     height: 400px;
     width: 70%;
@@ -29,6 +31,7 @@
     margin-left: 45px;
     margin-top: 20px;
 }
+
 #badge img {
     position: absolute;
     height: 5%;
@@ -36,11 +39,13 @@
     margin-top: 8px;
     margin-left: 10px;
 }
+
 #badge p {
     position: absolute;
     margin-top: 12px;
     margin-left: 18px;
 }
+
 .stjornur-tomar {
     color: #dbc924;
     size: 15px;
@@ -60,10 +65,12 @@
     display: inline;
     background-color: #f99d31;
 }
+
 .description {
     margin-bottom: 20px;
     margin-top: 10px;
 }
+
 .heart-img {
     margin-left: 220px;
     margin-top: 30px;
@@ -90,24 +97,29 @@
     color: red;
     background-color: transparent;
 }
+
 #book-id{
     display: none;
 }
+
 #review{
     background-color: white;
     float: left;
     width: 100%;
     height: 400px;
 }
+
 .form-horizontal{
     margin-top: 20px;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
 }
+
 #comment{
     height: 50px;
 }
+
 .onereview{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -125,6 +137,7 @@
     width: 150px;
     margin-left: 0;
 }
+
 .red{
     color: red;
 }

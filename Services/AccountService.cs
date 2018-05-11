@@ -31,55 +31,55 @@ namespace TheBookCave.Services
         }
         public void ProcessAccount(AccountInputModel account)
         {
-            if(string.IsNullOrEmpty(account.FirstName))
+            if (string.IsNullOrEmpty(account.FirstName))
             {
                 throw new Exception("First name is missing");
             }
-            if(string.IsNullOrEmpty(account.LastName))
+            if (string.IsNullOrEmpty(account.LastName))
             {
                 throw new Exception("Last name is missing");
             }
-            if(string.IsNullOrEmpty(account.Email))
+            if (string.IsNullOrEmpty(account.Email))
             {
                 throw new Exception("Email is missing");
             }
-            if(string.IsNullOrEmpty(account.BillingAddressStreet))
+            if (string.IsNullOrEmpty(account.BillingAddressStreet))
             {
                 throw new Exception("Street is missing");
             }
-            if(string.IsNullOrEmpty(account.BillingAddressHouseNumber))
+            if (string.IsNullOrEmpty(account.BillingAddressHouseNumber))
             {
                 throw new Exception("House number is missing");
             }
-            if(string.IsNullOrEmpty(account.BillingAddressCity))
+            if (string.IsNullOrEmpty(account.BillingAddressCity))
             {
                 throw new Exception("City is missing");
             }
-            if(string.IsNullOrEmpty(account.BillingAddressCountry))
+            if (string.IsNullOrEmpty(account.BillingAddressCountry))
             {
                 throw new Exception("Country is missing");
             }
-            if(string.IsNullOrEmpty(account.BillingAddressZipCode))
+            if (string.IsNullOrEmpty(account.BillingAddressZipCode))
             {
                 throw new Exception("Postal code is missing");
             }
-            if(string.IsNullOrEmpty(account.DeliveryAddressStreet))
+            if (string.IsNullOrEmpty(account.DeliveryAddressStreet))
             {
                 throw new Exception("Street is missing");
             }
-            if(string.IsNullOrEmpty(account.DeliveryAddressHouseNumber))
+            if (string.IsNullOrEmpty(account.DeliveryAddressHouseNumber))
             {
                 throw new Exception("House number is missing");
             }
-            if(string.IsNullOrEmpty(account.DeliveryAddressCity))
+            if (string.IsNullOrEmpty(account.DeliveryAddressCity))
             {
                 throw new Exception("City is missing");
             }
-            if(string.IsNullOrEmpty(account.DeliveryAddressCountry))
+            if (string.IsNullOrEmpty(account.DeliveryAddressCountry))
             {
                 throw new Exception("Country is missing");
             }
-            if(string.IsNullOrEmpty(account.DeliveryAddressZipCode))
+            if (string.IsNullOrEmpty(account.DeliveryAddressZipCode))
             {
                 throw new Exception("Postal code is missing");
             }
@@ -102,7 +102,7 @@ namespace TheBookCave.Services
         {
             _accountRepo.UpdateAccount(userId, model);
         }
-        public AccountListViewModel GetTempAccount(RegisterViewModel model) 
+        public AccountListViewModel GetTempAccount(RegisterViewModel model)
         {
             return _accountRepo.GetTempAccount(model);
         }

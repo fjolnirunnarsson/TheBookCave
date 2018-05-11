@@ -1,6 +1,7 @@
 *{
     font-family: 'Titillium Web', sans-serif;
 }
+
 body {
     padding-top: 150px;
     
@@ -31,6 +32,7 @@ a {
     padding-top: 2px;
     background-color: #b3a7a5;
 }
+
 /* The Book Cave logo */
 #logo {
     height: 85px;
@@ -368,11 +370,4 @@ a:hover, a:active, a:visited, a:focus {
     border-width: 1px;
     border-radius: 5px;
     width: 98px; 
-<<<<<<< HEAD
-=======
-}
-.position-me{
-    margin-left: 60px;
-    margin-right: 60px;
->>>>>>> 69701418df9d638990fd8406e99a7f69d86180c7
 }

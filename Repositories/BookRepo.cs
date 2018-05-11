@@ -11,13 +11,12 @@ namespace TheBookCave.Repositories
     public class BookRepo
     {
         private readonly DataContext _db;
-        private ReviewRepo _reviewRepo = new ReviewRepo();
 
         public BookRepo()
         {
             _db = new DataContext();
         }
-        
+
         public BookListViewModel GetBookByTitle(string title)
         {
             var books = GetAllBooks();
@@ -27,7 +26,7 @@ namespace TheBookCave.Repositories
                         select item).FirstOrDefault();
             return book;
         }
-        
+
         public BookListViewModel GetBookById(int? id)
         {
             var books = GetAllBooks();
@@ -37,7 +36,7 @@ namespace TheBookCave.Repositories
                         select b).SingleOrDefault();
             return book;
         }
-        
+
         public BookListViewModel GetBookByReview(ReviewInputModel review)
         {
             var books = GetAllBooks();
@@ -46,7 +45,7 @@ namespace TheBookCave.Repositories
                         select b).FirstOrDefault();
             return book;
         }
-        
+
         public List<BookListViewModel> GetAllBooks()
         {
             var books = (from a in _db.Books
@@ -69,7 +68,7 @@ namespace TheBookCave.Repositories
 
             return books;
         }
-        
+
         public List<BookListViewModel> GetSearchBooks(string searchString)
         {
             var books = GetAllBooks();
@@ -80,7 +79,7 @@ namespace TheBookCave.Repositories
                             select b).ToList();
             return bookList;
         }
-        
+
         public List<BookListViewModel> GetTop10()
         {
             var books = GetAllBooks();
@@ -91,7 +90,7 @@ namespace TheBookCave.Repositories
 
             return top10;
         }
-        
+
         public List<BookListViewModel> GetBooksByGenre(string genre)
         {
             var books = GetAllBooks();
@@ -101,7 +100,7 @@ namespace TheBookCave.Repositories
                              select item).ToList();
             return genreList;
         }
-        
+
         public List<BookListViewModel> GetBooksByNewest()
         {
             var books = GetAllBooks();
@@ -110,7 +109,7 @@ namespace TheBookCave.Repositories
                           select b).ToList();
             return newest;
         }
-        
+
         public List<BookListViewModel> GetBooksTitleOrder()
         {
             var books = GetAllBooks();
@@ -119,7 +118,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksOnSale()
         {
             var books = GetAllBooks();
@@ -128,7 +127,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksOnSaleAZ()
         {
             var books = GetAllBooks();
@@ -138,7 +137,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksOnSaleLH()
         {
             var books = GetAllBooks();
@@ -148,7 +147,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksOnSaleHL()
         {
             var books = GetAllBooks();
@@ -158,7 +157,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksOnSaleNewest()
         {
             var books = GetAllBooks();
@@ -168,7 +167,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksByAuthorAZ()
         {
             var books = GetAllBooks();
@@ -177,7 +176,7 @@ namespace TheBookCave.Repositories
                             select b).ToList();
             return booklist;
         }
-        
+
         public List<BookListViewModel> GetBooksPriceOrderLH()
         {
             var books = GetAllBooks();
@@ -186,7 +185,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksPriceOrderHL()
         {
             var books = GetAllBooks();
@@ -195,7 +194,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksGenreOrderAZ()
         {
             var books = GetAllBooks();
@@ -209,11 +208,11 @@ namespace TheBookCave.Repositories
         {
             var books = GetAllBooks();
             var newestBooks = (from b in books
-                                    orderby b.BoughtCopies descending
-                                    select b).Take(8).ToList();
+                               orderby b.BoughtCopies descending
+                               select b).Take(8).ToList();
             return newestBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksByDiscount()
         {
             var books = GetAllBooks();
@@ -222,7 +221,7 @@ namespace TheBookCave.Repositories
                                 select b).ToList();
             return orderedBooks;
         }
-        
+
         public List<BookListViewModel> GetBooksByQuantity()
         {
             var books = GetAllBooks();
@@ -231,7 +230,7 @@ namespace TheBookCave.Repositories
                             select b).ToList();
             return booklist;
         }
-        
+
         public List<BookListViewModel> GetBooksOrderSold()
         {
             var books = GetAllBooks();
@@ -244,31 +243,39 @@ namespace TheBookCave.Repositories
         public List<BookListViewModel> GetShoppingCartBooks(string cartId)
         {
             var bookList = (from items in _db.Books
-                        join citems in _db.Carts on items.Id equals citems.BookId
-                        where citems.CartId == cartId
-                        select new BookListViewModel
-                        {
-                            Id = items.Id,
-                            Image = items.Image,
-                            Title = items.Title,
-                            Author = items.Author,
-                            AuthorId = items.AuthorId,
-                            Rating = items.Rating,
-                            Price = items.DiscountPrice,
-                            Genre = items.Genre,
-                            BoughtCopies = items.BoughtCopies,
-                            Description = items.Description,
-                            Quantity = citems.Quantity,
-                        }).ToList();
+                            join citems in _db.Carts on items.Id equals citems.BookId
+                            where citems.CartId == cartId
+                            select new BookListViewModel
+                            {
+                                Id = items.Id,
+                                Image = items.Image,
+                                Title = items.Title,
+                                Author = items.Author,
+                                AuthorId = items.AuthorId,
+                                Rating = items.Rating,
+                                Price = items.DiscountPrice,
+                                Genre = items.Genre,
+                                BoughtCopies = items.BoughtCopies,
+                                Description = items.Description,
+                                Quantity = citems.Quantity,
+                            }).ToList();
             return bookList;
         }
-        
+
         public List<ReviewViewModel> GetAllReviews()
         {
-            var reviews = _reviewRepo.GetAllReviews();
+            var reviews = (from a in _db.Reviews
+                           select new ReviewViewModel
+                           {
+                               Id = a.Id,
+                               Rating = a.Rating,
+                               Comment = a.Comment,
+                               UserName = a.UserName,
+                               BookId = a.BookId
+                           }).ToList();
             return reviews;
         }
-        
+
         public List<ReviewViewModel> GetBookReviews(string title)
         {
             var book = GetBookByTitle(title);
@@ -280,7 +287,7 @@ namespace TheBookCave.Repositories
 
             return bookReviews;
         }
-        
+
         public void UpdateBookRating(ReviewInputModel review)
         {
             var book = (from item in _db.Books
@@ -292,10 +299,10 @@ namespace TheBookCave.Repositories
                               select item).ToList();
 
             book.Rating = Math.Round(GetRating(allReviews), 2);
-            
+
             _db.SaveChanges();
         }
-        
+
         public double GetRating(List<Review> reviews)
         {
             double rating = 0;
@@ -306,7 +313,7 @@ namespace TheBookCave.Repositories
             rating = rating / reviews.Count();
             return rating;
         }
-        
+
         public void SeedDataCreateReview(ReviewInputModel review, string user)
         {
             var Reviews = new List<Review>{
@@ -323,7 +330,7 @@ namespace TheBookCave.Repositories
             _db.AddRange(Reviews);
             _db.SaveChanges();
         }
-        
+
         public void SeedDataCreateAccount(RegisterViewModel model)
         {
             var Accounts = new List<Account>
@@ -339,7 +346,7 @@ namespace TheBookCave.Repositories
             _db.AddRange(Accounts);
             _db.SaveChanges();
         }
-        
+
         public void SeedDataCreateBook(BookInputModel book)
         {
             var newBook = new Book()
@@ -357,7 +364,7 @@ namespace TheBookCave.Repositories
             _db.Add(newBook);
             _db.SaveChanges();
         }
-        
+
         public void SeedDataChangeBook(BookInputModel updatedBook)
         {
             var book = (from b in _db.Books
@@ -376,7 +383,7 @@ namespace TheBookCave.Repositories
 
             _db.SaveChanges();
         }
-        
+
         public void SeedDataDeleteBook(BookInputModel deleteBook)
         {
             var book = (from b in _db.Books

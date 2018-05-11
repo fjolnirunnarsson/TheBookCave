@@ -12,7 +12,7 @@ namespace TheBookCave.Controllers
         private BookService _bookService;
         private WishListService _wishListService;
         private dynamic _myModel;
-        
+
         public HomeController()
         {
             _bookService = new BookService();
@@ -30,25 +30,25 @@ namespace TheBookCave.Controllers
                 ListItems = _wishListService.GetWishListItems(userId),
             };
 
-            if(String.IsNullOrEmpty(searchString))
+            if (String.IsNullOrEmpty(searchString))
             {
                 var newestBooks = _bookService.GetBooksBoughtOrder();
 
-                _myModel.Book = newestBooks;  
+                _myModel.Book = newestBooks;
                 _myModel.Account = listModel;
-            
+
                 return View(_myModel);
             }
 
             var booklist = _bookService.GetSearchBooks(searchString);
-            if(booklist.Count == 0)
+            if (booklist.Count == 0)
             {
                 return View("NoResults");
             }
 
-            _myModel.Book = booklist;  
+            _myModel.Book = booklist;
             _myModel.Account = listModel;
-            
+
             return View(_myModel);
         }
 
@@ -62,10 +62,10 @@ namespace TheBookCave.Controllers
             };
 
             var books = _bookService.GetAllBooks();
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 var booklist = _bookService.GetSearchBooks(searchString);
-                if(booklist.Count == 0)
+                if (booklist.Count == 0)
                 {
                     return View("NoResults");
                 }
@@ -89,10 +89,10 @@ namespace TheBookCave.Controllers
             };
 
             var books = _bookService.GetAllBooks();
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 var booklist = _bookService.GetSearchBooks(searchString);
-                if(booklist.Count == 0)
+                if (booklist.Count == 0)
                 {
                     return View("NoResults");
                 }
@@ -116,10 +116,10 @@ namespace TheBookCave.Controllers
             };
 
             var books = _bookService.GetAllBooks();
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 var booklist = _bookService.GetSearchBooks(searchString);
-                if(booklist.Count == 0)
+                if (booklist.Count == 0)
                 {
                     return View("NoResults");
                 }

@@ -40,10 +40,10 @@ namespace TheBookCave.Repositories
             var cart = GetCart(context);
 
             var cartItem = (from item in _db.Carts
-                        where item.Book.Id == book.Id && item.CartId == cart.ShoppingCartId
-                        select item).SingleOrDefault();
-            
-            
+                            where item.Book.Id == book.Id && item.CartId == cart.ShoppingCartId
+                            select item).SingleOrDefault();
+
+
             if (cartItem == null)
             {
                 cartItem = new Cart
@@ -65,41 +65,41 @@ namespace TheBookCave.Repositories
         public void RemoveFromCart(BookListViewModel book, ShoppingCart cart)
         {
             var cartItem = (from item in _db.Carts
-                        where item.Book.Id == book.Id && item.CartId == cart.ShoppingCartId
-                        select item).SingleOrDefault();
-            
+                            where item.Book.Id == book.Id && item.CartId == cart.ShoppingCartId
+                            select item).SingleOrDefault();
+
             if (cartItem != null)
-                {
-                    _db.Carts.Remove(cartItem);
-                }
-                
+            {
+                _db.Carts.Remove(cartItem);
+            }
+
             _db.SaveChanges();
         }
 
         public List<Cart> GetCartItems(string shoppingCartId)
         {
             var cartItems = (from item in _db.Carts
-                            where item.CartId == shoppingCartId
-                            select item).ToList();
+                             where item.CartId == shoppingCartId
+                             select item).ToList();
             return cartItems;
-                        
+
         }
 
         public double GetTotal(string shoppingCartId)
         {
             var total = (from items in _db.Carts
-                        where items.CartId == shoppingCartId
-                        select items.Quantity * items.Book.DiscountPrice).Sum();
-            
+                         where items.CartId == shoppingCartId
+                         select items.Quantity * items.Book.DiscountPrice).Sum();
+
             return total;
         }
 
-        public void MoveToPurchased(string user, ShoppingCart cart) 
+        public void MoveToPurchased(string user, ShoppingCart cart)
         {
             var cartId = cart.ShoppingCartId;
-            
+
             var cartItems = GetCartItems(cartId);
-            
+
             foreach (var item in cartItems)
             {
                 var cartItem = new Purchased()
@@ -118,10 +118,10 @@ namespace TheBookCave.Repositories
         public void ClearShoppingCart(string user, ShoppingCart cart)
         {
             var cartId = cart.ShoppingCartId;
-            
+
             var cartItems = GetCartItems(cartId);
             foreach (var item in cartItems)
-            {   
+            {
                 _db.Remove(item);
             }
 

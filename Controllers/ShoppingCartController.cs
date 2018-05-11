@@ -23,7 +23,7 @@ namespace TheBookCave.Controllers
         private readonly IAccountService _IAccountService;
         private dynamic _myModel;
         private DataContext _db;
-        
+
         public ShoppingCartController(IAccountService IAccountService)
         {
             _cartService = new CartService();
@@ -34,7 +34,7 @@ namespace TheBookCave.Controllers
             _myModel = new ExpandoObject();
             _db = new DataContext();
         }
-        
+
         public IActionResult Index(string searchString)
         {
             var user = WishListService.GetUser(this.HttpContext);
@@ -43,21 +43,21 @@ namespace TheBookCave.Controllers
             {
                 ListItems = _wishListService.GetWishListItems(userId),
             };
-            
-            if(!String.IsNullOrEmpty(searchString))
+
+            if (!String.IsNullOrEmpty(searchString))
             {
                 var bookList = _bookService.GetSearchBooks(searchString);
-                if(bookList.Count == 0)
+                if (bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
-                
+
                 _myModel.Book = bookList;
                 _myModel.Account = listModel;
 
                 return View("../Home/Index", _myModel);
             }
-            
+
             var cart = CartService.GetCart(this.HttpContext);
             var cartId = cart.ShoppingCartId;
             var shoppingCart = new ShoppingCartViewModel
@@ -72,7 +72,7 @@ namespace TheBookCave.Controllers
             _myModel.cartItems = shoppingCart;
             _myModel.bookItems = books;
             _myModel.account = account;
-            
+
             return View(_myModel);
         }
 
@@ -110,7 +110,7 @@ namespace TheBookCave.Controllers
         public IActionResult Checkout(AccountInputModel updatedAccount)
         {
             var user = HttpContext.User.Identity.Name;
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View();
             }
@@ -127,7 +127,7 @@ namespace TheBookCave.Controllers
             var user = HttpContext.User.Identity.Name;
             var cart = CartService.GetCart(this.HttpContext);
             var cartId = cart.ShoppingCartId;
-            
+
             var cartModel = new ShoppingCartViewModel
             {
                 CartItems = _cartService.GetCartItems(cartId),
@@ -151,7 +151,10 @@ namespace TheBookCave.Controllers
             _cartService.MoveToPurchased(user, cart);
             _cartService.ClearShoppingCart(user, cart);
 
-            return View("Confirmation");
+            string email = user;
+            _myModel.mail = email;
+
+            return View("Confirmation", _myModel);
         }
     }
 }
