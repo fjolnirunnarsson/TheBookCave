@@ -133,7 +133,8 @@ namespace TheBookCave.Controllers
         }
         
         [HttpPost]
-        public IActionResult Details(ReviewInputModel review){
+        public IActionResult Details(ReviewInputModel review)
+        {
 
             var user1 = WishListService.GetUser(this.HttpContext);
 
@@ -178,17 +179,14 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var bookList = _bookService.GetSearchBooks(searchString);
                 
-                if(booklist.Count == 0)
+                if(bookList.Count == 0)
                 {
                     return View("NoResults");
                 }
 
-                myModel.Book = booklist;
+                myModel.Book = bookList;
                 myModel.Account = listModel;
 
                 return View("Index", myModel);
@@ -204,9 +202,7 @@ namespace TheBookCave.Controllers
 
             else
             {
-                var genrelist = (from item in books
-                                where item.Genre.ToLower() == genre.ToLower()
-                                select item).ToList();
+                var genrelist = _bookService.GetBooksByGenre(genre);
 
                 if(genrelist.Count == 0)
                 {
@@ -235,10 +231,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -251,9 +244,7 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var orderedBooks = (from b in books
-                            orderby b.Title ascending
-                            select b).ToList();
+            var orderedBooks = _bookService.GetBooksTitleOrder();
 
             myModel.Book = orderedBooks;
             myModel.Account = listModel;
@@ -276,10 +267,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -292,9 +280,7 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var orderedBooks = (from b in books
-                            orderby b.Price ascending
-                            select b).ToList();
+            var orderedBooks = _bookService.GetBooksPriceOrderLH();
 
                 myModel.Book = orderedBooks;
                 myModel.Account = listModel;
@@ -317,10 +303,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -333,9 +316,7 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var orderedBooks = (from b in books
-                            orderby b.Price descending
-                            select b).ToList();
+            var orderedBooks = _bookService.GetBooksPriceOrderHL();
 
                     myModel.Book = orderedBooks;
                     myModel.Account = listModel;
@@ -358,10 +339,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -374,9 +352,7 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var orderedBooks = (from b in books
-                            orderby b.Id descending
-                            select b).ToList();
+            var orderedBooks = _bookService.GetBooksByNewest();
 
                     myModel.Book = orderedBooks;
                     myModel.Account = listModel;
@@ -386,7 +362,7 @@ namespace TheBookCave.Controllers
 
         public IActionResult Sale(string searchString)
         {
-             var user = WishListService.GetUser(this.HttpContext);
+            var user = WishListService.GetUser(this.HttpContext);
 
             var userId = user.UserId;
             
@@ -399,10 +375,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -414,14 +387,12 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var saleBooks = (from b in books
-                            where b.Price != b.DiscountPrice
-                            select b).ToList();
+            var saleBooks = _bookService.GetBooksOnSale();
 
                     myModel.Book = saleBooks;
                     myModel.Account = listModel;
 
-            return View("Index", myModel);
+            return View(myModel);
         }
 
         public IActionResult SaleOrderAlphabetical(string searchString)
@@ -439,10 +410,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -454,15 +422,12 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var orderedBooks = (from b in books
-                            where b.Price != b.DiscountPrice
-                            orderby b.Title ascending
-                            select b).ToList();
+            var orderedBooks = _bookService.GetBooksOnSaleAZ();
 
                     myModel.Book = orderedBooks;
                     myModel.Account = listModel;
 
-            return View("Index", myModel);
+            return View("Sale", myModel);
         }
 
         public IActionResult SalePriceLowToHigh(string searchString)
@@ -480,10 +445,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -496,15 +458,12 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var orderedBooks = (from b in books
-                            where b.Price != b.DiscountPrice
-                            orderby b.Price ascending
-                            select b).ToList();
+            var orderedBooks = _bookService.GetBooksOnSaleLH();
 
                     myModel.Book = orderedBooks;
                     myModel.Account = listModel;
 
-            return View("Index", myModel);
+            return View("Sale", myModel);
         }
 
         public IActionResult SalePriceHighToLow(string searchString)
@@ -522,10 +481,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -537,15 +493,12 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var orderedBooks = (from b in books
-                            where b.Price != b.DiscountPrice
-                            orderby b.Price descending
-                            select b).ToList();
+            var orderedBooks = _bookService.GetBooksOnSaleHL();
 
                     myModel.Book = orderedBooks;
                     myModel.Account = listModel;
 
-            return View("Index", myModel);
+            return View("Sale", myModel);
         }
 
         public IActionResult SaleNewest(string searchString)
@@ -563,10 +516,7 @@ namespace TheBookCave.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                var booklist = (from b in books
-                                where b.Title.ToLower().Contains(searchString.ToLower())
-                                || b.Author.ToLower().Contains(searchString.ToLower())
-                                select b).ToList();
+                var booklist = _bookService.GetSearchBooks(searchString);
                 
                 if(booklist.Count == 0)
                 {
@@ -578,15 +528,12 @@ namespace TheBookCave.Controllers
                 return View("Index", myModel);
             }
 
-            var orderedBooks = (from b in books
-                            where b.Price != b.DiscountPrice
-                            orderby b.Id descending
-                            select b).ToList();
+            var orderedBooks = _bookService.GetBooksOnSaleNewest();
 
                     myModel.Book = orderedBooks;
                     myModel.Account = listModel;
 
-            return View("Index", myModel);
+            return View("Sale", myModel);
         }
 
     }
