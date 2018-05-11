@@ -1,12 +1,11 @@
 @model dynamic
-<link rel="stylesheet" href="~/css/styles.cart.css" />
-<link rel="stylesheet" href="~/css/styling-main.css" />
+<link rel="stylesheet" href="~/css/cart.css" />
 
 @{
     if (Model.bookItems.Count > 0) 
     {
         <div class="cart">
-            <h1 id="cart-title">Your WishList</h1>
+            <h1 id="cart-title" class="text-center">Your WishList</h1>
             <div class="cart-items">
                     @foreach(var item in @Model.bookItems)
                     {
@@ -15,11 +14,12 @@
                             <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title"><img class="cart-img" src="@item.Image" alt="No Image"></a>
                             <div class="book-info"> 
                                 <a asp-controller="Book" asp-action="Details" asp-route-title="@item.Title">
-                                    <h2 class="item-title">@item.Title</h2>
+                                    <h3 class="item-title">@item.Title</h3>
                                 </a>
-                                <h3>@item.Author</h3>
+                                <h4>@item.Author</h4>
                                 @await Html.PartialAsync("_StarsPartial", rating)
                                 <h4>$ @item.Price</h4> 
+                                
                             </div>
                             <div class="trash">
                                 <span> @Html.ActionLink("",
@@ -37,7 +37,7 @@
     {
         <div>
             <h2>Your wishlist is empty!</h2>
-            <a asp-controller="Home" asp-action="Index"> <span><button class="btn btn-primary">Go back</button></span></a>
+            <a asp-controller="Home" asp-action="Index" class="btn">Go back</a>
         </div>
     }
 }
