@@ -143,7 +143,7 @@ namespace TheBookCave.Repositories
             var books = GetAllBooks();
             var orderedBooks = (from b in books
                                 where b.Price != b.DiscountPrice
-                                orderby b.Price ascending
+                                orderby b.DiscountPrice ascending
                                 select b).ToList();
             return orderedBooks;
         }
@@ -153,7 +153,7 @@ namespace TheBookCave.Repositories
             var books = GetAllBooks();
             var orderedBooks = (from b in books
                                 where b.Price != b.DiscountPrice
-                                orderby b.Price descending
+                                orderby b.DiscountPrice descending
                                 select b).ToList();
             return orderedBooks;
         }
