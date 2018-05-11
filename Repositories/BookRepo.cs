@@ -66,7 +66,7 @@ namespace TheBookCave.Repositories
             var books = GetAllBooks();
 
             var book = (from item in books
-                        where item.Title.ToLower() == title.ToLower()
+                        where (item.Title).ToLower() == (title).ToLower()
                         select item).FirstOrDefault();
             return book;
         }
