@@ -1,5 +1,6 @@
 body{
 margin: 20px 100px;
+
 }
 
 .loginform{
@@ -17,6 +18,11 @@ a button{
     margin-left: 35%;
     margin-right: 35%;
     width: 30%;
+
+}
+
+.btn {
+    background-color: #f99d31;
 }
 
 
@@ -34,5 +40,5 @@ td, th {
 }
 
 tr:nth-child(even) {
-    background-color: lightblue;
+    background-color: #f4f2f2;
 }
