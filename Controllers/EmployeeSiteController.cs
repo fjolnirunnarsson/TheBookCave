@@ -42,9 +42,7 @@ namespace TheBookCave.Controllers
         {
             var accounts = _accountService.GetAllAccounts();
 
-            var tempaccount = (from a in accounts
-                        where a.Email == model.Email
-                        select a).SingleOrDefault();
+            var tempaccount = _accountService.GetTempAccount(model);
                         
             if(!ModelState.IsValid)
             {
@@ -54,22 +52,17 @@ namespace TheBookCave.Controllers
                 ViewData["ErrorMessage"] = "This user already has an account!";
                 return View(); 
             }
-            
-            
+    
             var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
             var result = await _userManager.CreateAsync(user, model.Password);
-
-            //var adminRole = await _roleManager.FindByNameAsync("Admin");
     
             if(result.Succeeded)
             {
                 SeedDataCreateAccount(model);
-                // The User is successfully registered
-                // Add the concatenated first and last name as fullname in claims
+
                 await _userManager.AddClaimAsync(user, new Claim("FirstName", $"{model.FirstName}"));
                 await _userManager.AddClaimAsync(user, new Claim("LastName", $"{model.LastName}"));
                 await _userManager.AddClaimAsync(user, new Claim("Email", $"{model.Email}"));
-                //await _signInManager.SignInAsync(user, false);
 
                 ApplicationUser newAdmin = await _userManager.FindByEmailAsync(model.Email);
                 await _userManager.AddToRoleAsync(newAdmin, "Admin");
@@ -80,32 +73,23 @@ namespace TheBookCave.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
-            var books = _bookService.GetAllBooks();
-
-            var booklist = (from book in books
-                        orderby book.Title ascending
-                        select book).ToList();
+            var bookList = _bookService.GetBooksTitleOrder();
                         
-            return View(booklist);
+            return View(bookList);
         }
 
         public IActionResult OrderbyAuthor()
         {
             var books = _bookService.GetAllBooks();
-            var booklist = (from b in books
-                orderby b.Author ascending
-                select b).ToList();
+            var bookList = _bookService.GetBooksByAuthorAZ();
 
-            return View("Index", booklist);
+            return View("Index", bookList);
         }
 
         public IActionResult OrderbyGenre()
         {
             var books = _bookService.GetAllBooks();
-            var booklist = (from b in books
-                orderby b.Genre ascending
-                select b).ToList();
+            var booklist = _bookService.GetBooksGenreOrderAZ();
 
             return View("Index", booklist);
         }
