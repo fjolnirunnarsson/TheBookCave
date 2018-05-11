@@ -45,6 +45,11 @@ namespace TheBookCave.Services
             return _cartRepo.GetTotal(shoppingCartId);
         }
 
+        public int GetTotalQuantity(string shoppingCartId)
+        {
+            return _cartRepo.GetTotalQuantity(shoppingCartId);
+        }
+
         public void MoveToPurchased(string user, ShoppingCart cart)
         {
             _cartRepo.MoveToPurchased(user, cart);

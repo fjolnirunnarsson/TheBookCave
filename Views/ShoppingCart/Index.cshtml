@@ -46,6 +46,7 @@
                     <h4>Total price:</h4>
                     <h5>US$ @Model.cartItems.CartTotal</h5>
                     <a id="btn" class="btn checkout-btn" asp-controller="ShoppingCart" asp-action="Checkout" asp-route-email="@email">Checkout</a>
+                    <h6>Number of items in cart: @Model.cartItems.CartQuantity</h6>
                 </div>
             </div>
         </div>

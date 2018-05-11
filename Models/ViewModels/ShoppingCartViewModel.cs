@@ -7,5 +7,6 @@ namespace TheBookCave.Models.ViewModels
     {
         public List<Cart> CartItems { get; set; }
         public double CartTotal { get; set; }
+        public int CartQuantity { get; set; }
     }
 }

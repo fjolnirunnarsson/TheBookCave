@@ -94,6 +94,14 @@ namespace TheBookCave.Repositories
             return total;
         }
 
+        public int GetTotalQuantity(string shoppingCartId)
+        {
+            var total = (from items in _db.Carts
+                        where items.CartId == shoppingCartId
+                        select items.Quantity).Sum();
+            return total;
+        }
+
         public void MoveToPurchased(string user, ShoppingCart cart)
         {
             var cartId = cart.ShoppingCartId;

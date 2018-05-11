@@ -60,7 +60,8 @@ namespace TheBookCave.Controllers
             var shoppingCart = new ShoppingCartViewModel
             {
                 CartItems = _cartService.GetCartItems(cartId),
-                CartTotal = _cartService.GetTotal(cartId)
+                CartTotal = _cartService.GetTotal(cartId),
+                CartQuantity = _cartService.GetTotalQuantity(cartId)
             };
 
             var account = _accountService.GetAllAccounts();
