@@ -24,11 +24,23 @@ namespace TheBookCave.Controllers
         }
         public IActionResult Index(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId)
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(String.IsNullOrEmpty(searchString))
             {
-                return View(books);
+                myModel.Book = books;
+                myModel.Account = listModel;
+
+                return View(myModel);
             }
 
             var bookList = _bookService.GetSearchBooks(searchString);
@@ -39,7 +51,10 @@ namespace TheBookCave.Controllers
                 return View("NoResults");
             }
 
-            return View(bookList);
+            myModel.Book = bookList;
+            myModel.Account = listModel;
+
+            return View(myModel);
         }
 
         public IActionResult Top10(string searchString)
@@ -66,6 +81,7 @@ namespace TheBookCave.Controllers
 
                 myModel.Book = bookList;
                 myModel.Account = listModel;
+
                 return View("Index", myModel);
             }
             
@@ -104,7 +120,10 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", bookList);
+
+                myModel.Book = bookList;
+
+                return View("Index", myModel);
             }
 
             myModel.Book = _bookService.GetBookByTitle(title);
@@ -116,6 +135,15 @@ namespace TheBookCave.Controllers
         
         [HttpPost]
         public IActionResult Details(ReviewInputModel review){
+
+            var user1 = WishListService.GetUser(this.HttpContext);
+
+            var userId = user1.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
 
             var user = HttpContext.User.Identity.Name;
 
@@ -132,10 +160,21 @@ namespace TheBookCave.Controllers
 
             var book = _bookService.GetBookByReview(review);
 
-            return RedirectToAction("Details", book);
+            myModel.Book = book;
+            myModel.Account = listModel;
+            return RedirectToAction("Details", myModel);
         }
         public IActionResult Genre(string genre, string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -149,12 +188,19 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+
+                myModel.Book = booklist;
+                myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             if(String.IsNullOrEmpty(genre))
             {
-                return View(books);
+                myModel.Book = books;
+                myModel.Account = listModel;
+
+                return View(myModel);
             }
 
             else
@@ -168,12 +214,24 @@ namespace TheBookCave.Controllers
                     return View("NotFound");
                 }
 
-                return View(genrelist);
+                myModel.Book = genrelist;
+                myModel.Account = listModel;
+
+                return View(myModel);
             }
         }
 
         public IActionResult OrderAlphabetical(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -187,18 +245,34 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+
+                myModel.Book = booklist;
+                myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var orderedBooks = (from b in books
                             orderby b.Title ascending
                             select b).ToList();
 
-            return View("Index", orderedBooks);
+            myModel.Book = orderedBooks;
+            myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
         public IActionResult PriceLowToHigh(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -212,18 +286,34 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+
+                myModel.Book = booklist;
+                myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var orderedBooks = (from b in books
                             orderby b.Price ascending
                             select b).ToList();
 
-            return View("Index", orderedBooks);
+                myModel.Book = orderedBooks;
+                myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
         public IActionResult PriceHighToLow(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -237,18 +327,34 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var orderedBooks = (from b in books
                             orderby b.Price descending
                             select b).ToList();
 
-            return View("Index", orderedBooks);
+                    myModel.Book = orderedBooks;
+                    myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
         public IActionResult Newest(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -262,18 +368,34 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var orderedBooks = (from b in books
                             orderby b.Id descending
                             select b).ToList();
 
-            return View("Index", orderedBooks);
+                    myModel.Book = orderedBooks;
+                    myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
         public IActionResult Sale(string searchString)
         {
+             var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -287,18 +409,33 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var saleBooks = (from b in books
                             where b.Price != b.DiscountPrice
                             select b).ToList();
 
-            return View("Index", saleBooks);
+                    myModel.Book = saleBooks;
+                    myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
         public IActionResult SaleOrderAlphabetical(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -312,7 +449,10 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var orderedBooks = (from b in books
@@ -320,11 +460,23 @@ namespace TheBookCave.Controllers
                             orderby b.Title ascending
                             select b).ToList();
 
-            return View("Index", orderedBooks);
+                    myModel.Book = orderedBooks;
+                    myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
         public IActionResult SalePriceLowToHigh(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -338,7 +490,11 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var orderedBooks = (from b in books
@@ -346,11 +502,23 @@ namespace TheBookCave.Controllers
                             orderby b.Price ascending
                             select b).ToList();
 
-            return View("Index", orderedBooks);
+                    myModel.Book = orderedBooks;
+                    myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
         public IActionResult SalePriceHighToLow(string searchString)
         {
+            var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -364,7 +532,10 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var orderedBooks = (from b in books
@@ -372,11 +543,23 @@ namespace TheBookCave.Controllers
                             orderby b.Price descending
                             select b).ToList();
 
-            return View("Index", orderedBooks);
+                    myModel.Book = orderedBooks;
+                    myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
         public IActionResult SaleNewest(string searchString)
         {
+             var user = WishListService.GetUser(this.HttpContext);
+
+            var userId = user.UserId;
+            
+            var listModel = new WishListViewModel
+            {
+                ListItems = _wishListService.GetWishListItems(userId),
+            };
+
             var books = _bookService.GetAllBooks();
 
             if(!String.IsNullOrEmpty(searchString))
@@ -390,7 +573,10 @@ namespace TheBookCave.Controllers
                 {
                     return View("NoResults");
                 }
-                return View("Index", booklist);
+                    myModel.Book = booklist;
+                    myModel.Account = listModel;
+
+                return View("Index", myModel);
             }
 
             var orderedBooks = (from b in books
@@ -398,7 +584,10 @@ namespace TheBookCave.Controllers
                             orderby b.Id descending
                             select b).ToList();
 
-            return View("Index", orderedBooks);
+                    myModel.Book = orderedBooks;
+                    myModel.Account = listModel;
+
+            return View("Index", myModel);
         }
 
     }
