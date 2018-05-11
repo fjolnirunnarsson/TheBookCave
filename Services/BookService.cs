@@ -96,6 +96,14 @@ namespace TheBookCave.Services
         {
             return _bookRepo.GetBooksOnSaleNewest();
         }
+        public List<BookListViewModel> GetBooksByAuthorAZ()
+        {
+            return _bookRepo.GetBooksByAuthorAZ();
+        }
+        public List<BookListViewModel> GetBooksGenreOrderAZ()
+        {
+            return _bookRepo.GetBooksGenreOrderAZ();
+        }
         
         public void ProcessBook(BookInputModel book)
         {

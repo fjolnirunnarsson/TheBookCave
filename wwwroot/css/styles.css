@@ -141,6 +141,7 @@ a .search {
     left: 0;
     padding-top: 150px;
     background-color: #b3a7a5;
+    margin-bottom: 200px;
 }
 
 /* All list items in sidebar */
@@ -331,7 +332,8 @@ a:hover, a:active, a:visited, a:focus {
     width:100%;
     background: #b3a7a5;
     margin: 0;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
+    height: 100%;
 }
 
 #footer ul li a {
@@ -349,4 +351,12 @@ a:hover, a:active, a:visited, a:focus {
 
 .red{
     color: red;
+}
+
+#div-onclick{
+    border-width: 1px;
+    border-radius: 5px;
+    width: 150px; 
+    margin-left: auto; 
+    margin-right: auto;
 }

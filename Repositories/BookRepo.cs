@@ -93,6 +93,7 @@ namespace TheBookCave.Repositories
             var books = GetAllBooks();
             var genreList = (from item in books
                                 where item.Genre.ToLower() == genre.ToLower()
+                                orderby item.Title ascending
                                 select item).ToList();
             return genreList;
         }
@@ -159,7 +160,14 @@ namespace TheBookCave.Repositories
             return orderedBooks;
         }
 
-
+        public List<BookListViewModel> GetBooksByAuthorAZ()
+        {
+            var books = GetAllBooks();
+            var booklist = (from b in books
+                orderby b.Author ascending
+                select b).ToList();
+            return booklist;
+        }
 
         public List<BookListViewModel> GetBooksPriceOrderLH()
         {
@@ -178,6 +186,15 @@ namespace TheBookCave.Repositories
                             select b).ToList();
             return orderedBooks;
         }
+        public List<BookListViewModel> GetBooksGenreOrderAZ()
+        {
+            var books = GetAllBooks();
+            var orderedBooks = (from b in books
+                orderby b.Genre ascending
+                select b).ToList();
+            return orderedBooks;
+        }
+
 
         public void SeedDataCreate(ReviewInputModel review, string user)
         {   

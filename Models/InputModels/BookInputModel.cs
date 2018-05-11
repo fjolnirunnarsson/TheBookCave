@@ -19,6 +19,8 @@ namespace TheBookCave.Models.InputModels
 
         [Required(ErrorMessage="Genre is required")]
         public string Genre { get; set; }
+
+        [RegularExpression("[^0-9]", ErrorMessage = "Discount must be a number")]
         public double Discount { get; set; }
         public double DiscountPrice { get; set; }
 

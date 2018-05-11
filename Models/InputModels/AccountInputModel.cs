@@ -20,6 +20,7 @@ namespace TheBookCave.Models.InputModels
         [Required(ErrorMessage="Street is required")]
         public string BillingAddressStreet { get; set; }
         [Required(ErrorMessage="House number is required")]
+        [RegularExpression("[^0-9]", ErrorMessage="House number must be numeric")]
         public string BillingAddressHouseNumber { get; set; }
         public string BillingAddressLine2 { get; set; }
 
@@ -36,6 +37,7 @@ namespace TheBookCave.Models.InputModels
         public string DeliveryAddressStreet { get; set; }
 
         [Required(ErrorMessage="House number is required")]
+        [RegularExpression("[^0-9]", ErrorMessage = "House number must be numeric")]
         public string DeliveryAddressHouseNumber { get; set; }
         public string DeliveryAddressLine2 { get; set; }
 

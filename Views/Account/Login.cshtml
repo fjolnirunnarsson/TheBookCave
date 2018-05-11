@@ -6,9 +6,11 @@
 <form asp-action="Login" asp-controller="Account" class="form-horizontal">
     <div class="form-group">
         <input type="email" asp-for="Email" class="form-control" placeholder="Enter email">
+        <span asp-validation-for="Email" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="password" asp-for="Password" class="form-control" placeholder="Enter password">
+        <span asp-validation-for="Password" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label>

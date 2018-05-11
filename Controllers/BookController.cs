@@ -152,17 +152,16 @@ namespace TheBookCave.Controllers
                 return View();
             }
 
+            var book = _bookService.GetBookByReview(review);
+
+
             _bookService.SeedDataCreate(review, user);
 
             _bookService.UpdateBookRating(review);
 
-            var books = _bookService.GetAllBooks();
+            string referer = Request.Headers["Referer"].ToString();
 
-            var book = _bookService.GetBookByReview(review);
-
-            myModel.Book = book;
-            myModel.Account = listModel;
-            return RedirectToAction("Details", myModel);
+            return Redirect(referer);
         }
         public IActionResult Genre(string genre, string searchString)
         {

@@ -37,7 +37,8 @@
                     <td>@Model.FavoriteBook</td>
                 </tr>
             </table>
-            <a asp-controller="Account" asp-action="Edit" asp-route-email="@Model.Email">Edit profile</a>
+            
+            <a asp-controller="Account" asp-action="Edit" asp-route-email="@Model.Email" class="btn">Edit profile</a>
     </div>
     <div class="account-photo">
         @{
