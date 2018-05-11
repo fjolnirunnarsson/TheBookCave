@@ -13,17 +13,17 @@ body {
 /* Navigation bar*/
 #navbar {
     border-bottom: solid 0.1px #ddd;
-    height: 13%;
-    padding-top: 0.5%;
+    height: 95px;
+    padding-top: 2px;
     background-color: #b3a7a5;
 }
 
 #logo {
-    height: 20%;
-    width: 12%;
+    height: 85px;
     margin-left: 1.5%;
     margin-right: 5%;
 }
+
 
 .search-bar {
     display: inline;
@@ -61,7 +61,7 @@ a .search {
     position: relative;
     font-size: 40px;
     margin-right: 1.5%;
-    margin-top: 1.5%;
+    margin-top: 20px;
 }
 
 .icons a {

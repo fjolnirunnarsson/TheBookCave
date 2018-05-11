@@ -22,7 +22,7 @@
         <link rel="shortcut icon" href="~/images/logob.png" />
 </head>
 <body>
-<nav class="navbar navbar-fixed-top" id="navbar">
+<nav class="navbar navbar-fixed-top navbar-inverse" id="navbar">
     <div>
         <a asp-controller="Home" asp-action="Index"><img id="logo" src="~/images/logo.png" alt=""></a>
 
@@ -34,31 +34,32 @@
             </a>
         </form>
 
-        <div class="icons">
-            <div class="dropdown">
-                <a asp-controller="Account" asp-action="Index"> <span class="glyphicon glyphicon-user dropbtn"></span> </a>
-                <div class="dropdown-window">
-                    <div class="login">
-                        @await Html.PartialAsync("_LoginPartial")
-                    </div>
-                    <div class="dropdown-divider"></div>
-                    <div class="dropdown-list">
-                        @{
-                            if(SignInManager.IsSignedIn(User)) {
-                                <a asp-controller="Account" asp-action="Index" asp-route-email="@email">My Account</a>
-                                
-                                <a asp-controller="Account" asp-action="Purchases">My Orders</a>
+        <div class="icons navbar-collapse collapse">
+                <span class="dropdown">
+                    <a asp-controller="Account" asp-action="Index"> <span class="glyphicon glyphicon-user dropbtn"></span> </a>
+                    <div class="dropdown-window">
+                        <div class="login">
+                            @await Html.PartialAsync("_LoginPartial")
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-list">
+                            @{
+                                if(SignInManager.IsSignedIn(User)) {
+                                    <a asp-controller="Account" asp-action="Index" asp-route-email="@email">My Account</a>
+                                    
+                                    <a asp-controller="Account" asp-action="Purchases">My Orders</a>
+                                }
+                                else {
+                                    <a asp-area="action" asp-controller="Account" asp-action="Login">My Account</a>
+                                    <a asp-area="action" asp-controller="Account" asp-action="Login">My Orders</a>
+                                }
                             }
-                            else {
-                                <a asp-area="action" asp-controller="Account" asp-action="Login">My Account</a>
-                                <a asp-area="action" asp-controller="Account" asp-action="Login">My Orders</a>
-                            }
-                        }
+                        </div>
                     </div>
-                </div>
-            </div>
-            <a asp-controller="WishList" asp-action="Index"> <span class="glyphicon glyphicon-heart"></span></a>
-            <a asp-controller="ShoppingCart" asp-action="Index"> <span class="glyphicon glyphicon-shopping-cart"></span></a>
+                </span>
+            
+                <a asp-controller="WishList" asp-action="Index"> <span class="glyphicon glyphicon-heart"></span></a>
+                <a asp-controller="ShoppingCart" asp-action="Index"> <span class="glyphicon glyphicon-shopping-cart"></span></a>
         </div>
     </div>
 </nav>
