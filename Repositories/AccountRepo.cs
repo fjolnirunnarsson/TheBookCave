@@ -46,6 +46,7 @@ namespace TheBookCave.Repositories
             var account = (from a in accounts
                            where a.Email == userId
                            select a).FirstOrDefault();
+        
             return account;
         }
 
